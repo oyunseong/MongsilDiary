@@ -1,9 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MongsilDiary" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.MongsilDiary" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_200</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+
+        <!--상태바 배경색 :colorPrimaryVariant,
+            상태바 글자색 : android:windowLightStatusBar -->
+        <item name="colorPrimaryVariant">@color/main_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
