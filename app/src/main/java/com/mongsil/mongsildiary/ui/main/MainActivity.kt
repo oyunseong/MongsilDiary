@@ -2,18 +2,17 @@ package com.mongsil.mongsildiary.ui.main
 
 import HorizontalItemDecorator
 import VerticalItemDecorator
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
-import android.view.Window
-import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.R
+import com.mongsil.mongsildiary.TranslucentActivity
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
-import com.mongsil.mongsildiary.model.Test
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
     private lateinit var mainAdapter: MainAdapter
@@ -44,6 +43,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         val fabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
 
         binding.fab.setOnClickListener {
+
+            //TODO 반투명화면 구현
+//            val intent = Intent(this, TranslucentActivity::class.java)
+//            startActivity(intent)
+
             if (isOpen) {
 
                 binding.settingFab.startAnimation(fabClose)
@@ -53,6 +57,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
                 binding.cheeringTv.startAnimation(fabClose)
                 binding.calendarTv.startAnimation(fabClose)
                 binding.fab.startAnimation(fabRClockwise)
+//
+//                val paint = Paint()
+//                paint.color = Color.BLACK
+//                paint.alpha(50)
 
                 isOpen = false
 
@@ -84,3 +92,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
     }
 }
+

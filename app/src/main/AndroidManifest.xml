@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MongsilDiary">
+
+        <activity
+            android:name=".TranslucentActivity"
+            android:theme="@style/Transparent" />
+
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true">
