@@ -7,6 +7,14 @@
     android:background="@color/main_background"
     tools:context=".ui.main.MainActivity">
 
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone"
+        />
+
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
@@ -138,6 +146,7 @@
         app:layout_constraintBottom_toBottomOf="@id/setting_fab"
         app:layout_constraintRight_toLeftOf="@id/setting_fab"
         app:layout_constraintTop_toTopOf="@id/setting_fab" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cheering_fab"

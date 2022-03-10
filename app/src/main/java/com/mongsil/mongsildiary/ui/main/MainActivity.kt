@@ -6,6 +6,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +20,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private lateinit var mainAdapter: MainAdapter
     private val dataSet: ArrayList<List<String>> = arrayListOf()
     private var isOpen: Boolean = false
+    private lateinit var fabOpen: Animation
+    private lateinit var fabClose: Animation
+    private lateinit var fabRClockwise: Animation
+    private lateinit var fabRAntiClockwise: Animation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+        fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise)
+        fabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
         addData()
         initRecycler()
         settingFab()
@@ -37,32 +46,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     }
 
     private fun settingFab() {
-        val fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
-        val fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
-        val fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise)
-        val fabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
-
         binding.fab.setOnClickListener {
-
-            //TODO 반투명화면 구현
-//            val intent = Intent(this, TranslucentActivity::class.java)
-//            startActivity(intent)
-
             if (isOpen) {
-
-                binding.settingFab.startAnimation(fabClose)
-                binding.cheeringFab.startAnimation(fabClose)
-                binding.calendarFab.startAnimation(fabClose)
-                binding.settingTv.startAnimation(fabClose)
-                binding.cheeringTv.startAnimation(fabClose)
-                binding.calendarTv.startAnimation(fabClose)
-                binding.fab.startAnimation(fabRClockwise)
-//
-//                val paint = Paint()
-//                paint.color = Color.BLACK
-//                paint.alpha(50)
-
-                isOpen = false
+                fabClosed()
 
             } else {
                 binding.settingFab.startAnimation(fabOpen)
@@ -72,6 +58,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
                 binding.cheeringTv.startAnimation(fabOpen)
                 binding.calendarTv.startAnimation(fabOpen)
                 binding.fab.startAnimation(fabRAntiClockwise)
+
+                binding.shadowView.visibility = View.VISIBLE
+                binding.shadowView.bringToFront()
+                binding.settingTv.bringToFront()
+                binding.cheeringTv.bringToFront()
+                binding.calendarTv.bringToFront()
 
                 binding.settingFab.isClickable
                 binding.cheeringFab.isClickable
@@ -86,9 +78,39 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
     }
 
+    private fun fabClosed() {
+        binding.settingFab.startAnimation(fabClose)
+        binding.cheeringFab.startAnimation(fabClose)
+        binding.calendarFab.startAnimation(fabClose)
+        binding.settingTv.startAnimation(fabClose)
+        binding.cheeringTv.startAnimation(fabClose)
+        binding.calendarTv.startAnimation(fabClose)
+        binding.fab.startAnimation(fabRClockwise)
+
+        binding.shadowView.visibility = View.GONE
+        isOpen = false
+    }
+
     private fun addData() {
         for (i in 0..99) {
             dataSet.add(listOf("$i th main", "$i th sub"))
+        }
+    }
+
+    var backKeyPressedTime = 0L
+    override fun onBackPressed() {
+//        super.onBackPressed()
+
+        if (binding.shadowView.visibility == View.VISIBLE) {
+            binding.shadowView.visibility = View.GONE
+            fabClosed()
+        }
+        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+            backKeyPressedTime = System.currentTimeMillis()
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+            finish()
         }
     }
 }
