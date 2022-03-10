@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#99000000"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/date"
@@ -23,10 +22,12 @@
         android:layout_marginTop="32dp"
         android:text="2022.04.09"
         android:textSize="13sp"
+        android:textColor="@color/black"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/Text.black_13sp"
         android:id="@+id/main_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,16 +88,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
-            android:textColor="@color/white"
             android:text="응원을 보내요"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="@id/bottom_const"
             app:layout_constraintTop_toTopOf="@id/bottom_const" />
 
         <TextView
             style="@style/Text.White_13sp"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:textColor="#cccfd7"
+            android:lines="3"
+            android:maxWidth="224dp"
+            android:maxLines="3"
             android:text="@string/cheer_up_contents"
             app:layout_constraintLeft_toLeftOf="@id/cheer_up_tv"
             app:layout_constraintTop_toBottomOf="@id/cheer_up_tv" />
@@ -130,18 +138,18 @@
         android:src="@drawable/ic_x_24_setting"
         android:visibility="invisible"
         app:fabSize="auto"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@id/fab"
         app:layout_constraintLeft_toLeftOf="@id/fab"
         app:layout_constraintRight_toRightOf="@id/fab" />
 
     <TextView
+        style="@style/fab_tv"
         android:id="@+id/setting_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="Setting"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/setting_fab"
         app:layout_constraintRight_toLeftOf="@id/setting_fab"
@@ -163,13 +171,12 @@
         app:pressedTranslationZ="12dp" />
 
     <TextView
+        style="@style/fab_tv"
         android:id="@+id/cheering_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/cheering"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/cheering_fab"
         app:layout_constraintRight_toLeftOf="@id/cheering_fab"
@@ -190,13 +197,12 @@
         app:pressedTranslationZ="12dp" />
 
     <TextView
+        style="@style/fab_tv"
         android:id="@+id/calendar_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:text="@string/calendar"
-        android:textColor="@color/white"
-        android:textSize="18sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/calendar_fab"
         app:layout_constraintRight_toLeftOf="@id/calendar_fab"
