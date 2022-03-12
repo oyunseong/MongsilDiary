@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    tools:context=".MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment_container"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="79dp"
+        android:backgroundTint="#97b3ff"
+        android:src="@drawable/ic_x_24_more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/setting_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/ic_x_24_setting"
+        android:visibility="invisible"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toTopOf="@id/fab"
+        app:layout_constraintLeft_toLeftOf="@id/fab"
+        app:layout_constraintRight_toRightOf="@id/fab" />
+
+    <TextView
+        android:id="@+id/setting_tv"
+        style="@style/fab_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="Setting"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/setting_fab"
+        app:layout_constraintRight_toLeftOf="@id/setting_fab"
+        app:layout_constraintTop_toTopOf="@id/setting_fab" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cheering_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:elevation="6dp"
+        android:src="@drawable/ic_x_24_wording"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toTopOf="@id/setting_fab"
+        app:layout_constraintRight_toRightOf="@id/setting_fab"
+        app:pressedTranslationZ="12dp" />
+
+    <TextView
+        android:id="@+id/cheering_tv"
+        style="@style/fab_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/cheering"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/cheering_fab"
+        app:layout_constraintRight_toLeftOf="@id/cheering_fab"
+        app:layout_constraintTop_toTopOf="@id/cheering_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/calendar_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:elevation="6dp"
+        android:src="@drawable/ic_x_24_calendar"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toTopOf="@id/cheering_fab"
+        app:layout_constraintRight_toRightOf="@id/cheering_fab"
+        app:pressedTranslationZ="12dp" />
+
+    <TextView
+        android:id="@+id/calendar_tv"
+        style="@style/fab_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/calendar"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/calendar_fab"
+        app:layout_constraintRight_toLeftOf="@id/calendar_fab"
+        app:layout_constraintTop_toTopOf="@id/calendar_fab" />
+
+    <TextView
+        android:id="@+id/bottom_admob"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="광고"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MongsilDiary</string>
+    <string name="main_title">오늘을 기록해요</string>
+    <string name="morning">아침</string>
+    <string name="afternoon">점심</string>
+    <string name="night">밤</string>
+    <string name="record">Record.</string>
+    <string name="add">Add +</string>
+    <string name="record_text">어떤 소소한 일상이었나요?</string>
+    <string name="cheer_up_contents">하루가 저무는 것처럼 걱정도 저무는 밤이 길 두줄까지 테스트 두줄 두줄 주줄 최대 세주락지 노출노출 뭐 들어가려나 걱정도 저무는 밤이 길 두줄까지 테스트 두줄 두줄 주줄 최대 세주락지 노출노출 뭐 들어가려나</string>
+    <string name="calendar">Calendar</string>
+    <string name="cheering">Cheering</string>
+</resources>
