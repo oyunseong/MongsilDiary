@@ -62,7 +62,7 @@
         android:id="@+id/add_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/record"
+        android:text="@string/add"
         android:textSize="18sp"
         app:layout_constraintLeft_toRightOf="@id/record_tv"
         app:layout_constraintTop_toTopOf="@id/record_tv" />

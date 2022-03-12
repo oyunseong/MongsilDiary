@@ -24,12 +24,10 @@ abstract class BaseActivity<B: ViewBinding>(val bindingFactory: (LayoutInflater)
         setContentView(binding.root)
 
         // 상태바 배경 색상 변경
-//        val window : Window = window
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        window.statusBarColor = ContextCompat.getColor(this, R.color.main_background)
-
-
+        val window : Window = window
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.main_background)
     }
     override fun onDestroy() {
         super.onDestroy()
