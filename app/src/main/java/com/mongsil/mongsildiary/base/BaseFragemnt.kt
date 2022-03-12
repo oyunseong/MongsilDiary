@@ -15,7 +15,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     val binding get() = _binding!!
     public val tag1: String = this::class.java.name
 
-    abstract fun initClickListener()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +29,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(tag1, "++onViewCreated")
-        initClickListener()
     }
 
     abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B

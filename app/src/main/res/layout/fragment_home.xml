@@ -1,121 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    tools:context=".MainActivity">
-
-    <View
-        android:id="@+id/shadowView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99000000"
-        android:clickable="true"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="2022.04.09"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/main_title"
-        style="@style/Text.black_13sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_title"
-        android:textSize="28sp"
-        app:layout_constraintLeft_toLeftOf="@id/date"
-        app:layout_constraintTop_toBottomOf="@id/date" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:listitem="@layout/item_diary_list"
-        app:layout_constraintTop_toBottomOf="@id/main_title" />
-
-    <TextView
-        android:id="@+id/record_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
-        android:text="@string/record"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="@id/date"
-        app:layout_constraintTop_toBottomOf="@id/recycler" />
-
-    <TextView
-        android:id="@+id/add_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toRightOf="@id/record_tv"
-        app:layout_constraintTop_toTopOf="@id/record_tv" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/record_text"
-        android:textColor="#cccfd7"
-        android:textSize="13sp"
-        app:layout_constraintLeft_toLeftOf="@id/record_tv"
-        app:layout_constraintTop_toBottomOf="@id/record_tv" />
+    android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_const"
+        android:id="@+id/main_constrainLayout"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:paddingStart="32dp"
-        android:paddingTop="40dp"
-        android:background="@drawable/round_30_top"
-        app:layout_constraintBottom_toTopOf="@id/bottom_admob">
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/cheer_up_tv"
+            android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="응원을 보내요"
-            android:textColor="@color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@id/bottom_const"
-            app:layout_constraintTop_toTopOf="@id/bottom_const" />
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:text="2022.04.09"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+            app:layout_constraintTop_toTopOf="@id/main_constrainLayout" />
 
         <TextView
-            style="@style/Text.White_13sp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="12dp"
-            android:ellipsize="end"
-            android:lines="3"
-            android:layout_marginEnd="104dp"
-            android:maxLines="3"
-            android:text="@string/cheer_up_contents"
-            android:textColor="#cccfd7"
-            app:layout_constraintBottom_toBottomOf="@id/bottom_const"
-            app:layout_constraintLeft_toLeftOf="@id/cheer_up_tv"
-            app:layout_constraintTop_toBottomOf="@id/cheer_up_tv" />
+            android:id="@+id/main_title"
+            style="@style/Text.black_13sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_title"
+            android:textSize="28sp"
+            app:layout_constraintLeft_toLeftOf="@id/date"
+            app:layout_constraintTop_toBottomOf="@id/date" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+            app:layout_constraintRight_toRightOf="@id/main_constrainLayout"
+            app:layout_constraintTop_toBottomOf="@id/main_title"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_diary_list" />
+
+        <TextView
+            android:id="@+id/record_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="96dp"
+            android:text="@string/record"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="@id/date"
+            app:layout_constraintTop_toBottomOf="@id/recycler" />
+
+        <TextView
+            android:id="@+id/add_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toRightOf="@id/record_tv"
+            app:layout_constraintTop_toTopOf="@id/record_tv" />
+
+        <TextView
+            android:id="@+id/daily_contents"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/record_text"
+            android:textColor="#cccfd7"
+            android:textSize="13sp"
+            app:layout_constraintLeft_toLeftOf="@id/record_tv"
+            app:layout_constraintTop_toBottomOf="@id/record_tv" />
+
+        <TextView
+            android:id="@+id/delete_btn"
+            android:layout_width="64dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/delete"
+            android:gravity="center"
+            android:background="@drawable/button_round_dee2ed"
+
+            app:layout_constraintLeft_toLeftOf="@id/record_tv"
+            app:layout_constraintTop_toBottomOf="@id/daily_contents" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_const"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/round_30_top"
+            android:paddingStart="32dp"
+            android:paddingTop="40dp"
+            app:layout_constraintBottom_toBottomOf="@id/main_constrainLayout">
+
+            <TextView
+                android:id="@+id/cheer_up_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="응원을 보내요"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="@id/bottom_const"
+                app:layout_constraintTop_toTopOf="@id/bottom_const" />
+
+            <TextView
+                style="@style/Text.White_13sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="104dp"
+                android:ellipsize="end"
+                android:lines="3"
+                android:maxLines="3"
+                android:text="@string/cheer_up_contents"
+                android:textColor="#cccfd7"
+                app:layout_constraintLeft_toLeftOf="@id/cheer_up_tv"
+                app:layout_constraintTop_toBottomOf="@id/cheer_up_tv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

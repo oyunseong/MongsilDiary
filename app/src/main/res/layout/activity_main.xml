@@ -7,13 +7,21 @@
     android:background="@color/main_background"
     tools:context=".MainActivity">
 
+    <View
+        android:id="@+id/shadowView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:clickable="true"
+        android:visibility="gone" />
+
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment_container"
+        android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_admob"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -112,12 +120,12 @@
         android:id="@+id/bottom_admob"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="광고"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:textColor="@color/white"
         android:background="@color/black"
+        android:gravity="center"
+        android:text="광고"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

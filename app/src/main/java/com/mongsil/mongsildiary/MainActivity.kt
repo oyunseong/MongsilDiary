@@ -1,13 +1,12 @@
 package com.mongsil.mongsildiary
 
-import HorizontalItemDecorator
-import VerticalItemDecorator
 import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 
@@ -29,19 +28,25 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        addData()
-        initRecycler()
+        val host = NavHostFragment.create(R.navigation.nav_graph)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment,host)
+            .setPrimaryNavigationFragment(host)
+            .commit()
+
+//        addData()
+//        initRecycler()
         settingFab()
     }
-
-    private fun initRecycler() {
-        binding.recycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.recycler.adapter = mainAdapter
-        binding.recycler.addItemDecoration(VerticalItemDecorator(10))
-        binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
-    }
-
+//
+//    private fun initRecycler() {
+//        binding.recycler.layoutManager =
+//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+//        binding.recycler.adapter = mainAdapter
+//        binding.recycler.addItemDecoration(VerticalItemDecorator(10))
+//        binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
+//    }
+//
     private fun settingFab() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
@@ -52,10 +57,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             setFab(isOpen)
             binding.settingFab.setOnClickListener {
                 Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
+                Navigation.createNavigateOnClickListener(R.id.calendarFragment)
             }
         }
     }
-
+//
     private val fabArray by lazy {
         arrayOf(
             binding.settingFab,
@@ -66,7 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             binding.calendarTv,
         )
     }
-
+//
     private fun setFab(boolean: Boolean) {
         if (!boolean) {
             fabArray.forEachIndexed { _, fab ->
@@ -94,27 +100,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
     }
 
-
-    private fun addData() {
-        for (i in 0..99) {
-            dataSet.add(listOf("$i th main", "$i th sub"))
-        }
-    }
-
-    override fun onBackPressed() {
-//        super.onBackPressed()
-
-        if (binding.shadowView.visibility == View.VISIBLE) {
-            binding.shadowView.visibility = View.GONE
-            setFab(true)
-        }
-        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
-            backKeyPressedTime = System.currentTimeMillis()
-            return;
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
-            finish()
-        }
-    }
+//
+//    private fun addData() {
+//        for (i in 0..99) {
+//            dataSet.add(listOf("$i th main", "$i th sub"))
+//        }
+//    }
+//
+//    override fun onBackPressed() {
+////        super.onBackPressed()
+//
+//        if (binding.shadowView.visibility == View.VISIBLE) {
+//            binding.shadowView.visibility = View.GONE
+//            setFab(true)
+//        }
+//        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+//            backKeyPressedTime = System.currentTimeMillis()
+//            return;
+//        }
+//        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+//            finish()
+//        }
+//    }
 }
 
