@@ -104,6 +104,8 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/12206-codestream
 .idea/codestream.xml
 
+./.idea/misc.xml
+
 ### Java ###
 # Compiled class file
 *.class
@@ -149,3 +151,4 @@ gradle-app.setting
 **/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,gradle,java
+
