@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="74dp"
             android:text="2022.04.09"
             android:textColor="@color/black"
             android:textSize="13sp"
@@ -39,7 +39,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
+            android:paddingStart="24dp"
+            android:paddingEnd="10dp"
             app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
             app:layout_constraintRight_toRightOf="@id/main_constrainLayout"
             app:layout_constraintTop_toBottomOf="@id/main_title"
@@ -81,11 +84,24 @@
             android:layout_width="64dp"
             android:layout_height="40dp"
             android:layout_marginTop="24dp"
-            android:text="@string/delete"
-            android:gravity="center"
             android:background="@drawable/button_round_dee2ed"
-
+            android:gravity="center"
+            android:text="@string/delete"
+            app:layout_constraintBottom_toTopOf="@id/bottom_const"
             app:layout_constraintLeft_toLeftOf="@id/record_tv"
+            app:layout_constraintTop_toBottomOf="@id/daily_contents" />
+
+        <TextView
+            android:id="@+id/edit_btn"
+            android:layout_width="64dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/button_round_dee2ed"
+            android:gravity="center"
+            android:text="@string/edit"
+            android:visibility="gone"
+            app:layout_constraintLeft_toRightOf="@id/delete_btn"
             app:layout_constraintTop_toBottomOf="@id/daily_contents" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -94,9 +110,11 @@
             android:layout_height="160dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/round_30_top"
-            android:paddingStart="32dp"
+
+            android:paddingHorizontal="32dp"
             android:paddingTop="40dp"
-            app:layout_constraintBottom_toBottomOf="@id/main_constrainLayout">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/delete_btn">
 
             <TextView
                 android:id="@+id/cheer_up_tv"

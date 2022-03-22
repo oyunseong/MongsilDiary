@@ -1,11 +1,11 @@
 package com.mongsil.mongsildiary.utils
 
-class Extensions {
-    fun String.log(contents: String) {
-        android.util.Log.d("extensions log function", contents);
-    }
+import android.util.Log
 
-    fun String.log(tag: String, contents: String) {
-        android.util.Log.d(tag, contents);
-    }
+fun String.log() {
+    Log.d("extensions log function", this)
+}
+
+fun String.log(tag: String) {
+    Log.d(tag, this)
 }

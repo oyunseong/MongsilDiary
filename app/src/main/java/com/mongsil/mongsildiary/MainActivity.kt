@@ -1,24 +1,25 @@
 package com.mongsil.mongsildiary
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
+import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
+import com.mongsil.mongsildiary.utils.log
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
-    private val dataSet: ArrayList<List<String>> = arrayListOf()
-    private val mainAdapter = MainAdapter(dataSet, object : MainAdapter.OnItemClickListener{
-        override fun onClick(v: View, position: Int) {
-            showToast("${position}번째 item")
-        }
-    })
-
     var backKeyPressedTime = 0L
+    lateinit var navController: NavController
     private var isOpen: Boolean = false
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
@@ -28,40 +29,35 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val host = NavHostFragment.create(R.navigation.nav_graph)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.nav_host_fragment,host)
-            .setPrimaryNavigationFragment(host)
-            .commit()
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
-//        addData()
-//        initRecycler()
         settingFab()
+
+        binding.fab.setOnClickListener {
+            setFab(isOpen)
+        }
+
+        binding.settingFab.setOnClickListener {
+            Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
+
+            if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == CalendarFragment::class.java.name)
+                return@setOnClickListener
+
+            "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
+            "${CalendarFragment::class.java.name}".log()
+            navController.navigate(R.id.action_to_calendarFragment)
+        }
     }
-//
-//    private fun initRecycler() {
-//        binding.recycler.layoutManager =
-//            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-//        binding.recycler.adapter = mainAdapter
-//        binding.recycler.addItemDecoration(VerticalItemDecorator(10))
-//        binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
-//    }
-//
+
     private fun settingFab() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
         fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise)
         fabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
-
-        binding.fab.setOnClickListener {
-            setFab(isOpen)
-            binding.settingFab.setOnClickListener {
-                Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
-                Navigation.createNavigateOnClickListener(R.id.calendarFragment)
-            }
-        }
     }
-//
+
     private val fabArray by lazy {
         arrayOf(
             binding.settingFab,
@@ -72,7 +68,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             binding.calendarTv,
         )
     }
-//
+
     private fun setFab(boolean: Boolean) {
         if (!boolean) {
             fabArray.forEachIndexed { _, fab ->
@@ -85,27 +81,27 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             binding.cheeringTv.bringToFront()
             binding.calendarTv.bringToFront()
 
-            binding.settingFab.isClickable
-            binding.cheeringFab.isClickable
-            binding.calendarFab.isClickable
+//            binding.settingFab.isClickable
+//            binding.cheeringFab.isClickable
+//            binding.calendarFab.isClickable
 
             isOpen = true
         } else {
-            fabArray.forEachIndexed { _, fab ->
-                fab.startAnimation(fabClose)
-            }
-            binding.fab.startAnimation(fabRClockwise)
-            binding.shadowView.visibility = View.GONE
-            isOpen = false
+            closedFab()
         }
     }
 
+    private fun closedFab() {
+        fabArray.forEachIndexed { _, fab ->
+            fab.startAnimation(fabClose)
+        }
+        binding.fab.startAnimation(fabRClockwise)
+        binding.shadowView.visibility = View.GONE
+        isOpen = false
+    }
+
 //
-//    private fun addData() {
-//        for (i in 0..99) {
-//            dataSet.add(listOf("$i th main", "$i th sub"))
-//        }
-//    }
+
 //
 //    override fun onBackPressed() {
 ////        super.onBackPressed()
