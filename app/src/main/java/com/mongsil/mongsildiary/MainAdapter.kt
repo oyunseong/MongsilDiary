@@ -23,8 +23,6 @@ class MainAdapter(private val dataSet: ArrayList<List<String>>, val onItemClickL
         }
 
         holder.bind(dataSet[position])
-
-
     }
 
     class ViewHolder(private val binding: ItemDiaryListBinding) :
