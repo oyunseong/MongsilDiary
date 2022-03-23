@@ -16,4 +16,6 @@ class CalendarFragment :BaseFragment<FragmentCalendarBinding>(){
     ): FragmentCalendarBinding {
         return FragmentCalendarBinding.inflate(inflater,container,false)
     }
+
+
 }
