@@ -15,11 +15,6 @@
             app:destination="@id/calendarFragment" />
     </fragment>
 
-    <action
-        android:id="@+id/action_to_calendarFragment"
-        app:destination="@id/calendarFragment" />
-
-
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.mongsil.mongsildiary.ui.calendar.CalendarFragment"
@@ -35,6 +30,26 @@
         android:name="com.mongsil.mongsildiary.ui.cheering.CheeringFragment"
         android:label="fragment_cheering"
         tools:layout="@layout/fragment_cheering" />
+
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.mongsil.mongsildiary.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+
+    <action
+        android:id="@+id/action_to_calendarFragment"
+        app:destination="@id/calendarFragment" />
+
+    <action
+        android:id="@+id/action_to_homeFragment"
+        app:destination="@id/homeFragment" />
+
+    <action
+        android:id="@+id/action_to_settingFragment"
+        app:destination="@id/settingFragment" />
+
+
 
 
 </navigation>

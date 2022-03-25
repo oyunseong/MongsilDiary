@@ -7,6 +7,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -15,11 +16,15 @@ import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
+import com.mongsil.mongsildiary.ui.home.HomeFragment
+import com.mongsil.mongsildiary.ui.setting.SettingFragment
 import com.mongsil.mongsildiary.utils.log
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
-    var backKeyPressedTime = 0L
-    lateinit var navController: NavController
+//    private var navHostFragment: NavHostFragment =
+//        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+//    private var navController: NavController = navHostFragment.navController
+    private var backKeyPressedTime = 0L
     private var isOpen: Boolean = false
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
@@ -42,12 +47,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         binding.settingFab.setOnClickListener {
             Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
 
+            if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name)
+                return@setOnClickListener
+            navController.navigate(R.id.settingFragment)
+            closedFab()
+        }
+
+        binding.calendarFab.setOnClickListener {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == CalendarFragment::class.java.name)
                 return@setOnClickListener
-
-            "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
-            "${CalendarFragment::class.java.name}".log()
-            navController.navigate(R.id.action_to_calendarFragment)
+            navController.navigate(R.id.calendarFragment)
+            closedFab()
         }
     }
 
@@ -102,21 +112,26 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
 //
 
+    //
+    override fun onBackPressed() {
+//        super.onBackPressed()
+//        if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == HomeFragment::class.java.name) {
 //
-//    override fun onBackPressed() {
-////        super.onBackPressed()
-//
-//        if (binding.shadowView.visibility == View.VISIBLE) {
-//            binding.shadowView.visibility = View.GONE
-//            setFab(true)
 //        }
-//        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
-//            backKeyPressedTime = System.currentTimeMillis()
-//            return;
-//        }
-//        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
-//            finish()
-//        }
-//    }
+        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+            backKeyPressedTime = System.currentTimeMillis()
+            return;
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+            finish()
+        }
+
+        if (binding.shadowView.visibility == View.VISIBLE) {
+            binding.shadowView.visibility = View.GONE
+            closedFab()
+        }
+
+
+    }
 }
 
