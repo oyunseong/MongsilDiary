@@ -2,10 +2,15 @@ package com.mongsil.mongsildiary.ui.home
 
 import HorizontalItemDecorator
 import VerticalItemDecorator
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
+import androidx.core.view.inputmethod.EditorInfoCompat
+import androidx.core.view.inputmethod.InputConnectionCompat
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.MainAdapter
@@ -48,4 +53,5 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(){
             dataSet.add(listOf("$i th main", "$i th sub"))
         }
     }
+
 }

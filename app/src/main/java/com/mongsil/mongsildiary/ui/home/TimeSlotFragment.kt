@@ -1,10 +1,19 @@
 package com.mongsil.mongsildiary.ui.home
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputConnection
+import androidx.compose.ui.graphics.Color
+import androidx.core.view.inputmethod.EditorInfoCompat
+import androidx.core.view.inputmethod.InputConnectionCompat
 import com.mongsil.mongsildiary.MainAdapter
+import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentWritingTimeslotBinding
 
@@ -26,5 +35,56 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewpager2.adapter = mainAdapter
+
+        binding.editText.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(binding.editText.length() <100){   // 2자리 미만이면
+                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
+                    binding.confirmBtn.isClickable = false
+                }else{
+                    binding.confirmBtn.isEnabled = true // 버튼 활성화
+                    binding.confirmBtn.isClickable = true
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+        binding.confirmBtn.setOnClickListener {
+            if(it.isEnabled) {
+                showToast("클릭 되었습니다.")
+            }else{
+
+            }
+        }
     }
+
+
+//    val editText = object : androidx.appcompat.widget.AppCompatEditText(requireContext()){
+//        override fun onCreateInputConnection(editorInfo: EditorInfo): InputConnection? {
+//            val ic: InputConnection? = super.onCreateInputConnection(editorInfo)
+//            EditorInfoCompat.setContentMimeTypes(editorInfo,arrayOf("image/png"))
+//
+//            val callback =
+//                InputConnectionCompat.OnCommitContentListener{ inputContentInfo, flags, opts ->
+//                    val lacksPermission = (flags and
+//                            InputConnectionCompat.INPUT_CONTENT_GRANT_READ_URI_PERMISSION) != 0
+//                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1 && lacksPermission){
+//                        try {
+//                            inputContentInfo.requestPermission()
+//                        }catch (e: Exception){
+//                            return@OnCommitContentListener false // return false if failed
+//                        }
+//                    }
+//                    true
+//                }
+//            return ic?.let { InputConnectionCompat.createWrapper(it,editorInfo,callback) }
+//        }
+//    }
 }

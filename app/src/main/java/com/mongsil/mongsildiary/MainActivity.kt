@@ -124,7 +124,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             finish()
         }
 
-
     }
+
 }
 
