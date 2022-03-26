@@ -1,21 +1,15 @@
 package com.mongsil.mongsildiary.ui.home
 
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputConnection
-import androidx.compose.ui.graphics.Color
-import androidx.core.view.inputmethod.EditorInfoCompat
-import androidx.core.view.inputmethod.InputConnectionCompat
 import com.mongsil.mongsildiary.MainAdapter
-import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentWritingTimeslotBinding
+import com.mongsil.mongsildiary.utils.log
 
 class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
     private val dataSet: ArrayList<List<String>> = arrayListOf()
@@ -35,14 +29,17 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewpager2.adapter = mainAdapter
+        "binding.confirmBtn.isEnabled.toString()".log()
+
+        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
+        binding.confirmBtn.isClickable = false
 
         binding.editText.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(binding.editText.length() <100){   // 2자리 미만이면
+                if(binding.editText.length() == 0){   // 2자리 미만이면
                     binding.confirmBtn.isEnabled = false    // 버튼 비활성화
                     binding.confirmBtn.isClickable = false
                 }else{
@@ -59,9 +56,11 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
         binding.confirmBtn.setOnClickListener {
             if(it.isEnabled) {
                 showToast("클릭 되었습니다.")
+
             }else{
 
             }
+            "binding.confirmBtn.isEnabled.toString()".log()
         }
     }
 
