@@ -1,24 +1,16 @@
 package com.mongsil.mongsildiary
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
-import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
-import com.mongsil.mongsildiary.utils.log
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
 //    private var navHostFragment: NavHostFragment =
@@ -114,7 +106,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     //
     override fun onBackPressed() {
-//        super.onBackPressed()
+        if (binding.shadowView.visibility == View.VISIBLE) {
+            binding.shadowView.visibility = View.GONE
+            closedFab()
+        }else{
+            super.onBackPressed()
+        }
+
 //        if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == HomeFragment::class.java.name) {
 //
 //        }
@@ -124,11 +122,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
             finish()
-        }
-
-        if (binding.shadowView.visibility == View.VISIBLE) {
-            binding.shadowView.visibility = View.GONE
-            closedFab()
         }
 
 

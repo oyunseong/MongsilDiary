@@ -17,6 +17,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(){
     private val dataSet: ArrayList<List<String>> = arrayListOf()
     private val mainAdapter = MainAdapter(dataSet, object : MainAdapter.OnItemClickListener{
         override fun onClick(v: View, position: Int) {
+            view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
             showToast("${position}번째 item")
         }
     })
@@ -32,7 +33,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(){
         super.onViewCreated(view, savedInstanceState)
         addData()
         initRecycler()
-
     }
 
         private fun initRecycler() {
