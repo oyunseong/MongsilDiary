@@ -6,13 +6,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.utils.log
 
 class RecordFragment : BaseFragment<FragmentRecordBinding>() {
+    val recordViewModel : RecordViewModel by activityViewModels()
 //    private val recordViewModel: RecordViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -47,7 +51,8 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         })
 
         binding.confirmBtn.setOnClickListener {
-            RecordViewModel()._contents.value = binding.editText.text.toString()
+            recordViewModel._contents.value = binding.editText.text.toString()
+            view?.findNavController().navigate(R.id.homeFragment)
         }
     }
 
