@@ -1,4 +1,4 @@
-package com.mongsil.mongsildiary
+package com.mongsil.mongsildiary.ui.home
 
 import android.view.LayoutInflater
 import android.view.View

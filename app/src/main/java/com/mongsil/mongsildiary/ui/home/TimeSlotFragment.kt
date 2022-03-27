@@ -7,14 +7,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.mongsil.mongsildiary.HomeAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
-import com.mongsil.mongsildiary.databinding.FragmentWritingTimeslotBinding
+import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
+import com.mongsil.mongsildiary.model.Emotion
+import java.util.*
+import kotlin.collections.ArrayList
 
-class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
-    private val dataSet: ArrayList<List<String>> = arrayListOf()
-    private val mainAdapter = HomeAdapter(dataSet, object : HomeAdapter.OnItemClickListener{
+class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
+    private val dataSet: ArrayList<List<Emotion>> = arrayListOf()
+    private val timeSlotAdapter = TimeSlotAdapter(dataSet, object : TimeSlotAdapter.OnItemClickListener{
         override fun onClick(v: View, position: Int) {
             showToast("${position}번째 item")
         }
@@ -23,13 +26,23 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentWritingTimeslotBinding {
-        return FragmentWritingTimeslotBinding.inflate(inflater, container, false)
+    ): FragmentTimeslotBinding {
+        return FragmentTimeslotBinding.inflate(inflater, container, false)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        addData()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewpager2.adapter = mainAdapter
+        binding.viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.viewpager2.adapter = timeSlotAdapter
 
         binding.confirmBtn.isEnabled = false    // 버튼 비활성화
         binding.confirmBtn.isClickable = false
@@ -59,6 +72,12 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
             }else{
 
             }
+        }
+    }
+    private fun addData() {
+        for (i in 0..99) {
+            dataSet.add(listOf(Emotion(R.drawable.ic_emoticon_01,"몽실이")))
+//            dataSet.add(listOf("$i th main", "$i th sub"))
         }
     }
 
