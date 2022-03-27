@@ -6,7 +6,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.HomeAdapter
+import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentWritingTimeslotBinding
 
@@ -52,6 +54,7 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
         })
         binding.confirmBtn.setOnClickListener {
             if(it.isEnabled) {
+                view?.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
                 showToast("클릭 되었습니다.")
             }else{
 

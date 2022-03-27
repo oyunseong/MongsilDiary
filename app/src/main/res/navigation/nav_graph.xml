@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.mongsil.mongsildiary.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_calendarFragment"
             app:destination="@id/calendarFragment" />
@@ -19,13 +19,14 @@
         <action
             android:id="@+id/action_homeFragment_to_recordFragment"
             app:destination="@id/recordFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.mongsil.mongsildiary.ui.calendar.CalendarFragment"
         android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar" >
+        tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -47,17 +48,25 @@
         android:id="@+id/timeSlotFragment"
         android:name="com.mongsil.mongsildiary.ui.home.TimeSlotFragment"
         android:label="fragment_writing_timeslot"
-        tools:layout="@layout/fragment_writing_timeslot" >
+        tools:layout="@layout/fragment_writing_timeslot">
         <action
             android:id="@+id/action_timeSlotFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <fragment
         android:id="@+id/recordFragment"
         android:name="com.mongsil.mongsildiary.ui.home.RecordFragment"
         android:label="fragment_record"
-        tools:layout="@layout/fragment_record" />
+        tools:layout="@layout/fragment_record">
+        <action
+            android:id="@+id/action_recordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
     <action
         android:id="@+id/action_to_calendarFragment"
@@ -70,8 +79,6 @@
     <action
         android:id="@+id/action_to_settingFragment"
         app:destination="@id/settingFragment" />
-
-
 
 
 </navigation>
