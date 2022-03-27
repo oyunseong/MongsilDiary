@@ -55,15 +55,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         addData()
         initRecycler()
 
-
-
         binding.addBtn.setOnClickListener {
             view.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
         "${recordViewModel.contents.value}".log()
         recordViewModel.contents.observe(viewLifecycleOwner) {
             binding.recordContents.text = recordViewModel.contents.value
-
+            if(it.isNotEmpty()){
+                binding.deleteBtn.visibility = View.VISIBLE
+                binding.editBtn.visibility = View.VISIBLE
+                binding.addBtn.visibility = View.GONE
+            }else{
+                binding.deleteBtn.visibility = View.GONE
+                binding.editBtn.visibility = View.GONE
+                binding.addBtn.visibility = View.VISIBLE
+            }
+        }
+        binding.deleteBtn.setOnClickListener {
+            recordViewModel.setContents("")
+            showToast("삭제버튼 클릭")
+        }
+        binding.editBtn.setOnClickListener {
+            view.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
     }
 

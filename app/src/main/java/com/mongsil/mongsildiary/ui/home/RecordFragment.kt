@@ -51,10 +51,8 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         })
 
         binding.confirmBtn.setOnClickListener {
-            recordViewModel._contents.value = binding.editText.text.toString()
-            view?.findNavController().navigate(R.id.homeFragment)
+            recordViewModel.setContents(binding.editText.text.toString())
+            view?.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
         }
     }
-
-
 }

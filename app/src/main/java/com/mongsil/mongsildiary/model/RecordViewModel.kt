@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.mongsil.mongsildiary.utils.log
 
 class RecordViewModel : ViewModel() {
-    val _contents = MutableLiveData<String>()
+    private val _contents = MutableLiveData<String>()
     val contents: LiveData<String>
         get() = _contents
 
@@ -16,8 +16,8 @@ class RecordViewModel : ViewModel() {
         "++onCleared()".log("RecordViewModel")
     }
 
-    fun getContents(){
-
+    fun setContents(data : String){
+        this._contents.value = data
     }
 
 
