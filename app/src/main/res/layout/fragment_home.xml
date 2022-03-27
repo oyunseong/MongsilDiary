@@ -60,7 +60,7 @@
             app:layout_constraintTop_toBottomOf="@id/recycler" />
 
         <TextView
-            android:id="@+id/add_tv"
+            android:id="@+id/add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add"
@@ -69,7 +69,7 @@
             app:layout_constraintTop_toTopOf="@id/record_tv" />
 
         <TextView
-            android:id="@+id/daily_contents"
+            android:id="@+id/record_contents"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -89,7 +89,7 @@
             android:text="@string/delete"
             app:layout_constraintBottom_toTopOf="@id/bottom_const"
             app:layout_constraintLeft_toLeftOf="@id/record_tv"
-            app:layout_constraintTop_toBottomOf="@id/daily_contents" />
+            app:layout_constraintTop_toBottomOf="@id/record_contents" />
 
         <TextView
             android:id="@+id/edit_btn"
@@ -102,7 +102,7 @@
             android:text="@string/edit"
             android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@id/delete_btn"
-            app:layout_constraintTop_toBottomOf="@id/daily_contents" />
+            app:layout_constraintTop_toBottomOf="@id/record_contents" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_const"

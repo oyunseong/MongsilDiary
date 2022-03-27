@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
 
-class MainAdapter(private val dataSet: ArrayList<List<String>>, val onItemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class HomeAdapter(private val dataSet: ArrayList<List<String>>, private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -18,6 +18,7 @@ class MainAdapter(private val dataSet: ArrayList<List<String>>, val onItemClickL
     override fun getItemCount(): Int = dataSet.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
         holder.itemView.setOnClickListener {
             onItemClickListener.onClick(it,position)
         }
@@ -29,13 +30,12 @@ class MainAdapter(private val dataSet: ArrayList<List<String>>, val onItemClickL
         RecyclerView.ViewHolder(binding.root) {
         fun bind(data: List<String>) {
             binding.timeslot.text = data[0]
+            binding.contents.visibility = View.GONE
+            binding.slotImg.visibility = View.GONE
         }
     }
 
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
     }
-
-
-
 }

@@ -10,10 +10,13 @@ import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
+import com.mongsil.mongsildiary.ui.cheering.CheeringFragment
+import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
+import com.mongsil.mongsildiary.utils.log
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
-//    private var navHostFragment: NavHostFragment =
+    //    private var navHostFragment: NavHostFragment =
 //        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 //    private var navController: NavController = navHostFragment.navController
     private var backKeyPressedTime = 0L
@@ -51,6 +54,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             navController.navigate(R.id.calendarFragment)
             closedFab()
         }
+
+        "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
+
+        if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == HomeFragment::class.java.name
+            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CalendarFragment::class.java.name
+            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name
+            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CheeringFragment::class.java.name){
+            binding.fab.visibility = View.VISIBLE
+        } else {
+            binding.fab.visibility = View.GONE
+        }
     }
 
     private fun settingFab() {
@@ -83,10 +97,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             binding.cheeringTv.bringToFront()
             binding.calendarTv.bringToFront()
 
-//            binding.settingFab.isClickable
-//            binding.cheeringFab.isClickable
-//            binding.calendarFab.isClickable
-
             isOpen = true
         } else {
             closedFab()
@@ -102,27 +112,21 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         isOpen = false
     }
 
-//
-
-    //
     override fun onBackPressed() {
         if (binding.shadowView.visibility == View.VISIBLE) {
             binding.shadowView.visibility = View.GONE
             closedFab()
-        }else{
+        } else {
             super.onBackPressed()
         }
 
-//        if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == HomeFragment::class.java.name) {
-//
+//        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
+//            backKeyPressedTime = System.currentTimeMillis()
+//            return;
 //        }
-        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
-            backKeyPressedTime = System.currentTimeMillis()
-            return;
-        }
-        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
-            finish()
-        }
+//        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
+//            finish()
+//        }
 
     }
 

@@ -6,14 +6,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.mongsil.mongsildiary.MainAdapter
+import com.mongsil.mongsildiary.HomeAdapter
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentWritingTimeslotBinding
-import com.mongsil.mongsildiary.utils.log
 
 class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
     private val dataSet: ArrayList<List<String>> = arrayListOf()
-    private val mainAdapter = MainAdapter(dataSet, object : MainAdapter.OnItemClickListener{
+    private val mainAdapter = HomeAdapter(dataSet, object : HomeAdapter.OnItemClickListener{
         override fun onClick(v: View, position: Int) {
             showToast("${position}번째 item")
         }
@@ -29,7 +28,6 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewpager2.adapter = mainAdapter
-        "binding.confirmBtn.isEnabled.toString()".log()
 
         binding.confirmBtn.isEnabled = false    // 버튼 비활성화
         binding.confirmBtn.isClickable = false
@@ -49,18 +47,15 @@ class TimeSlotFragment : BaseFragment<FragmentWritingTimeslotBinding>() {
             }
 
             override fun afterTextChanged(p0: Editable?) {
-
             }
 
         })
         binding.confirmBtn.setOnClickListener {
             if(it.isEnabled) {
                 showToast("클릭 되었습니다.")
-
             }else{
 
             }
-            "binding.confirmBtn.isEnabled.toString()".log()
         }
     }
 

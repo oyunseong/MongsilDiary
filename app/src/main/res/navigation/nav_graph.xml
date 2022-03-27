@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_timeSlotFragment"
             app:destination="@id/timeSlotFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_recordFragment"
+            app:destination="@id/recordFragment" />
     </fragment>
 
     <fragment
@@ -49,6 +52,12 @@
             android:id="@+id/action_timeSlotFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/recordFragment"
+        android:name="com.mongsil.mongsildiary.ui.home.RecordFragment"
+        android:label="fragment_record"
+        tools:layout="@layout/fragment_record" />
 
     <action
         android:id="@+id/action_to_calendarFragment"

@@ -2,25 +2,28 @@ package com.mongsil.mongsildiary.ui.home
 
 import HorizontalItemDecorator
 import VerticalItemDecorator
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputConnection
-import androidx.core.view.inputmethod.EditorInfoCompat
-import androidx.core.view.inputmethod.InputConnectionCompat
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mongsil.mongsildiary.MainAdapter
+import com.mongsil.mongsildiary.HomeAdapter
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
+import com.mongsil.mongsildiary.model.RecordViewModel
+import com.mongsil.mongsildiary.utils.log
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(){
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
+    private val recordViewModel: RecordViewModel by viewModels()
     private val dataSet: ArrayList<List<String>> = arrayListOf()
-    private val mainAdapter = MainAdapter(dataSet, object : MainAdapter.OnItemClickListener{
+    private val mainAdapter = HomeAdapter(dataSet, object : HomeAdapter.OnItemClickListener {
         override fun onClick(v: View, position: Int) {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
             showToast("${position}번째 item")
@@ -31,16 +34,37 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(){
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentHomeBinding {
-        return FragmentHomeBinding.inflate(inflater,container,false)
+        return FragmentHomeBinding.inflate(inflater, container, false)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val provider: ViewModelProvider = ViewModelProvider(this)   // gggafgsasgfasg
+        val recordViewModel = provider[RecordViewModel::class.java]
+
+
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addData()
         initRecycler()
+
+        binding.addBtn.setOnClickListener {
+            view.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
+        }
+        "${recordViewModel.contents.value}".log()
+        recordViewModel.contents.observe(viewLifecycleOwner, {
+            binding.recordContents.text = recordViewModel.contents.value
+
+        })
     }
 
-        private fun initRecycler() {
+    private fun initRecycler() {
         binding.recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.recycler.adapter = mainAdapter
@@ -48,7 +72,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(){
         binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
     }
 
-        private fun addData() {
+    private fun addData() {
         for (i in 0..99) {
             dataSet.add(listOf("$i th main", "$i th sub"))
         }
