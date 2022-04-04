@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_constrainLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
 
         <TextView
             android:id="@+id/date"
@@ -86,8 +87,6 @@
             android:background="@drawable/button_round_dee2ed"
             android:gravity="center"
             android:text="@string/delete"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/bottom_const"
             app:layout_constraintLeft_toLeftOf="@id/record_tv"
             app:layout_constraintTop_toBottomOf="@id/record_contents" />
 
@@ -100,7 +99,6 @@
             android:background="@drawable/button_round_dee2ed"
             android:gravity="center"
             android:text="@string/edit"
-            android:visibility="gone"
             app:layout_constraintLeft_toRightOf="@id/delete_btn"
             app:layout_constraintTop_toBottomOf="@id/record_contents" />
 
@@ -110,11 +108,9 @@
             android:layout_height="160dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/round_30_top"
-
             android:paddingHorizontal="32dp"
             android:paddingTop="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/delete_btn">
+            app:layout_constraintBottom_toBottomOf="@id/main_constrainLayout">
 
             <TextView
                 android:id="@+id/cheer_up_tv"
@@ -142,6 +138,7 @@
                 app:layout_constraintTop_toBottomOf="@id/cheer_up_tv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

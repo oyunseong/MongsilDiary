@@ -60,7 +60,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == HomeFragment::class.java.name
             || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CalendarFragment::class.java.name
             || (navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name
-            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CheeringFragment::class.java.name){
+            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CheeringFragment::class.java.name
+        ) {
             binding.fab.visibility = View.VISIBLE
         } else {
             binding.fab.visibility = View.GONE
@@ -92,10 +93,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             }
             binding.fab.startAnimation(fabRAntiClockwise)
             binding.shadowView.visibility = View.VISIBLE
+            binding.calendarFab.visibility = View.VISIBLE
+            binding.cheeringFab.visibility = View.VISIBLE
+            binding.settingFab.visibility = View.VISIBLE
             binding.shadowView.bringToFront()
             binding.settingTv.bringToFront()
             binding.cheeringTv.bringToFront()
             binding.calendarTv.bringToFront()
+
+            binding.calendarFab.isClickable = true
+            binding.settingFab.isClickable = true
+            binding.cheeringFab.isClickable = true
 
             isOpen = true
         } else {
@@ -109,6 +117,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
         binding.fab.startAnimation(fabRClockwise)
         binding.shadowView.visibility = View.GONE
+        binding.calendarFab.visibility = View.GONE
+        binding.cheeringFab.visibility = View.GONE
+        binding.settingFab.visibility = View.GONE
+
+        binding.calendarFab.isClickable = false
+        binding.settingFab.isClickable = false
+        binding.cheeringFab.isClickable = false
+
         isOpen = false
     }
 

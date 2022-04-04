@@ -71,7 +71,7 @@
         android:backgroundTint="@color/white"
         android:elevation="6dp"
         android:src="@drawable/ic_x_24_wording"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:borderWidth="0dp"
         app:fabSize="auto"
         app:layout_constraintBottom_toTopOf="@id/setting_fab"
