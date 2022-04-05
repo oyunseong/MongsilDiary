@@ -12,6 +12,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.model.Emotion
+import com.mongsil.mongsildiary.utils.log
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,6 +42,7 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fabViewModel.setFabState(false)
         binding.viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.viewpager2.adapter = timeSlotAdapter
 

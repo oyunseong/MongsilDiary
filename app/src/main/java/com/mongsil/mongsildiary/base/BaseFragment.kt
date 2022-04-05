@@ -8,13 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
+import com.mongsil.mongsildiary.model.FabViewModel
+import com.mongsil.mongsildiary.utils.log
 
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
     private var _binding: B? = null
     val binding get() = _binding!!
     private val _tag: String = this::class.java.name
-
+    val fabViewModel:FabViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +32,8 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fabViewModel.setFabState(true)
+        "BaseFragment's onViewCreated()".log()
         Log.d(_tag, "++onViewCreated")
     }
 

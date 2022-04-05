@@ -7,18 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mongsil.mongsildiary.MainActivity
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
+import com.mongsil.mongsildiary.model.FabViewModel
 import com.mongsil.mongsildiary.model.RecordViewModel
-import com.mongsil.mongsildiary.utils.log
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
-    //    private val recordViewModel: RecordViewModel by lazy {
-//        ViewModelProvider(this)[RecordViewModel::class.java]
-//    }
+
     private val recordViewModel: RecordViewModel by activityViewModels()
 
     private val dataSet: ArrayList<List<String>> = arrayListOf()
@@ -36,23 +36,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         return FragmentHomeBinding.inflate(inflater, container, false)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         addData()
         initRecycler()
 
         binding.addBtn.setOnClickListener {
             view.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
-        "${recordViewModel.contents.value}".log()
+
         recordViewModel.contents.observe(viewLifecycleOwner) {
             binding.recordContents.text = recordViewModel.contents.value
             if (it.isNotEmpty()) {
@@ -65,6 +58,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.addBtn.visibility = View.VISIBLE
             }
         }
+
         binding.deleteBtn.setOnClickListener {
             recordViewModel.setContents("")
             showToast("삭제버튼 클릭")

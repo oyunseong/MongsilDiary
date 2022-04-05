@@ -12,11 +12,14 @@ import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
+import com.mongsil.mongsildiary.model.FabViewModel
 import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.utils.log
 
 class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     val recordViewModel : RecordViewModel by activityViewModels()
+
+
 //    private val recordViewModel: RecordViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -27,6 +30,8 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fabViewModel.setFabState(false)
 
         binding.confirmBtn.isEnabled = false    // 버튼 비활성화
         binding.confirmBtn.isClickable = false
@@ -54,5 +59,9 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
             recordViewModel.setContents(binding.editText.text.toString())
             view?.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
     }
 }

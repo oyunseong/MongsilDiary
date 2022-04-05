@@ -5,26 +5,27 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
+import com.mongsil.mongsildiary.model.FabViewModel
+import com.mongsil.mongsildiary.model.TimeSlotViewModel
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
-import com.mongsil.mongsildiary.ui.cheering.CheeringFragment
-import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 import com.mongsil.mongsildiary.utils.log
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
-    //    private var navHostFragment: NavHostFragment =
-//        supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//    private var navController: NavController = navHostFragment.navController
     private var backKeyPressedTime = 0L
     private var isOpen: Boolean = false
     private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
     private lateinit var fabRClockwise: Animation
     private lateinit var fabRAntiClockwise: Animation
+    private val fabViewModel: FabViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +34,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        settingFab()
+        initFab()
+
+        fabViewModel.state.observe(this, Observer {
+            if (it == true){
+                binding.fab.visibility = View.VISIBLE
+            }else {
+                binding.fab.visibility = View.GONE
+            }
+        })
+
+        //TODO floating button click event -> Fragment change -> floating button visible check plzzzzzzzzzzzzzzzz
 
         binding.fab.setOnClickListener {
             setFab(isOpen)
@@ -56,19 +67,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
 
         "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
-
-        if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == HomeFragment::class.java.name
-            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CalendarFragment::class.java.name
-            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name
-            || (navController.currentDestination as? FragmentNavigator.Destination)?.className == CheeringFragment::class.java.name
-        ) {
-            binding.fab.visibility = View.VISIBLE
-        } else {
-            binding.fab.visibility = View.GONE
-        }
     }
 
-    private fun settingFab() {
+    private fun initFab() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
         fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise)
@@ -88,27 +89,35 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
     private fun setFab(boolean: Boolean) {
         if (!boolean) {
-            fabArray.forEachIndexed { _, fab ->
-                fab.startAnimation(fabOpen)
-            }
-            binding.fab.startAnimation(fabRAntiClockwise)
-            binding.shadowView.visibility = View.VISIBLE
-            binding.calendarFab.visibility = View.VISIBLE
-            binding.cheeringFab.visibility = View.VISIBLE
-            binding.settingFab.visibility = View.VISIBLE
-            binding.shadowView.bringToFront()
-            binding.settingTv.bringToFront()
-            binding.cheeringTv.bringToFront()
-            binding.calendarTv.bringToFront()
-
-            binding.calendarFab.isClickable = true
-            binding.settingFab.isClickable = true
-            binding.cheeringFab.isClickable = true
-
-            isOpen = true
+            openFab()
         } else {
             closedFab()
         }
+    }
+
+    private fun openFab() {
+        fabArray.forEachIndexed { _, fab ->
+            fab.startAnimation(fabOpen)
+        }
+        binding.fab.startAnimation(fabRAntiClockwise)
+        binding.shadowView.visibility = View.VISIBLE
+        binding.calendarFab.visibility = View.VISIBLE
+        binding.cheeringFab.visibility = View.VISIBLE
+        binding.settingFab.visibility = View.VISIBLE
+        binding.calendarTv.visibility = View.VISIBLE
+        binding.cheeringTv.visibility = View.VISIBLE
+        binding.settingTv.visibility = View.VISIBLE
+
+        binding.shadowView.bringToFront()
+        binding.settingTv.bringToFront()
+        binding.cheeringTv.bringToFront()
+        binding.calendarTv.bringToFront()
+
+        binding.calendarFab.isClickable = true
+        binding.settingFab.isClickable = true
+        binding.cheeringFab.isClickable = true
+
+        isOpen = true
     }
 
     private fun closedFab() {
@@ -120,6 +129,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         binding.calendarFab.visibility = View.GONE
         binding.cheeringFab.visibility = View.GONE
         binding.settingFab.visibility = View.GONE
+        binding.calendarTv.visibility = View.GONE
+        binding.cheeringTv.visibility = View.GONE
+        binding.settingTv.visibility = View.GONE
 
         binding.calendarFab.isClickable = false
         binding.settingFab.isClickable = false

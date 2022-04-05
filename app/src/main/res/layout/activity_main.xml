@@ -52,8 +52,8 @@
         app:layout_constraintRight_toRightOf="@id/fab" />
 
     <TextView
-        android:id="@+id/setting_tv"
         style="@style/fab_tv"
+        android:id="@+id/setting_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -62,7 +62,6 @@
         app:layout_constraintBottom_toBottomOf="@id/setting_fab"
         app:layout_constraintRight_toLeftOf="@id/setting_fab"
         app:layout_constraintTop_toTopOf="@id/setting_fab" />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/cheering_fab"
