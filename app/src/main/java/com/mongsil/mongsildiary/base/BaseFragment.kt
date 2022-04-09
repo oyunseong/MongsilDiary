@@ -33,7 +33,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fabViewModel.setFabState(true)
-        "BaseFragment's onViewCreated()".log()
         Log.d(_tag, "++onViewCreated")
     }
 

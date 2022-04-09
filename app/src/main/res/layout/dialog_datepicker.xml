@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="#10ffffff"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_sheet_fragment_data_picker"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/calendar_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_x_24_calendar"
+            app:layout_constraintHorizontal_bias="0.45"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@id/constraint"
+            app:layout_constraintRight_toLeftOf="@id/year_tv"
+            app:layout_constraintTop_toTopOf="@id/constraint" />
+
+        <TextView
+            android:id="@+id/year_tv"
+            style="@style/Text.bottomSheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="2022년"
+            app:layout_constraintLeft_toRightOf="@id/calendar_img"
+            app:layout_constraintRight_toLeftOf="@id/month_tv"
+            app:layout_constraintTop_toTopOf="@id/calendar_img" />
+
+        <TextView
+            android:id="@+id/month_tv"
+            style="@style/Text.bottomSheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4월"
+            android:layout_marginStart="4dp"
+            app:layout_constraintLeft_toRightOf="@id/year_tv"
+            app:layout_constraintRight_toRightOf="@id/constraint"
+            app:layout_constraintTop_toTopOf="@id/year_tv" />
+
+        <NumberPicker
+            android:id="@+id/yearpicker_datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:theme="@style/NumberPicker"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginTop="35dp"
+            app:layout_constraintRight_toLeftOf="@id/monthpicker_datepicker"
+            app:layout_constraintTop_toBottomOf="@id/year_tv" />
+
+        <NumberPicker
+            android:id="@+id/monthpicker_datepicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+
+            android:theme="@style/NumberPicker"
+            app:layout_constraintLeft_toRightOf="@id/yearpicker_datepicker"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/yearpicker_datepicker" />
+
+        <TextView
+            android:id="@+id/cancel_btn"
+            style="@style/Text.bottomSheet"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="21dp"
+            android:gravity="center"
+            android:text="@string/cancel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/confirm_btb"
+            app:layout_constraintTop_toBottomOf="@id/yearpicker_datepicker" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:background="#d5d9e2"
+            app:layout_constraintBottom_toBottomOf="@id/cancel_btn"
+            app:layout_constraintLeft_toRightOf="@id/cancel_btn"
+            app:layout_constraintRight_toLeftOf="@id/confirm_btb"
+            app:layout_constraintTop_toTopOf="@id/cancel_btn" />
+
+
+        <TextView
+            android:id="@+id/confirm_btb"
+            style="@style/Text.bottomSheet"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:text="@string/finish"
+            app:layout_constraintLeft_toRightOf="@id/cancel_btn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/cancel_btn"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

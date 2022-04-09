@@ -30,8 +30,11 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         fabViewModel.setFabState(false)
+        binding.backBtn.setOnClickListener {
+        }
+
+
 
         binding.confirmBtn.isEnabled = false    // 버튼 비활성화
         binding.confirmBtn.isClickable = false
@@ -64,4 +67,5 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     override fun onDestroyView() {
         super.onDestroyView()
     }
+
 }

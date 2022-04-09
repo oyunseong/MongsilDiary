@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#87000000">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_sheet_fragment_data_picker">
+
+        <DatePicker
+            android:id="@+id/bottom_sheet_date_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/cancel_btn"
+            style="@style/Text.bottomSheet"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:text="@string/cancel"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/confirm_btb"
+            app:layout_constraintTop_toBottomOf="@id/bottom_sheet_date_picker" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="18dp"
+            android:background="#d5d9e2"
+            app:layout_constraintBottom_toBottomOf="@id/cancel_btn"
+            app:layout_constraintLeft_toRightOf="@id/cancel_btn"
+            app:layout_constraintRight_toLeftOf="@id/confirm_btb"
+            app:layout_constraintTop_toTopOf="@id/cancel_btn" />
+
+
+        <TextView
+            android:id="@+id/confirm_btb"
+            style="@style/Text.bottomSheet"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:gravity="center"
+            android:text="@string/finish"
+            app:layout_constraintLeft_toRightOf="@id/cancel_btn"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bottom_sheet_date_picker" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

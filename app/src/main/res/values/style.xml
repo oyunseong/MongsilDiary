@@ -41,13 +41,27 @@
         <item name="android:backgroundDimEnabled">true</item>
     </style>
 
-
+<!--    Setting Fragment's button style-->
     <style name="Text.setting" parent="android:TextAppearance">
         <item name="android:textColor">#333333</item>
         <item name="android:letterSpacing">-0.05</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">normal</item>
         <item name="lineSpacing">2sp</item>
+    </style>
+
+<!--    BottomSheetFragment's text style-->
+    <style name="Text.bottomSheet" parent="android:TextAppearance">
+        <item name="android:textColor">#222222</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="NumberPicker" >
+        <item name="colorControlNormal">#00000000</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColorPrimary">@color/btn_color</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
 </resources>
