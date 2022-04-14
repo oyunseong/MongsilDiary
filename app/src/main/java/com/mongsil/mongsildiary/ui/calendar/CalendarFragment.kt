@@ -37,4 +37,3 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
     }
 
 }
-
