@@ -8,24 +8,23 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.model.Emotion
-import com.mongsil.mongsildiary.utils.log
-import java.util.*
 import kotlin.collections.ArrayList
 
 class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
     private val dataSet: ArrayList<List<Emotion>> = arrayListOf()
     private val timeSlotAdapter =
-        TimeSlotAdapter(requireContext(),dataSet, object : TimeSlotAdapter.OnItemClickListener {
+            TimeSlotAdapter(dataSet, object :
+                TimeSlotAdapter.ViewHolder.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
                 showToast("${position}번째 item")
             }
@@ -81,8 +80,12 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
                 view?.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
                 showToast("클릭 되었습니다.")
             } else {
-
+                showToast("error!!")
             }
+        }
+
+        binding.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 
@@ -148,4 +151,5 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
 //            return ic?.let { InputConnectionCompat.createWrapper(it,editorInfo,callback) }
 //        }
 //    }
+
 }

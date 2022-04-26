@@ -34,8 +34,6 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         binding.backBtn.setOnClickListener {
         }
 
-
-
         binding.confirmBtn.isEnabled = false    // 버튼 비활성화
         binding.confirmBtn.isClickable = false
 
@@ -61,6 +59,10 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         binding.confirmBtn.setOnClickListener {
             recordViewModel.setContents(binding.editText.text.toString())
             view?.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
+        }
+
+        binding.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 

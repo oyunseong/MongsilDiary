@@ -14,7 +14,7 @@ import com.mongsil.mongsildiary.databinding.ItemTimeslotListBinding
 import com.mongsil.mongsildiary.model.Emotion
 
 class TimeSlotAdapter(
-    val context: Context,
+//    private val context: Context,
     private val dataSet: ArrayList<List<Emotion>>,
     private val onItemClickListener: ViewHolder.OnItemClickListener
 ) :
@@ -36,10 +36,10 @@ class TimeSlotAdapter(
     override fun getItemCount(): Int = dataSet.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val asset = context.resources.getDrawable(
-            if (indexList[position]) R.drawable.fill_circle
-            else R.drawable.stoke_circle
-        )
+//        val asset = context.resources.getDrawable(
+//            if (indexList[position]) R.drawable.fill_circle
+//            else R.drawable.stoke_circle
+//        )
 
         holder.itemView.setOnClickListener {
             onItemClickListener.onClick(it, position)
