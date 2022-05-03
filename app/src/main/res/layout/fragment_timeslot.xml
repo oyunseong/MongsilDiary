@@ -104,6 +104,16 @@
             app:layout_constraintTop_toTopOf="@id/write_emotion" />
 
         <TextView
+            android:id="@+id/text_size_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0/0"
+            app:layout_constraintRight_toRightOf="@id/edit_text"
+            app:layout_constraintBottom_toBottomOf="@id/edit_text"
+            android:layout_margin="16dp"
+            />
+
+        <TextView
             android:id="@+id/confirm_btn"
             style="@style/Text.White_13sp"
             android:layout_width="match_parent"

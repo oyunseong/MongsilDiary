@@ -18,6 +18,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.model.Emotion
+import com.mongsil.mongsildiary.utils.log
 import kotlin.collections.ArrayList
 
 class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
@@ -57,8 +58,12 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
         binding.confirmBtn.isEnabled = false    // 버튼 비활성화
         binding.confirmBtn.isClickable = false
 
+        val input = binding.textSizeTv.text.toString()
+
         binding.editText.addTextChangedListener(object : TextWatcher {
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                binding.textSizeTv.text = input.length.toString() + " /30"
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -69,15 +74,19 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
                     binding.confirmBtn.isEnabled = true // 버튼 활성화
                     binding.confirmBtn.isClickable = true
                 }
+
+                "${input.length.toString()}".log()
+                binding.textSizeTv.text = input.length.toString() + " /30"
             }
 
             override fun afterTextChanged(p0: Editable?) {
+                binding.textSizeTv.text = input.length.toString() + " /30"
             }
 
         })
         binding.confirmBtn.setOnClickListener {
             if (it.isEnabled) {
-                view?.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
+                view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
                 showToast("클릭 되었습니다.")
             } else {
                 showToast("error!!")
