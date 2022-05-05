@@ -1,131 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/main_background"
-        android:fillViewport="true">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <ImageView
-            android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="36dp"
-            android:src="@drawable/ic_x_32_back"
-            app:layout_constraintLeft_toLeftOf="@id/constraint"
-            app:layout_constraintTop_toTopOf="@id/constraint" />
-
-        <TextView
-            android:id="@+id/title"
-            style="@style/Text.black_13sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="44dp"
-            android:text="오늘 아침\n기분 어떠세요?"
-            android:textSize="28sp"
-            app:layout_constraintLeft_toLeftOf="@id/constraint"
-            app:layout_constraintTop_toBottomOf="@id/back_btn" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
-            android:clipToPadding="false"
-            android:paddingHorizontal="24dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
-            android:layout_marginTop="32dp"
-            tools:listitem="@layout/item_timeslot_list" />
+            android:layout_height="match_parent"
+            android:background="@color/main_background"
+            android:fillViewport="true">
 
-        <!--        <androidx.viewpager2.widget.ViewPager2-->
-        <!--            android:background="@color/main_background"-->
-        <!--            android:id="@+id/viewpager2"-->
-        <!--            android:layout_marginTop="32dp"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:orientation="horizontal"-->
-        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/title" />-->
+            <TextView
+                android:id="@+id/title"
+                style="@style/Text.black_13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="44dp"
+                android:text="오늘 아침\n기분 어떠세요?"
+                android:textSize="28sp"
+                app:layout_constraintLeft_toLeftOf="@id/constraint"
+                app:layout_constraintTop_toTopOf="@id/constraint" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:spanCount="3"
+                tools:listitem="@layout/item_timeslot_list" />
 
-        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-            android:id="@+id/spring_dots_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            app:dampingRatio="0.5"
-            app:dotsColor="@color/black"
-            app:dotsCornerRadius="2dp"
-            app:dotsSize="16dp"
-            app:dotsSpacing="6dp"
-            app:dotsStrokeColor="@color/teal_200"
-            app:dotsStrokeWidth="2dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycler"
-            app:stiffness="300" />
+            <!--        <androidx.viewpager2.widget.ViewPager2-->
+            <!--            android:background="@color/main_background"-->
+            <!--            android:id="@+id/viewpager2"-->
+            <!--            android:layout_marginTop="32dp"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="0dp"-->
+            <!--            android:orientation="horizontal"-->
+            <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+            <!--            app:layout_constraintRight_toRightOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/title" />-->
 
-        <TextView
-            android:id="@+id/write_emotion"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="64dp"
-            android:background="@drawable/round_10_ffffff"
-            android:backgroundTint="@null"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spring_dots_indicator" />
+            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+                android:id="@+id/spring_dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                app:dampingRatio="0.5"
+                app:dotsColor="@color/black"
+                app:dotsCornerRadius="2dp"
+                app:dotsSize="16dp"
+                app:dotsSpacing="6dp"
+                app:dotsStrokeColor="@color/teal_200"
+                app:dotsStrokeWidth="2dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recycler"
+                app:stiffness="300" />
 
-        <EditText
-            android:id="@+id/edit_text"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="top"
-            android:hint="기분을 입력해 보세요"
-            android:padding="24dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@id/write_emotion"
-            app:layout_constraintLeft_toLeftOf="@id/write_emotion"
-            app:layout_constraintRight_toRightOf="@id/write_emotion"
-            app:layout_constraintTop_toTopOf="@id/write_emotion" />
+            <TextView
+                android:id="@+id/write_emotion"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/round_10_ffffff"
+                android:backgroundTint="@null"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spring_dots_indicator" />
 
-        <TextView
-            android:id="@+id/text_size_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0/0"
-            app:layout_constraintRight_toRightOf="@id/edit_text"
-            app:layout_constraintBottom_toBottomOf="@id/edit_text"
-            android:layout_margin="16dp"
-            />
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:gravity="top"
+                android:hint="기분을 입력해 보세요"
+                android:padding="24dp"
+                app:layout_constraintBottom_toBottomOf="@id/write_emotion"
+                app:layout_constraintLeft_toLeftOf="@id/write_emotion"
+                app:layout_constraintRight_toRightOf="@id/write_emotion"
+                app:layout_constraintTop_toTopOf="@id/write_emotion" />
 
-        <TextView
-            android:id="@+id/confirm_btn"
-            style="@style/Text.White_13sp"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/button_round_10dp_d5d9e2"
-            android:gravity="center"
-            android:text="@string/confirm"
-            app:layout_constraintTop_toBottomOf="@id/write_emotion" />
+            <TextView
+                android:id="@+id/text_size_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="0/0"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text"
+                app:layout_constraintRight_toRightOf="@id/edit_text" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="96dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text" />
 
+            <!--        <TextView-->
+            <!--            android:id="@+id/confirm_btn"-->
+            <!--            style="@style/Text.White_13sp"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="56dp"-->
+            <!--            android:layout_marginHorizontal="24dp"-->
+            <!--            android:layout_marginTop="32dp"-->
+            <!--            android:background="@drawable/button_round_10dp_d5d9e2"-->
+            <!--            android:gravity="center"-->
+            <!--            android:text="@string/confirm"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/write_emotion" />-->
 
-</androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

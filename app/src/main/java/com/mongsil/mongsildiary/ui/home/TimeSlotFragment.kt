@@ -55,47 +55,47 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
 //        binding.viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //        binding.viewpager2.adapter = timeSlotAdapter
 
-        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-        binding.confirmBtn.isClickable = false
+//        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
+//        binding.confirmBtn.isClickable = false
 
         val input = binding.textSizeTv.text.toString()
 
-        binding.editText.addTextChangedListener(object : TextWatcher {
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.textSizeTv.text = input.length.toString() + " /30"
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (binding.editText.length() == 0) {   // 2자리 미만이면
-                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-                    binding.confirmBtn.isClickable = false
-                } else {
-                    binding.confirmBtn.isEnabled = true // 버튼 활성화
-                    binding.confirmBtn.isClickable = true
-                }
-
-                "${input.length.toString()}".log()
-                binding.textSizeTv.text = input.length.toString() + " /30"
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                binding.textSizeTv.text = input.length.toString() + " /30"
-            }
-
-        })
-        binding.confirmBtn.setOnClickListener {
-            if (it.isEnabled) {
-                view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
-                showToast("클릭 되었습니다.")
-            } else {
-                showToast("error!!")
-            }
-        }
-
-        binding.backBtn.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        binding.editText.addTextChangedListener(object : TextWatcher {
+//
+//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                binding.textSizeTv.text = input.length.toString() + " /30"
+//            }
+//
+//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+//                if (binding.editText.length() == 0) {   // 2자리 미만이면
+//                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
+//                    binding.confirmBtn.isClickable = false
+//                } else {
+//                    binding.confirmBtn.isEnabled = true // 버튼 활성화
+//                    binding.confirmBtn.isClickable = true
+//                }
+//
+//                "${input.length.toString()}".log()
+//                binding.textSizeTv.text = input.length.toString() + " /30"
+//            }
+//
+//            override fun afterTextChanged(p0: Editable?) {
+//                binding.textSizeTv.text = input.length.toString() + " /30"
+//            }
+//
+//        })
+//        binding.confirmBtn.setOnClickListener {
+//            if (it.isEnabled) {
+//                view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
+//                showToast("클릭 되었습니다.")
+//            } else {
+//                showToast("error!!")
+//            }
+//        }
+//
+//        binding.backBtn.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
     }
 
     private fun addData() {

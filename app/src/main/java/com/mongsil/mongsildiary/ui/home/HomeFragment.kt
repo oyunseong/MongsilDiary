@@ -13,6 +13,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
+import com.mongsil.mongsildiary.utils.log
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -49,6 +50,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         binding.editBtn.visibility = View.GONE
 
         recordViewModel.contents.observe(viewLifecycleOwner) {
+
             binding.recordContents.text = recordViewModel.contents.value
             if (it.isNotEmpty()) {
                 binding.deleteBtn.visibility = View.VISIBLE
