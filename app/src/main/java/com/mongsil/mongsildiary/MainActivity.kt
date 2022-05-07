@@ -44,8 +44,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             }
         })
 
-        //TODO floating button click event -> Fragment change -> floating button visible check plzzzzzzzzzzzzzzzz
-
         binding.fab.setOnClickListener {
             setFab(isOpen)
         }

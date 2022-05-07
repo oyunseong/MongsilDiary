@@ -52,6 +52,15 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
         fabViewModel.setFabState(false)
         initRecycler()
 
+        binding.toolbar.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        binding.toolbar.uploadBtn.setOnClickListener {
+//            recordViewModel.setContents(binding.editText.text.toString())
+            view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
+        }
+
 //        binding.viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 //        binding.viewpager2.adapter = timeSlotAdapter
 

@@ -31,11 +31,19 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fabViewModel.setFabState(false)
-        binding.backBtn.setOnClickListener {
+
+        binding.toolbar.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
-        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-        binding.confirmBtn.isClickable = false
+        binding.toolbar.uploadBtn.setOnClickListener {
+            recordViewModel.setContents(binding.editText.text.toString())
+            view.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
+        }
+
+
+//        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
+//        binding.confirmBtn.isClickable = false
 
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -43,11 +51,11 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (binding.editText.length() == 0) {
-                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-                    binding.confirmBtn.isClickable = false
+//                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
+//                    binding.confirmBtn.isClickable = false
                 } else {
-                    binding.confirmBtn.isEnabled = true // 버튼 활성화
-                    binding.confirmBtn.isClickable = true
+//                    binding.confirmBtn.isEnabled = true // 버튼 활성화
+//                    binding.confirmBtn.isClickable = true
                 }
             }
 
@@ -56,14 +64,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
         })
 
-        binding.confirmBtn.setOnClickListener {
-            recordViewModel.setContents(binding.editText.text.toString())
-            view?.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
-        }
 
-        binding.backBtn.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
     }
 
     override fun onDestroyView() {
