@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="79dp"
+        android:background="@color/white"
         android:backgroundTint="#97b3ff"
         android:src="@drawable/ic_x_32_menu"
-        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
@@ -53,8 +53,8 @@
         app:layout_constraintRight_toRightOf="@id/fab" />
 
     <TextView
-        style="@style/fab_tv"
         android:id="@+id/setting_tv"
+        style="@style/fab_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -63,32 +63,6 @@
         app:layout_constraintBottom_toBottomOf="@id/setting_fab"
         app:layout_constraintRight_toLeftOf="@id/setting_fab"
         app:layout_constraintTop_toTopOf="@id/setting_fab" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/cheering_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:elevation="6dp"
-        android:src="@drawable/ic_x_24_wording"
-        android:visibility="gone"
-        app:borderWidth="0dp"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toTopOf="@id/setting_fab"
-        app:layout_constraintRight_toRightOf="@id/setting_fab"
-        app:pressedTranslationZ="12dp" />
-
-    <TextView
-        android:id="@+id/cheering_tv"
-        style="@style/fab_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/cheering"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/cheering_fab"
-        app:layout_constraintRight_toLeftOf="@id/cheering_fab"
-        app:layout_constraintTop_toTopOf="@id/cheering_fab" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/calendar_fab"
@@ -100,8 +74,8 @@
         android:visibility="invisible"
         app:borderWidth="0dp"
         app:fabSize="auto"
-        app:layout_constraintBottom_toTopOf="@id/cheering_fab"
-        app:layout_constraintRight_toRightOf="@id/cheering_fab"
+        app:layout_constraintBottom_toTopOf="@id/setting_fab"
+        app:layout_constraintRight_toRightOf="@id/setting_fab"
         app:pressedTranslationZ="12dp" />
 
     <TextView
@@ -115,6 +89,32 @@
         app:layout_constraintBottom_toBottomOf="@id/calendar_fab"
         app:layout_constraintRight_toLeftOf="@id/calendar_fab"
         app:layout_constraintTop_toTopOf="@id/calendar_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/record_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:elevation="6dp"
+        android:src="@drawable/ic_x_24_calendar"
+        android:visibility="invisible"
+        app:borderWidth="0dp"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toTopOf="@id/calendar_fab"
+        app:layout_constraintRight_toRightOf="@id/calendar_fab"
+        app:pressedTranslationZ="12dp" />
+
+    <TextView
+        android:id="@+id/record_tv"
+        style="@style/fab_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:text="@string/record_tv"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/record_fab"
+        app:layout_constraintRight_toLeftOf="@id/record_fab"
+        app:layout_constraintTop_toTopOf="@id/record_fab" />
 
     <TextView
         android:id="@+id/bottom_admob"

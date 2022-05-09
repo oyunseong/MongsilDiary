@@ -16,6 +16,7 @@
     <string name="edit">수정</string>
     <string name="cancel">취소</string>
     <string name="confirm">확인</string>
+    <string name="record_tv">Record. 수정/쓰기</string>
     <string name="finish">완료</string>
     <string name="push_allow">푸쉬 동의</string>
     <string name="font_setting">글꼴 설정</string>

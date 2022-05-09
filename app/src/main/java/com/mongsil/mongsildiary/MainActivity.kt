@@ -70,17 +70,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private fun initFab() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
+//        fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
         fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise)
-        fabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
+        fabRAntiClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_clockwise)
     }
 
     private val fabArray by lazy {
         arrayOf(
             binding.settingFab,
-            binding.cheeringFab,
+            binding.recordFab,
             binding.calendarFab,
             binding.settingTv,
-            binding.cheeringTv,
+            binding.recordTv,
             binding.calendarTv,
         )
     }
@@ -88,8 +89,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private fun setFab(boolean: Boolean) {
         if (!boolean) {
             openFab()
+            binding.fab.setImageResource(R.drawable.ic_x_32_close)
         } else {
             closedFab()
+            binding.fab.setImageResource(R.drawable.ic_x_32_menu)
         }
     }
 
@@ -98,22 +101,23 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             fab.startAnimation(fabOpen)
         }
         binding.fab.startAnimation(fabRAntiClockwise)
+
         binding.shadowView.visibility = View.VISIBLE
         binding.calendarFab.visibility = View.VISIBLE
-        binding.cheeringFab.visibility = View.VISIBLE
+        binding.recordFab.visibility = View.VISIBLE
         binding.settingFab.visibility = View.VISIBLE
         binding.calendarTv.visibility = View.VISIBLE
-        binding.cheeringTv.visibility = View.VISIBLE
+        binding.recordTv.visibility = View.VISIBLE
         binding.settingTv.visibility = View.VISIBLE
 
         binding.shadowView.bringToFront()
         binding.settingTv.bringToFront()
-        binding.cheeringTv.bringToFront()
+        binding.recordTv.bringToFront()
         binding.calendarTv.bringToFront()
 
         binding.calendarFab.isClickable = true
         binding.settingFab.isClickable = true
-        binding.cheeringFab.isClickable = true
+        binding.recordFab.isClickable = true
 
         isOpen = true
     }
@@ -125,15 +129,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         binding.fab.startAnimation(fabRClockwise)
         binding.shadowView.visibility = View.GONE
         binding.calendarFab.visibility = View.GONE
-        binding.cheeringFab.visibility = View.GONE
+        binding.recordFab.visibility = View.GONE
         binding.settingFab.visibility = View.GONE
         binding.calendarTv.visibility = View.GONE
-        binding.cheeringTv.visibility = View.GONE
+        binding.recordTv.visibility = View.GONE
         binding.settingTv.visibility = View.GONE
 
         binding.calendarFab.isClickable = false
         binding.settingFab.isClickable = false
-        binding.cheeringFab.isClickable = false
+        binding.recordFab.isClickable = false
 
         isOpen = false
     }
