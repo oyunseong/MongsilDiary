@@ -3,7 +3,6 @@
 
     <style name="Text.White_13sp" parent="android:TextAppearance">
         <item name="android:textColor">@color/white</item>
-
         <item name="android:textSize">13sp</item>
     </style>
 
@@ -63,5 +62,7 @@
         <item name="android:textColorPrimary">@color/btn_color</item>
         <item name="android:textStyle">normal</item>
     </style>
+
+
 
 </resources>

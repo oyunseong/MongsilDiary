@@ -7,15 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mongsil.mongsildiary.MainActivity
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
-import com.mongsil.mongsildiary.model.FabViewModel
 import com.mongsil.mongsildiary.model.RecordViewModel
+import com.mongsil.mongsildiary.utils.log
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -41,12 +39,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         addData()
         initRecycler()
+        setRecordOption()
+    }
 
+    private fun setRecordOption() {
         binding.addBtn.setOnClickListener {
-            view.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
+            view!!.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
+        binding.deleteBtn.visibility = View.GONE
+        binding.editBtn.visibility = View.GONE
 
         recordViewModel.contents.observe(viewLifecycleOwner) {
+
             binding.recordContents.text = recordViewModel.contents.value
             if (it.isNotEmpty()) {
                 binding.deleteBtn.visibility = View.VISIBLE
@@ -64,7 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             showToast("삭제버튼 클릭")
         }
         binding.editBtn.setOnClickListener {
-            view.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
+            view!!.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
     }
 
