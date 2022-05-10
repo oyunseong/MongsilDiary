@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_weight="1"
     android:layout_height="match_parent"
     android:background="@color/main_background">
 
@@ -9,59 +10,78 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-
-        android:id="@+id/constraint"
+    <EditText
+        android:id="@+id/edit_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/white"
+        android:gravity="top"
+        android:hint="@string/record_text"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="32dp"
+        android:textCursorDrawable="@drawable/text_cursor"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-        <EditText
-            android:id="@+id/edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@color/white"
-            android:gravity="top"
-            android:hint="@string/record_text"
-            android:paddingHorizontal="32dp"
-            android:paddingTop="32dp"
-            android:textCursorDrawable="@drawable/text_cursor"
-            app:layout_constraintBottom_toTopOf="@id/constraint"
-            app:layout_constraintLeft_toLeftOf="@id/constraint"
-            app:layout_constraintRight_toRightOf="@id/constraint"
-            app:layout_constraintTop_toTopOf="@id/constraint" />
+    <TextView
+        android:id="@+id/test1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/edit_text" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/confirm_btn"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="56dp"-->
-        <!--            android:layout_marginHorizontal="24dp"-->
-        <!--            android:layout_marginBottom="24dp"-->
-        <!--            android:background="@drawable/button_round_10dp_d5d9e2"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/confirm"-->
-        <!--            android:textColor="@color/white"-->
-        <!--            android:textSize="18dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--            app:layout_constraintRight_toRightOf="parent" />-->
+    <EditText
+        android:id="@+id/edit1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@color/white"
+        android:gravity="top"
+        android:hint="@string/record_text"
+        android:paddingHorizontal="32dp"
+        android:paddingTop="32dp"
+        android:textCursorDrawable="@drawable/text_cursor"
+        app:layout_constraintTop_toBottomOf="@id/test1" />
+
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:id="@+id/constraint"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:background="@color/white"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/toolbar">-->
+
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="linear 밖에 버튼"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+    <LinearLayout
+        app:layout_constraintVertical_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="50dp"
-            android:text="버튼"
             android:backgroundTint="#FFEB3B"
-            app:layout_constraintRight_toRightOf="@id/constraint" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:text="linaer 안에 버튼"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
