@@ -1,5 +1,6 @@
 package com.mongsil.mongsildiary.ui.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,10 +17,10 @@ import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.utils.log
 
 class RecordFragment : BaseFragment<FragmentRecordBinding>() {
-    val recordViewModel : RecordViewModel by activityViewModels()
+    val recordViewModel: RecordViewModel by activityViewModels()
 
 
-//    private val recordViewModel: RecordViewModel by viewModels()
+    //    private val recordViewModel: RecordViewModel by viewModels()
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -27,19 +28,8 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         return FragmentRecordBinding.inflate(inflater, container, false)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         fabViewModel.setFabState(false)
 
         binding.toolbar.backBtn.setOnClickListener {
@@ -47,25 +37,32 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            recordViewModel.setContents(binding.editText.text.toString())
-            view.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
+            "클릭".log()
+            if (binding.editText.length() == 0) {
+                binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+                binding.toolbar.uploadBtn.isClickable = false
+            } else {
+                recordViewModel.setContents(binding.editText.text.toString())
+                view.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
+            }
         }
-
-
-//        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-//        binding.confirmBtn.isClickable = false
 
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                "${binding.editText.length()}".log()
+                // EditText에 아무것도 안 써있으면 우측 상단 등록 버튼 비활성화
                 if (binding.editText.length() == 0) {
-//                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-//                    binding.confirmBtn.isClickable = false
+                    binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+                    binding.toolbar.uploadBtn.isClickable = false
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
                 } else {
-//                    binding.confirmBtn.isEnabled = true // 버튼 활성화
-//                    binding.confirmBtn.isClickable = true
+                    binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+                    binding.toolbar.uploadBtn.isClickable = true
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
                 }
             }
 

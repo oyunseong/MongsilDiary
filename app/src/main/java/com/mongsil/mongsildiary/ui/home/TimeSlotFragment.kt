@@ -2,6 +2,7 @@ package com.mongsil.mongsildiary.ui.home
 
 import HorizontalItemDecorator
 import VerticalItemDecorator
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -57,54 +58,40 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-//            recordViewModel.setContents(binding.editText.text.toString())
-            view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
+            "클릭".log()
+            if (binding.editText.length() == 0) {
+                binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+                binding.toolbar.uploadBtn.isClickable = false
+            } else {
+//                recordViewModel.setContents(binding.editText.text.toString())
+                view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
+            }
         }
 
-//        binding.viewpager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-//        binding.viewpager2.adapter = timeSlotAdapter
+        binding.editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-//        binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-//        binding.confirmBtn.isClickable = false
+            }
 
-        val input = binding.textSizeTv.text.toString()
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                "${binding.editText.length()}".log()
+                // EditText에 아무것도 안 써있으면 우측 상단 등록 버튼 비활성화
+                if (binding.editText.length() == 0) {
+                    binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+                    binding.toolbar.uploadBtn.isClickable = false
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
+                } else {
+                    binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+                    binding.toolbar.uploadBtn.isClickable = true
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
+                }
+            }
 
-//        binding.editText.addTextChangedListener(object : TextWatcher {
-//
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                binding.textSizeTv.text = input.length.toString() + " /30"
-//            }
-//
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                if (binding.editText.length() == 0) {   // 2자리 미만이면
-//                    binding.confirmBtn.isEnabled = false    // 버튼 비활성화
-//                    binding.confirmBtn.isClickable = false
-//                } else {
-//                    binding.confirmBtn.isEnabled = true // 버튼 활성화
-//                    binding.confirmBtn.isClickable = true
-//                }
-//
-//                "${input.length.toString()}".log()
-//                binding.textSizeTv.text = input.length.toString() + " /30"
-//            }
-//
-//            override fun afterTextChanged(p0: Editable?) {
-//                binding.textSizeTv.text = input.length.toString() + " /30"
-//            }
-//
-//        })
-//        binding.confirmBtn.setOnClickListener {
-//            if (it.isEnabled) {
-//                view.findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
-//                showToast("클릭 되었습니다.")
-//            } else {
-//                showToast("error!!")
-//            }
-//        }
-//
-//        binding.backBtn.setOnClickListener {
-//            requireActivity().onBackPressed()
-//        }
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
+
     }
 
     private fun addData() {
