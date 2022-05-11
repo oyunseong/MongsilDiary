@@ -28,13 +28,12 @@
         app:navGraph="@navigation/nav_graph" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/FloatingButtonTheme"
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="79dp"
-        android:background="@color/white"
-        android:backgroundTint="#97b3ff"
         android:src="@drawable/ic_x_32_menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
@@ -45,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:backgroundTint="@color/white"
+        android:tint="@color/white"
         android:src="@drawable/ic_x_24_setting"
         android:visibility="invisible"
         app:fabSize="auto"
@@ -70,6 +70,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:elevation="6dp"
+        android:tint="@android:color/white"
         android:src="@drawable/ic_x_24_calendar"
         android:visibility="invisible"
         app:borderWidth="0dp"
