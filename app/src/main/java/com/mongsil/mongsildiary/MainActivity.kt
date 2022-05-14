@@ -6,14 +6,11 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.model.FabViewModel
-import com.mongsil.mongsildiary.model.TimeSlotViewModel
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 import com.mongsil.mongsildiary.utils.log
@@ -34,23 +31,40 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        initFab()
+        setFloatingButtonAnimation()
 
-        fabViewModel.state.observe(this, Observer {
-            if (it == true) {
+//        fabViewModel.state.observe(this, Observer {
+//            if (it == true) {
+//                binding.fab.visibility = View.VISIBLE
+//            } else {
+//                binding.fab.visibility = View.GONE
+//            }
+//        })
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+//            "현재 위치 id값 :${destination.id}".log()
+//            "timeSlotFragment id값 : ${R.id.timeSlotFragment}".log()
+            if (destination.id == R.id.settingFragment ||
+                destination.id == R.id.calendarFragment ||
+                destination.id == R.id.homeFragment
+            ) {
                 binding.fab.visibility = View.VISIBLE
             } else {
+                binding.fab.clearAnimation()
                 binding.fab.visibility = View.GONE
+
             }
-        })
+//            "$isOpen".log()
+//            "visible 상태 : ${binding.fab.visibility}".log()
+        }
 
         binding.fab.setOnClickListener {
-            setFab(isOpen)
+            setOnClickFloatingButton(isOpen)
         }
+
 
         binding.settingFab.setOnClickListener {
             Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
-
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name)
                 return@setOnClickListener
             navController.navigate(R.id.settingFragment)
@@ -64,10 +78,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             closedFab()
         }
 
-        "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
+//        "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
     }
 
-    private fun initFab() {
+    private fun setFloatingButtonAnimation() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
 //        fabRClockwise = AnimationUtils.loadAnimation(this, R.anim.rotate_anticlockwise)
@@ -86,17 +100,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         )
     }
 
-    private fun setFab(boolean: Boolean) {
+    private fun setOnClickFloatingButton(boolean: Boolean) {
         if (!boolean) {
             openFab()
-            binding.fab.setImageResource(R.drawable.ic_x_32_close)
         } else {
             closedFab()
-            binding.fab.setImageResource(R.drawable.ic_x_32_menu)
         }
     }
 
     private fun openFab() {
+        binding.fab.setImageResource(R.drawable.ic_x_32_close)
         fabArray.forEachIndexed { _, fab ->
             fab.startAnimation(fabOpen)
         }
@@ -123,6 +136,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     }
 
     private fun closedFab() {
+        binding.fab.setImageResource(R.drawable.ic_x_32_menu)
         fabArray.forEachIndexed { _, fab ->
             fab.startAnimation(fabClose)
         }
@@ -150,21 +164,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             super.onBackPressed()
         }
 
-//        if (System.currentTimeMillis() > backKeyPressedTime + 1000) {
-//            backKeyPressedTime = System.currentTimeMillis()
-//            return;
-//        }
-//        if (System.currentTimeMillis() <= backKeyPressedTime + 1000) {
-//            finish()
-//        }
-
     }
-
-    fun testLambda(a: Int) {
-        a(1,2)
-    }
-
-    val a:(Int,Int)->Int = { x: Int, y: Int -> x+y}
-
 }
 
