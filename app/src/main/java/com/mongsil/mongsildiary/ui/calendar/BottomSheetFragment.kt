@@ -44,6 +44,14 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
+        year.setOnValueChangedListener { numberPicker, i, i2 ->
+            year_tv.text = i2.toString()+"년"
+        }
+        month.setOnValueChangedListener { picker, oldVal, newVal ->
+            month_tv.text = newVal.toString()
+        }
+
+
         //  최소값 설정
         year.minValue = 2019
         month.minValue = 1

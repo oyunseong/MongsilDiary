@@ -2,15 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:background="@color/main_background">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-
 
     <EditText
         android:id="@+id/edit_text"
@@ -47,36 +45,21 @@
         android:textCursorDrawable="@drawable/text_cursor"
         app:layout_constraintTop_toBottomOf="@id/test1" />
 
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:id="@+id/constraint"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:background="@color/white"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/toolbar">-->
-
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        app:layout_constraintVertical_weight="@integer/material_motion_duration_long_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:backgroundTint="#FFEB3B"
             android:text="linear 안에 버튼"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -37,9 +37,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         initFab()
 
         fabViewModel.state.observe(this, Observer {
-            if (it == true){
+            if (it == true) {
                 binding.fab.visibility = View.VISIBLE
-            }else {
+            } else {
                 binding.fab.visibility = View.GONE
             }
         })
@@ -159,6 +159,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 //        }
 
     }
+
+    fun testLambda(a: Int) {
+        a(1,2)
+    }
+
+    val a:(Int,Int)->Int = { x: Int, y: Int -> x+y}
 
 }
 

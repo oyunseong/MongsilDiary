@@ -117,10 +117,10 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
 
-                timeSlotAdapter.setItemIndex(
-                    (recyclerView.layoutManager as LinearLayoutManager)
-                        .findFirstVisibleItemPosition()
-                )
+//                timeSlotAdapter.setItemIndex(
+//                    (recyclerView.layoutManager as LinearLayoutManager)
+//                        .findFirstVisibleItemPosition()
+//                )
             }
         })
 

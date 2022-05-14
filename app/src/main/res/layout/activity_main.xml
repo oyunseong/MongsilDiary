@@ -39,12 +39,11 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/FloatingButtonTheme"
         android:id="@+id/setting_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
-        android:backgroundTint="@color/white"
-        android:tint="@color/white"
         android:src="@drawable/ic_x_24_setting"
         android:visibility="invisible"
         app:fabSize="auto"
@@ -65,12 +64,11 @@
         app:layout_constraintTop_toTopOf="@id/setting_fab" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/FloatingButtonTheme"
         android:id="@+id/calendar_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:elevation="6dp"
-        android:tint="@android:color/white"
         android:src="@drawable/ic_x_24_calendar"
         android:visibility="invisible"
         app:borderWidth="0dp"
@@ -92,10 +90,10 @@
         app:layout_constraintTop_toTopOf="@id/calendar_fab" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        style="@style/FloatingButtonTheme"
         android:id="@+id/record_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
         android:elevation="6dp"
         android:src="@drawable/ic_x_24_calendar"
         android:visibility="invisible"
@@ -121,7 +119,7 @@
         android:id="@+id/bottom_admob"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/black"
+        android:background="#FF5722"
         android:gravity="center"
         android:text="광고"
         android:textColor="@color/white"

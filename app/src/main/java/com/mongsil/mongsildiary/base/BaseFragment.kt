@@ -18,7 +18,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     private var _binding: B? = null
     val binding get() = _binding!!
     private val _tag: String = this::class.java.name
-    val fabViewModel:FabViewModel by activityViewModels()
+    val fabViewModel: FabViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
