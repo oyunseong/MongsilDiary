@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="56dp"
     android:background="@color/main_background"
     android:orientation="horizontal">
 
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="12dp"
         android:src="@drawable/ic_x_32_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         style="@style/Text.bottomSheet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="43dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:letterSpacing="-0.05"
         android:lineSpacingExtra="10sp"
