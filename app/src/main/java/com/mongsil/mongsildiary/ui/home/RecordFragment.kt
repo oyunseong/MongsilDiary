@@ -5,31 +5,64 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
-import com.mongsil.mongsildiary.model.FabViewModel
 import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.utils.log
 
-
-
 class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     val recordViewModel: RecordViewModel by activityViewModels()
-    val REQUEST_CODE = 0
+    private val REQUEST_CODE = 1
 
-    private lateinit var getResult:ActivityResultLauncher<Intent>
+    private lateinit var getResult: ActivityResultLauncher<Intent>
 
     //    private val recordViewModel: RecordViewModel by viewModels()
+
+    private fun openGallery() {
+        //TODO 권한 요청
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    /*
+    1. 이미지 클릭시 data에 uri값으로 전달
+    2. uri값을 bitmap으로 변환해야함 ( getBitmap 함수)
+
+    onActivityResult()는 갤러리앱에서 몽실 앱으로 돌아올 때 호출
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUEST_CODE) {
+                val currentImageUrl: Uri? = data?.data
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(
+                        context!!.contentResolver,
+                        currentImageUrl
+                    )
+                    binding.firstImageView.setImageBitmap(bitmap)
+                } catch (e: Exception) {
+                    "에러뜨넹 : ${e.printStackTrace()}".log()
+                }
+            } else {
+                "something wrong".log("ActivityResult")
+            }
+        } else {
+
+        }
+    }
+
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -37,33 +70,24 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         return FragmentRecordBinding.inflate(inflater, container, false)
     }
 
-
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fabViewModel.setFabState(false)
+//        fabViewModel.setFabState(false)
 
-
-        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            "resultCode : ${it.resultCode}".log()
-            "RESULT_OK : ${RESULT_OK}".log()
-            if (it.resultCode == RESULT_OK){
-                showToast("예외!")
-            }else
-            {
-                showToast("나콜백!!!")
-            }
-        }
+//        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+//            "resultCode : ${it.resultCode}".log()
+//            "RESULT_OK : ${RESULT_OK}".log()
+//            if (it.resultCode == RESULT_OK){
+//
+//            }else
+//            {
+//                showToast("나콜백!!!")
+//            }
+//        }
 
         binding.galleryBtn.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            getResult.launch(intent)
-//            intent.type = "image/*"
-//            intent.action = Intent.ACTION_GET_CONTENT
-//            startActivityForResult(intent, REQUEST_CODE)
+            openGallery()
         }
-
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
