@@ -18,11 +18,15 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
-import com.mongsil.mongsildiary.utils.log
+import com.mongsil.mongsildiary.utils.printLog
+import com.mongsil.mongsildiary.utils.printError
 
 class RecordFragment : BaseFragment<FragmentRecordBinding>() {
-    val recordViewModel: RecordViewModel by activityViewModels()
-    private val REQUEST_CODE = 1
+    //TODO activityViewModels()로 뷰모델을 생성하면. 뷰모델이 액티비티 라이프사이클 스코프 내에서 관리됨. 즉, 프래그먼트가 파괴되더라도 액티비티가 살아있는 한 해당 뷰모델이 사라지지 않고, 유지됨.
+    //TODO RecordFragment 를 종료시키더라도 해당 뷰모델을 유지해야 할 이유가 있는가?
+    //TODO 뷰모델 초기화 방법 ( 뷰모델 생성 방법 ) 찾아보기
+    private val recordViewModel: RecordViewModel by activityViewModels()
+    private val REQUEST_CODE = 1 //TODO 상수로 선언하기. const 검색
 
     private lateinit var getResult: ActivityResultLauncher<Intent>
 
@@ -48,15 +52,17 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
                 val currentImageUrl: Uri? = data?.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(
+                        //TODO requireContext()로 교체
                         context!!.contentResolver,
                         currentImageUrl
                     )
                     binding.firstImageView.setImageBitmap(bitmap)
                 } catch (e: Exception) {
-                    "에러뜨넹 : ${e.printStackTrace()}".log()
+                    "에러뜨넹 : ${e.printStackTrace()}".printLog()
+                    e.printError()
                 }
             } else {
-                "something wrong".log("ActivityResult")
+                "something wrong".printLog("ActivityResult")
             }
         } else {
 
@@ -94,7 +100,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            "클릭".log()
+            "클릭".printLog()
             if (binding.editText.length() == 0) {
                 binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
                 binding.toolbar.uploadBtn.isClickable = false
@@ -110,7 +116,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                "${binding.editText.length()}".log()
+                "${binding.editText.length()}".printLog()
                 // EditText에 아무것도 안 써있으면 우측 상단 등록 버튼 비활성화
                 if (binding.editText.length() == 0) {
                     binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화

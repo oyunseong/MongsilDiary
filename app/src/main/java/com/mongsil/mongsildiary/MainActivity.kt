@@ -13,12 +13,11 @@ import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.model.FabViewModel
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
-import com.mongsil.mongsildiary.utils.log
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
     private var backKeyPressedTime = 0L
     private var isOpen: Boolean = false
-    private lateinit var fabOpen: Animation
+    private lateinit var fabOpen: Animation //TODO lateinit 사용 자제하기. 해당 변수가 초기화되지 않은 상태에서, 해당 변수를 참조하면, 에러가 발생함. lateinit으로 선언하면 이 변수가 언제 초기화되는지 시점을 체크해야 하는 불편함이 있음.
     private lateinit var fabClose: Animation
     private lateinit var fabRClockwise: Animation
     private lateinit var fabRAntiClockwise: Animation
@@ -108,6 +107,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
     }
 
+    //TODO 뷰의 상태를 처리하는 코드를 없애기 위해 databinding 고려해보는 것이 좋을 듯.
     private fun openFab() {
         binding.fab.setImageResource(R.drawable.ic_x_32_close)
         fabArray.forEachIndexed { _, fab ->

@@ -1,21 +1,16 @@
 package com.mongsil.mongsildiary.ui.calendar
 
-import android.app.AlertDialog
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.NumberPicker
 import android.widget.TextView
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mongsil.mongsildiary.R
-import com.mongsil.mongsildiary.databinding.DialogDatepickerBinding
 
+//TODO 뷰바인딩 적용하기
 class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(
@@ -28,7 +23,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val year: NumberPicker = view.findViewById(R.id.yearpicker_datepicker)
         val month: NumberPicker = view.findViewById(R.id.monthpicker_datepicker)
         val cancel: TextView = view.findViewById(R.id.cancel_btn)

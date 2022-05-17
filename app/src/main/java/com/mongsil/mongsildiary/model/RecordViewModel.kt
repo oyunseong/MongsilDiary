@@ -3,7 +3,7 @@ package com.mongsil.mongsildiary.model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mongsil.mongsildiary.utils.log
+import com.mongsil.mongsildiary.utils.printLog
 
 class RecordViewModel : ViewModel() {
     private val _contents = MutableLiveData<String>()
@@ -13,7 +13,7 @@ class RecordViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        "++onCleared()".log("RecordViewModel")
+        "++onCleared()".printLog("RecordViewModel")
     }
 
     fun setContents(data : String){

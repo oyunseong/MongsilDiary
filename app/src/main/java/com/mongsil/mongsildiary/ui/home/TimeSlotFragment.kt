@@ -1,7 +1,7 @@
 package com.mongsil.mongsildiary.ui.home
 
-import HorizontalItemDecorator
-import VerticalItemDecorator
+import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
+import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +9,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,8 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.model.Emotion
-import com.mongsil.mongsildiary.utils.log
+import com.mongsil.mongsildiary.utils.printLog
+import com.mongsil.mongsildiary.utils.showToast
 import kotlin.collections.ArrayList
 
 class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
@@ -28,7 +28,7 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
             TimeSlotAdapter(dataSet, object :
                 TimeSlotAdapter.ViewHolder.OnItemClickListener {
             override fun onClick(v: View, position: Int) {
-                showToast("${position}번째 item")
+                requireContext().showToast("${position}번째 item")
             }
         })
 
@@ -58,7 +58,7 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            "클릭".log()
+            "클릭".printLog()
             if (binding.editText.length() == 0) {
                 binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
                 binding.toolbar.uploadBtn.isClickable = false
@@ -74,7 +74,7 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                "${binding.editText.length()}".log()
+                "${binding.editText.length()}".printLog()
                 // EditText에 아무것도 안 써있으면 우측 상단 등록 버튼 비활성화
                 if (binding.editText.length() == 0) {
                     binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화

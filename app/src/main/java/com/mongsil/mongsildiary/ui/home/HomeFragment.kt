@@ -1,7 +1,7 @@
 package com.mongsil.mongsildiary.ui.home
 
-import HorizontalItemDecorator
-import VerticalItemDecorator
+import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
+import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
-import com.mongsil.mongsildiary.utils.log
+import com.mongsil.mongsildiary.utils.showToast
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
@@ -23,7 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private val homeAdapter = HomeAdapter(dataSet, object : HomeAdapter.OnItemClickListener {
         override fun onClick(v: View, position: Int) {
             view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
-            showToast("${position}번째 item")
+            requireContext().showToast("${position}번째 item")
         }
     })
 
@@ -44,6 +44,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setRecordOption() {
         binding.addBtn.setOnClickListener {
+            //TODO view!! -> requireView() 함수로 대체가능. 해당 함수 내부 한 번 설펴보기.
             view!!.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
         binding.deleteBtn.visibility = View.GONE
@@ -65,9 +66,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.deleteBtn.setOnClickListener {
             recordViewModel.setContents("")
-            showToast("삭제버튼 클릭")
+            requireContext().showToast("삭제버튼 클릭")
         }
         binding.editBtn.setOnClickListener {
+            //TODO view!! -> requireView() 함수로 대체가능. 해당 함수 내부 한 번 설펴보기.
             view!!.findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
         }
     }

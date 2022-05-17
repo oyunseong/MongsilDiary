@@ -9,7 +9,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
 import com.mongsil.mongsildiary.databinding.ItemTimeslotListBinding
 import com.mongsil.mongsildiary.model.Emotion
-
+//TODO 홈어댑터 패키지랑 동일하게 반영하기
 class SubTimeSlotAdapter(
     private val dataSet: ArrayList<List<Emotion>>,
     private val onItemClickListener: OnItemClickListener

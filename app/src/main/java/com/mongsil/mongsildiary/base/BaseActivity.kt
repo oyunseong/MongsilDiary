@@ -10,6 +10,7 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseActivity<B : ViewBinding>(
     val bindingFactory: (LayoutInflater) -> B
 ) : AppCompatActivity() {
+
     private var _binding: B? = null
     val binding get() = _binding!!
 
@@ -20,31 +21,12 @@ abstract class BaseActivity<B : ViewBinding>(
         Log.d(tag, "++onCreate")
         _binding = bindingFactory(layoutInflater)
         setContentView(binding.root)
-//        makeStatusBarTransparent()
     }
-
-//    private fun Activity.makeStatusBarTransparent() {
-//        window.apply {
-//            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-//            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                decorView.systemUiVisibility =
-//                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//            } else {
-//                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//            }
-//            statusBarColor = Color.TRANSPARENT
-//        }
-//    }
 
     override fun onDestroy() {
         super.onDestroy()
         Log.d(tag, "++onDestroy")
         _binding = null
-    }
-
-    fun showToast(contents: String) {
-        Toast.makeText(this, contents, Toast.LENGTH_SHORT).show()
     }
 
     override fun onStart() {

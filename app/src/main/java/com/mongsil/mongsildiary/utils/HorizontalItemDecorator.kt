@@ -1,3 +1,5 @@
+package com.mongsil.mongsildiary.utils
+
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

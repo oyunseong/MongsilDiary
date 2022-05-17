@@ -6,18 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.viewbinding.ViewBinding
 import com.mongsil.mongsildiary.model.FabViewModel
-import com.mongsil.mongsildiary.utils.log
 
+//TODO BaseFragment 사용 자제하기. ViewBinding을 안쓰는 프래그먼트라면?
+//TODO 컴포즈로 구성된 프래그먼트 혹은 데이터바인딩을 사용하는 프래그먼트일 경우 문제 발생
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
+
     private var _binding: B? = null
     val binding get() = _binding!!
+
     private val _tag: String = this::class.java.name
+
     val fabViewModel: FabViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -32,7 +34,7 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fabViewModel.setFabState(true)
+        fabViewModel.setFabState(true) //TODO BaseFragment 에서 UI 건드리는 코드 넣지 않기.
         Log.d(_tag, "++onViewCreated")
     }
 
@@ -42,7 +44,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         super.onCreate(savedInstanceState)
         Log.d(_tag, "++onCreate")
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -55,16 +56,10 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         Log.d(_tag, "++onAttach")
     }
 
-
-    fun showToast(str: String) {
-        Toast.makeText(activity, str, Toast.LENGTH_SHORT).show();
-    }
-
     override fun onStart() {
         super.onStart()
         Log.d(_tag, "++onStart")
     }
-
 
     override fun onResume() {
         super.onResume()

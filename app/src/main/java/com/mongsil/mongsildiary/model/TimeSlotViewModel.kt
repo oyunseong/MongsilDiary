@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+//TODO 뷰모델은 Ui 패키지로
 class TimeSlotViewModel : ViewModel() {
     private var _timeSlot = MutableLiveData<List<TimeSlot>>()
     val timeSlot: LiveData<List<TimeSlot>>
