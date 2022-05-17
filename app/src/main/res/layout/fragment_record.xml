@@ -10,40 +10,91 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <EditText
-        android:id="@+id/edit_text"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@color/white"
-        android:gravity="top"
-        android:hint="@string/record_text"
-        android:paddingHorizontal="32dp"
-        android:paddingTop="32dp"
-        android:textCursorDrawable="@drawable/text_cursor"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/white"
+                android:gravity="top"
+                android:hint="@string/record_text"
+                android:paddingHorizontal="32dp"
+                android:paddingTop="32dp"
+                android:textCursorDrawable="@drawable/text_cursor"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/constraint" />
+
+            <TextView
+                android:id="@+id/test1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/edit_text" />
+
+            <EditText
+                android:id="@+id/edit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/white"
+                android:gravity="top"
+                android:hint="@string/record_text"
+                android:paddingHorizontal="32dp"
+                android:paddingTop="32dp"
+                android:textCursorDrawable="@drawable/text_cursor"
+                app:layout_constraintTop_toBottomOf="@id/test1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/blank_image"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/ic_emoticon_01"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
-        android:id="@+id/test1"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/edit_text" />
+        android:id="@+id/blank1_tv"
+        style="@style/Text.record_16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/record_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/blank_image" />
 
-    <EditText
-        android:id="@+id/edit1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:backgroundTint="@color/white"
-        android:gravity="top"
-        android:hint="@string/record_text"
-        android:paddingHorizontal="32dp"
-        android:paddingTop="32dp"
-        android:textCursorDrawable="@drawable/text_cursor"
-        app:layout_constraintTop_toBottomOf="@id/test1" />
+    <TextView
+        android:id="@+id/blank2_tv"
+        style="@style/Text.record_16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sub_record_text"
+        app:layout_constraintEnd_toEndOf="@id/blank1_tv"
+        app:layout_constraintStart_toStartOf="@id/blank1_tv"
+        app:layout_constraintTop_toBottomOf="@id/blank1_tv" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -54,6 +105,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
+            android:id="@+id/gallery_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:backgroundTint="#FFEB3B"
