@@ -34,48 +34,43 @@
                 app:layout_constraintLeft_toLeftOf="@id/constraint"
                 app:layout_constraintTop_toTopOf="@id/constraint" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="292dp"
                 android:layout_marginTop="32dp"
-                android:clipToPadding="false"
+                android:background="@color/main_background"
                 android:orientation="horizontal"
-                android:paddingHorizontal="24dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title"
-                app:spanCount="3"
-                tools:listitem="@layout/item_timeslot_list" />
+                tools:layout="@layout/item_timeslot_list" />
 
-            <!--        <androidx.viewpager2.widget.ViewPager2-->
-            <!--            android:background="@color/main_background"-->
-            <!--            android:id="@+id/viewpager2"-->
-            <!--            android:layout_marginTop="32dp"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="0dp"-->
-            <!--            android:orientation="horizontal"-->
-            <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--            app:layout_constraintRight_toRightOf="parent"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/title" />-->
-
-            <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
-                android:id="@+id/spring_dots_indicator"
+            <com.mongsil.mongsildiary.utils.BarIndicator
+                android:id="@+id/bar_indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                app:dampingRatio="0.5"
-                app:dotsColor="@color/black"
-                app:dotsCornerRadius="2dp"
-                app:dotsSize="16dp"
-                app:dotsSpacing="6dp"
-                app:dotsStrokeColor="@color/teal_200"
-                app:dotsStrokeWidth="2dp"
+                android:layout_marginTop="32dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recycler"
-                app:stiffness="300" />
+                app:layout_constraintTop_toBottomOf="@id/viewpager2" />
+
+<!--                        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator-->
+<!--                            android:id="@+id/spring_dots_indicator"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="40dp"-->
+<!--                            app:dampingRatio="0.5"-->
+<!--                            app:dotsColor="@color/black"-->
+<!--                            app:dotsCornerRadius="2dp"-->
+<!--                            app:dotsSize="16dp"-->
+<!--                            app:dotsSpacing="6dp"-->
+<!--                            app:dotsStrokeColor="@color/teal_200"-->
+<!--                            app:dotsStrokeWidth="2dp"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintRight_toRightOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@id/viewpager2"-->
+<!--                            app:stiffness="300" />-->
 
             <TextView
                 android:id="@+id/write_emotion"
@@ -87,7 +82,7 @@
                 android:backgroundTint="@null"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spring_dots_indicator" />
+                app:layout_constraintTop_toBottomOf="@id/bar_indicator" />
 
             <EditText
                 android:id="@+id/edit_text"
@@ -95,7 +90,7 @@
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
                 android:gravity="top"
-                android:hint="기분을 입력해 보세요"
+                android:hint="@string/editText_input_phrases"
                 android:padding="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/write_emotion"
                 app:layout_constraintLeft_toLeftOf="@id/write_emotion"
