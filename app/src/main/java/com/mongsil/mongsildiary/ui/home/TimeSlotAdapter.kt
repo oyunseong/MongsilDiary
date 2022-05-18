@@ -1,47 +1,47 @@
 package com.mongsil.mongsildiary.ui.home
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ListAdapter
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mongsil.mongsildiary.R
-import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
-import com.mongsil.mongsildiary.databinding.ItemTimeslotListBinding
 import com.mongsil.mongsildiary.databinding.ItemViewpagerBinding
-import com.mongsil.mongsildiary.model.Emotion
+import com.mongsil.mongsildiary.model.Emoticon
 import com.mongsil.mongsildiary.model.TimeSlotViewPagerData
 
+
+//TODO HomeAdapter 리뷰 내용 참고
 class TimeSlotAdapter(
-    private val emotionList: ArrayList<TimeSlotViewPagerData>,
+    private val emoticonChunkList: List<List<Emoticon>>,
     private val onItemClickListener: ViewHolder.OnItemClickListener
-) :
-    RecyclerView.Adapter<TimeSlotAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<TimeSlotAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val context: Context = parent.context
-//        val view = LayoutInflater.from(context).inflate(R.layout.item_viewpager, parent, false)
-        val binding =
-            ItemViewpagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemViewpagerBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = emotionList.size
+    override fun getItemCount(): Int = 2
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             onItemClickListener.onClick(it, position)
         }
-        holder.bind(emotionList[position])
+        holder.bind()
     }
 
-    class ViewHolder(val binding: ItemViewpagerBinding) :
+    class ViewHolder(private val binding: ItemViewpagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(timeSlotViewPagerData: TimeSlotViewPagerData) {
-            binding.title.text = timeSlotViewPagerData.title
+
+        fun bind(emoticonList: List<Emoticon>) {
+//            binding.title.text = timeSlotViewPagerData.title
+            binding.emoticonList.apply {
+                adapter = EmoticonAdapter(emoticons = emoticonList)
+                layoutManager = GridLayoutManager(binding.root.context, 4)
+            }
         }
 
         interface OnItemClickListener {

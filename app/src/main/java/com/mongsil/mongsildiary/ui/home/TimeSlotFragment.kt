@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
@@ -15,24 +16,22 @@ import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.model.TimeSlotViewPagerData
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
-import kotlin.collections.ArrayList
 
+//TODO TimeSlot 패키지 만들기
+//TODO by lazy 초기화 사용해보기
 class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
-    private val timeSlotViewPagerList: ArrayList<TimeSlotViewPagerData> = arrayListOf()
-    private val timeSlotAdapter =
-        TimeSlotAdapter(timeSlotViewPagerList, object :
-            TimeSlotAdapter.ViewHolder.OnItemClickListener {
-            override fun onClick(v: View, position: Int) {
-                requireContext().showToast("${position}번째 item")
-            }
-        })
+
+    companion object {
+        const val PAGE_EMOTICONS_SIZE = 12
+    }
+
+    private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentTimeslotBinding {
         return FragmentTimeslotBinding.inflate(inflater, container, false)
-        context
     }
 
     override fun onCreateView(
@@ -40,15 +39,13 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        addData()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onButtonClickListener()
-
-        binding.viewpager2.adapter = timeSlotAdapter
+        observeData()
 //        binding.springDotsIndicator.setViewPager2(binding.viewpager2)   // indicator connect adapter
 
         /**
@@ -93,6 +90,20 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
         })
     }
 
+    private fun observeData() {
+        timeSlotViewModel.emoticons.observe(viewLifecycleOwner) { emoticons ->
+
+            val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE) // 37/12 = 4페이지 짜리 12, 12, 12, 1
+
+            binding.viewpager2.adapter = TimeSlotAdapter(emoticonChunkList = chuckedEmoticons, object :
+                TimeSlotAdapter.ViewHolder.OnItemClickListener {
+                override fun onClick(v: View, position: Int) {
+                    requireContext().showToast("$position 번째 item")
+                }
+            })
+        }
+    }
+
     private fun onButtonClickListener() {
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
@@ -106,12 +117,6 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
             } else {
                 view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
             }
-        }
-    }
-
-    private fun addData() {
-        for (i in 0..1) {
-            timeSlotViewPagerList.add(TimeSlotViewPagerData("$i Page"))
         }
     }
 }
