@@ -1,4 +1,4 @@
-package com.mongsil.mongsildiary.ui.home
+package com.mongsil.mongsildiary.ui.home.timeSlot
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,9 +17,12 @@ class TimeSlotViewModel : ViewModel() {
     }
 
     private fun updateEmoticons() {
-        _emoticons.value = listOf(
-            Emoticon(R.drawable.ic_emoticon_01, "텍스트")
-        )
+        val emoticonList = mutableListOf<Emoticon>()
+
+        for (i in 0..37) {
+            emoticonList.add(Emoticon(R.drawable.ic_emoticon_01, "$i item"))
+        }
+        _emoticons.value = emoticonList
     }
 
 }

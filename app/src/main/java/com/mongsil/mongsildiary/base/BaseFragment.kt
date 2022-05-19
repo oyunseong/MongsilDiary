@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
-import com.mongsil.mongsildiary.model.FabViewModel
 
 //TODO BaseFragment 사용 자제하기. ViewBinding을 안쓰는 프래그먼트라면?
 //TODO 컴포즈로 구성된 프래그먼트 혹은 데이터바인딩을 사용하는 프래그먼트일 경우 문제 발생
@@ -19,8 +18,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     val binding get() = _binding!!
 
     private val _tag: String = this::class.java.name
-
-    val fabViewModel: FabViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +31,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fabViewModel.setFabState(true) //TODO BaseFragment 에서 UI 건드리는 코드 넣지 않기.
         Log.d(_tag, "++onViewCreated")
     }
 

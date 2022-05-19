@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
@@ -21,14 +22,30 @@ import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.printError
 
-class RecordFragment : BaseFragment<FragmentRecordBinding>() {
+class RecordFragment : Fragment() {
     //TODO activityViewModels()로 뷰모델을 생성하면. 뷰모델이 액티비티 라이프사이클 스코프 내에서 관리됨. 즉, 프래그먼트가 파괴되더라도 액티비티가 살아있는 한 해당 뷰모델이 사라지지 않고, 유지됨.
     //TODO RecordFragment 를 종료시키더라도 해당 뷰모델을 유지해야 할 이유가 있는가?
     //TODO 뷰모델 초기화 방법 ( 뷰모델 생성 방법 ) 찾아보기
-    private val recordViewModel: RecordViewModel by activityViewModels()
-    private val REQUEST_CODE = 1 //TODO 상수로 선언하기. const 검색
 
-    private lateinit var getResult: ActivityResultLauncher<Intent>
+    private var _binding: FragmentRecordBinding? = null
+    private val binding get() = _binding!!
+
+    private val recordViewModel: RecordViewModel by activityViewModels()
+
+    companion object {
+        private const val REQUEST_CODE = 1 //TODO 상수로 선언하기. const 검색 - 완료
+    }
+
+//    private lateinit var getResult: ActivityResultLauncher<Intent>
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRecordBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     //    private val recordViewModel: RecordViewModel by viewModels()
 
@@ -42,7 +59,6 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
     /*
     1. 이미지 클릭시 data에 uri값으로 전달
     2. uri값을 bitmap으로 변환해야함 ( getBitmap 함수)
-
     onActivityResult()는 갤러리앱에서 몽실 앱으로 돌아올 때 호출
      */
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -65,31 +81,12 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
                 "something wrong".printLog("ActivityResult")
             }
         } else {
-
+            "resultCode != RESULT_OK".printLog()
         }
-    }
-
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentRecordBinding {
-        return FragmentRecordBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        fabViewModel.setFabState(false)
-
-//        getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-//            "resultCode : ${it.resultCode}".log()
-//            "RESULT_OK : ${RESULT_OK}".log()
-//            if (it.resultCode == RESULT_OK){
-//
-//            }else
-//            {
-//                showToast("나콜백!!!")
-//            }
-//        }
 
         binding.galleryBtn.setOnClickListener {
             openGallery()
@@ -100,7 +97,6 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            "클릭".printLog()
             if (binding.editText.length() == 0) {
                 binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
                 binding.toolbar.uploadBtn.isClickable = false
@@ -137,10 +133,7 @@ class RecordFragment : BaseFragment<FragmentRecordBinding>() {
 
             override fun afterTextChanged(p0: Editable?) {
             }
-
         })
-
-
     }
 
     override fun onDestroyView() {

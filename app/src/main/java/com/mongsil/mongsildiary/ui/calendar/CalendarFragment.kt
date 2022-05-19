@@ -4,16 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
 
-class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
+class CalendarFragment : Fragment() {
+    private var _binding: FragmentCalendarBinding? = null
+    private val binding get() = _binding!!
 
-    override fun getFragmentBinding(
+    override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentCalendarBinding {
-        return FragmentCalendarBinding.inflate(inflater, container, false)
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCalendarBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +30,7 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>() {
         val bottomSheetFragment = BottomSheetFragment()
 
         binding.title.setOnClickListener {
-            bottomSheetFragment.show(parentFragmentManager,bottomSheetFragment.tag)
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }
 
     }

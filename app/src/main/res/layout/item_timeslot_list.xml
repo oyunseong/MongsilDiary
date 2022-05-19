@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@drawable/round_10_ffffff"
     android:paddingHorizontal="13dp"
-    android:paddingBottom="9dp"
     android:paddingTop="15.5dp"
-    android:background="@drawable/round_10_ffffff">
+    android:paddingBottom="9dp">
 
     <ImageView
-        android:id="@+id/image"
+        android:id="@+id/emoticonImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_emoticon_01"
@@ -18,14 +18,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/emoticonText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="멜랑꼴리"
         android:layout_marginTop="2dp"
+        android:text="멜랑꼴리"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image" />
-
+        app:layout_constraintTop_toBottomOf="@id/emoticonImage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,12 +33,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/cheeringFragment"
-        android:name="com.mongsil.mongsildiary.ui.cheering.CheeringFragment"
-        android:label="fragment_cheering"
-        tools:layout="@layout/fragment_cheering" />
-
-    <fragment
         android:id="@+id/settingFragment"
         android:name="com.mongsil.mongsildiary.ui.setting.SettingFragment"
         android:label="fragment_setting"
@@ -46,7 +40,7 @@
 
     <fragment
         android:id="@+id/timeSlotFragment"
-        android:name="com.mongsil.mongsildiary.ui.home.TimeSlotFragment"
+        android:name="com.mongsil.mongsildiary.ui.home.timeSlot.TimeSlotFragment"
         android:label="fragment_writing_timeslot"
         tools:layout="@layout/fragment_timeslot">
         <action

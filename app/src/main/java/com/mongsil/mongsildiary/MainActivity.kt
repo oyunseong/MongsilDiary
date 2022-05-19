@@ -10,7 +10,6 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseActivity
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
-import com.mongsil.mongsildiary.model.FabViewModel
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 
@@ -21,7 +20,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
     private lateinit var fabClose: Animation
     private lateinit var fabRClockwise: Animation
     private lateinit var fabRAntiClockwise: Animation
-    private val fabViewModel: FabViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,17 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
 
         setFloatingButtonAnimation()
 
-//        fabViewModel.state.observe(this, Observer {
-//            if (it == true) {
-//                binding.fab.visibility = View.VISIBLE
-//            } else {
-//                binding.fab.visibility = View.GONE
-//            }
-//        })
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
-//            "현재 위치 id값 :${destination.id}".log()
-//            "timeSlotFragment id값 : ${R.id.timeSlotFragment}".log()
             if (destination.id == R.id.settingFragment ||
                 destination.id == R.id.calendarFragment ||
                 destination.id == R.id.homeFragment
@@ -53,8 +41,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
                 binding.fab.visibility = View.GONE
 
             }
-//            "$isOpen".log()
-//            "visible 상태 : ${binding.fab.visibility}".log()
         }
 
         binding.fab.setOnClickListener {
@@ -76,10 +62,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
             navController.navigate(R.id.calendarFragment)
             closedFab()
         }
-
-//        "${(navController.currentDestination as? FragmentNavigator.Destination)?.className}".log()
     }
 
+    // TODO 애니메이션 개선 작업
     private fun setFloatingButtonAnimation() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)

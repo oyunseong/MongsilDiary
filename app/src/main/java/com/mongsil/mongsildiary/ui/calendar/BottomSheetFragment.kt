@@ -27,8 +27,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         val month: NumberPicker = view.findViewById(R.id.monthpicker_datepicker)
         val cancel: TextView = view.findViewById(R.id.cancel_btn)
         val save: TextView = view.findViewById(R.id.confirm_btb)
-        val year_tv: TextView = view.findViewById(R.id.year_tv)
-        val month_tv: TextView = view.findViewById(R.id.month_tv)
+//        val year_tv: TextView = view.findViewById(R.id.year_tv)
+//        val month_tv: TextView = view.findViewById(R.id.month_tv)
 
         //  순환 안되게 막기
         year.wrapSelectorWheel = false
@@ -38,12 +38,12 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         year.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
         month.descendantFocusability = NumberPicker.FOCUS_BLOCK_DESCENDANTS
 
-        year.setOnValueChangedListener { numberPicker, i, i2 ->
-            year_tv.text = i2.toString()+"년"
-        }
-        month.setOnValueChangedListener { picker, oldVal, newVal ->
-            month_tv.text = newVal.toString()
-        }
+//        year.setOnValueChangedListener { numberPicker, i, i2 ->
+//            year_tv.text = i2.toString()+"년"
+//        }
+//        month.setOnValueChangedListener { picker, oldVal, newVal ->
+//            month_tv.text = newVal.toString()
+//        }
 
 
         //  최소값 설정
@@ -62,9 +62,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
 
         //  완료 버튼 클릭 시
         save.setOnClickListener {
-            year_tv.text = (year.value).toString() + "년"
-            month_tv.text = (month.value).toString() + "월"
-
+//            year_tv.text = (year.value).toString() + "년"
+//            month_tv.text = (month.value).toString() + "월"
             dismiss()
 
         }

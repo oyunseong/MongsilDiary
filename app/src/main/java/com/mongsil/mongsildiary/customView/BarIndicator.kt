@@ -1,4 +1,4 @@
-package com.mongsil.mongsildiary.utils
+package com.mongsil.mongsildiary.customView
 
 import android.content.Context
 import android.util.AttributeSet

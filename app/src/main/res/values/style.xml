@@ -57,9 +57,9 @@
     </style>
 
     <style name="NumberPicker" >
-        <item name="colorControlNormal">#00000000</item>
+        <item name="colorControlNormal">#97b3ff</item>
         <item name="android:textSize">28sp</item>
-        <item name="android:textColorPrimary">@color/btn_color</item>
+        <item name="android:textColorPrimary">#7ea1ff</item>
         <item name="android:textStyle">normal</item>
     </style>
 

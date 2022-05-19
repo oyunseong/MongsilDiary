@@ -1,15 +1,16 @@
-package com.mongsil.mongsildiary.ui.home
+package com.mongsil.mongsildiary.ui.home.timeSlot
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemViewpagerBinding
 import com.mongsil.mongsildiary.model.Emoticon
-import com.mongsil.mongsildiary.model.TimeSlotViewPagerData
+import com.mongsil.mongsildiary.ui.home.EmoticonAdapter
+import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
+import com.mongsil.mongsildiary.utils.VerticalItemDecorator
+import com.mongsil.mongsildiary.utils.showToast
 
 
 //TODO HomeAdapter 리뷰 내용 참고
@@ -24,22 +25,31 @@ class TimeSlotAdapter(
         return ViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = 2
+    override fun getItemCount(): Int = emoticonChunkList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener {
             onItemClickListener.onClick(it, position)
         }
-        holder.bind()
+        holder.bind(emoticonChunkList[position])
     }
 
     class ViewHolder(private val binding: ItemViewpagerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(emoticonList: List<Emoticon>) {
-//            binding.title.text = timeSlotViewPagerData.title
             binding.emoticonList.apply {
-                adapter = EmoticonAdapter(emoticons = emoticonList)
+                adapter = EmoticonAdapter(
+                    emoticons = emoticonList,
+                    object : EmoticonAdapter.ViewHolder.OnItemClickListener {
+                        override fun onClick(v: View, position: Int) {
+                            super.onClick(v, position)
+                            context.showToast("$position 번째 item")
+                        }
+                    })
+
+                addItemDecoration(VerticalItemDecorator(8))
+                addItemDecoration(HorizontalItemDecorator(8))
                 layoutManager = GridLayoutManager(binding.root.context, 4)
             }
         }
@@ -48,4 +58,5 @@ class TimeSlotAdapter(
             fun onClick(v: View, position: Int)
         }
     }
+
 }

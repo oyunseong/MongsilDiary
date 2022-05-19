@@ -1,4 +1,4 @@
-package com.mongsil.mongsildiary.ui.home
+package com.mongsil.mongsildiary.ui.home.timeSlot
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,19 +7,22 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
-import com.mongsil.mongsildiary.model.TimeSlotViewPagerData
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
 
-//TODO TimeSlot 패키지 만들기
-//TODO by lazy 초기화 사용해보기
-class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
+//TODO TimeSlot 패키지 만들기 - 완료
+//TODO by lazy 초기화 사용해보기 - 어떤거?
+class TimeSlotFragment : Fragment() {
+    private var _binding: FragmentTimeslotBinding? = null
+    private val binding get() = _binding!!
 
     companion object {
         const val PAGE_EMOTICONS_SIZE = 12
@@ -27,19 +30,13 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
 
     private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
 
-    override fun getFragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentTimeslotBinding {
-        return FragmentTimeslotBinding.inflate(inflater, container, false)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        _binding = FragmentTimeslotBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -59,6 +56,12 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
                 binding.barIndicator.selectBar(position)
             }
         })
+        binding.viewpager2.clipToPadding = false
+        val dpValue = 25
+        val d = resources.displayMetrics.density
+        val margin = 0//(dpValue * d).toInt()
+        binding.viewpager2.setPadding(margin, 0, margin, 0)
+        binding.viewpager2.setPageTransformer(MarginPageTransformer(50))
 
         binding.barIndicator.createIndicator(
             2,
@@ -93,14 +96,15 @@ class TimeSlotFragment : BaseFragment<FragmentTimeslotBinding>() {
     private fun observeData() {
         timeSlotViewModel.emoticons.observe(viewLifecycleOwner) { emoticons ->
 
-            val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE) // 37/12 = 4페이지 짜리 12, 12, 12, 1
+            val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
 
-            binding.viewpager2.adapter = TimeSlotAdapter(emoticonChunkList = chuckedEmoticons, object :
-                TimeSlotAdapter.ViewHolder.OnItemClickListener {
-                override fun onClick(v: View, position: Int) {
-                    requireContext().showToast("$position 번째 item")
-                }
-            })
+            binding.viewpager2.adapter =
+                TimeSlotAdapter(emoticonChunkList = chuckedEmoticons, object :
+                    TimeSlotAdapter.ViewHolder.OnItemClickListener {
+                    override fun onClick(v: View, position: Int) {
+                        requireContext().showToast("$position 번째 item")
+                    }
+                })
         }
     }
 
