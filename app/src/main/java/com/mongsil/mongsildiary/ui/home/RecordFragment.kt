@@ -14,11 +14,13 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
+import com.mongsil.mongsildiary.ui.home.timeSlot.TimeSlotViewModel
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.printError
 
@@ -30,10 +32,12 @@ class RecordFragment : Fragment() {
     private var _binding: FragmentRecordBinding? = null
     private val binding get() = _binding!!
 
-    private val recordViewModel: RecordViewModel by activityViewModels()
+    private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
+//    private val recordViewModel: RecordViewModel by activityViewModels()
+    private val recordViewModel by viewModels<RecordViewModel>()
 
     companion object {
-        private const val REQUEST_CODE = 1 //TODO 상수로 선언하기. const 검색 - 완료
+        private const val REQUEST_CODE = 1
     }
 
 //    private lateinit var getResult: ActivityResultLauncher<Intent>

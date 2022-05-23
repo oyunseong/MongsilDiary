@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemViewpagerBinding
-import com.mongsil.mongsildiary.model.Emoticon
 import com.mongsil.mongsildiary.ui.home.EmoticonAdapter
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator

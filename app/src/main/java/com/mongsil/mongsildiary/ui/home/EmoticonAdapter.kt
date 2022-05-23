@@ -3,10 +3,9 @@ package com.mongsil.mongsildiary.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemTimeslotListBinding
-import com.mongsil.mongsildiary.model.Emoticon
+import com.mongsil.mongsildiary.ui.home.timeSlot.Emoticon
 import com.mongsil.mongsildiary.ui.home.timeSlot.TimeSlotAdapter
 
 class EmoticonAdapter(

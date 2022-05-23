@@ -14,9 +14,9 @@ import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inflate(it) }) {
-    private var backKeyPressedTime = 0L
+
     private var isOpen: Boolean = false
-    private lateinit var fabOpen: Animation //TODO lateinit 사용 자제하기. 해당 변수가 초기화되지 않은 상태에서, 해당 변수를 참조하면, 에러가 발생함. lateinit으로 선언하면 이 변수가 언제 초기화되는지 시점을 체크해야 하는 불편함이 있음.
+    private lateinit var fabOpen: Animation
     private lateinit var fabClose: Animation
     private lateinit var fabRClockwise: Animation
     private lateinit var fabRAntiClockwise: Animation
@@ -64,7 +64,14 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         }
     }
 
+
     // TODO 애니메이션 개선 작업
+    /***
+     * @param fabOpen : 플로팅버튼이 켜질 때 애니메이션
+     * @param fabCLose : 플로팅버튼이 닫힐 때 애니메이션
+     * @param fabRClockwise : 플로팅버튼이 켜질 때 회전하는 애니메이션
+     * @param fabRAntiClockwise : 플로팅버튼이 켜질 때 회전하는 애니메이션
+     */
     private fun setFloatingButtonAnimation() {
         fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open)
         fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close)
@@ -148,7 +155,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>({ ActivityMainBinding.inf
         } else {
             super.onBackPressed()
         }
-
     }
 }
+
+
+
+
 
