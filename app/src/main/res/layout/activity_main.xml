@@ -1,131 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO xml 네이밍 규칙 확실하게 정하고 지키기-->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/main_background"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <View
-        android:id="@+id/shadowView"
+    <data>
+
+        <variable
+            name="activity"
+            type="com.mongsil.mongsildiary.MainActivity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99000000"
-        android:clickable="true"
-        android:visibility="gone" />
+        android:background="@color/main_background"
+        tools:context=".MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_fragment"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/bottom_admob"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/nav_graph" />
+        <View
+            android:id="@+id/shadowView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000"
+            android:clickable="true"
+            android:visibility="gone" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/FloatingButtonTheme"
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="79dp"
-        android:src="@drawable/ic_x_32_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:defaultNavHost="true"
+            app:layout_constraintBottom_toTopOf="@id/bottom_admob"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navGraph="@navigation/nav_graph" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/FloatingButtonTheme"
-        android:id="@+id/setting_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/ic_x_24_setting"
-        android:visibility="invisible"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toTopOf="@id/fab"
-        app:layout_constraintLeft_toLeftOf="@id/fab"
-        app:layout_constraintRight_toRightOf="@id/fab" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            style="@style/FloatingButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="79dp"
+            android:src="@drawable/ic_x_32_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/setting_tv"
-        style="@style/fab_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="Setting"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/setting_fab"
-        app:layout_constraintRight_toLeftOf="@id/setting_fab"
-        app:layout_constraintTop_toTopOf="@id/setting_fab" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/setting_fab"
+            style="@style/FloatingButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_x_24_setting"
+            android:visibility="invisible"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toTopOf="@id/fab"
+            app:layout_constraintLeft_toLeftOf="@id/fab"
+            app:layout_constraintRight_toRightOf="@id/fab" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/FloatingButtonTheme"
-        android:id="@+id/calendar_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
-        android:src="@drawable/ic_x_24_calendar"
-        android:visibility="invisible"
-        app:borderWidth="0dp"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toTopOf="@id/setting_fab"
-        app:layout_constraintRight_toRightOf="@id/setting_fab"
-        app:pressedTranslationZ="12dp" />
+        <TextView
+            android:id="@+id/setting_tv"
+            style="@style/fab_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="Setting"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/setting_fab"
+            app:layout_constraintRight_toLeftOf="@id/setting_fab"
+            app:layout_constraintTop_toTopOf="@id/setting_fab" />
 
-    <TextView
-        android:id="@+id/calendar_tv"
-        style="@style/fab_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:text="@string/calendar"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/calendar_fab"
-        app:layout_constraintRight_toLeftOf="@id/calendar_fab"
-        app:layout_constraintTop_toTopOf="@id/calendar_fab" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/calendar_fab"
+            style="@style/FloatingButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:src="@drawable/ic_x_24_calendar"
+            android:visibility="invisible"
+            app:borderWidth="0dp"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toTopOf="@id/setting_fab"
+            app:layout_constraintRight_toRightOf="@id/setting_fab"
+            app:pressedTranslationZ="12dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        style="@style/FloatingButtonTheme"
-        android:id="@+id/record_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="6dp"
-        android:src="@drawable/ic_x_24_calendar"
-        android:visibility="invisible"
-        app:borderWidth="0dp"
-        app:fabSize="auto"
-        app:layout_constraintBottom_toTopOf="@id/calendar_fab"
-        app:layout_constraintRight_toRightOf="@id/calendar_fab"
-        app:pressedTranslationZ="12dp" />
+        <TextView
+            android:id="@+id/calendar_tv"
+            style="@style/fab_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/calendar"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/calendar_fab"
+            app:layout_constraintRight_toLeftOf="@id/calendar_fab"
+            app:layout_constraintTop_toTopOf="@id/calendar_fab" />
 
-    <TextView
-        android:id="@+id/record_tv"
-        style="@style/fab_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="0dp"
-        android:text="@string/record_tv"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/record_fab"
-        app:layout_constraintRight_toLeftOf="@id/record_fab"
-        app:layout_constraintTop_toTopOf="@id/record_fab" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/record_fab"
+            style="@style/FloatingButtonTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="6dp"
+            android:src="@drawable/ic_x_24_calendar"
+            android:visibility="invisible"
+            app:borderWidth="0dp"
+            app:fabSize="auto"
+            app:layout_constraintBottom_toTopOf="@id/calendar_fab"
+            app:layout_constraintRight_toRightOf="@id/calendar_fab"
+            app:pressedTranslationZ="12dp" />
 
-    <TextView
-        android:id="@+id/bottom_admob"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:background="#FF5722"
-        android:gravity="center"
-        android:text="광고"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        <TextView
+            android:id="@+id/record_tv"
+            style="@style/fab_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:text="@string/record_tv"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/record_fab"
+            app:layout_constraintRight_toLeftOf="@id/record_fab"
+            app:layout_constraintTop_toTopOf="@id/record_fab" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/bottom_admob"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="#FF5722"
+            android:gravity="center"
+            android:text="광고"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
