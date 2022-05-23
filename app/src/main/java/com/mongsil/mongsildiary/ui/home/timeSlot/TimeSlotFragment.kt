@@ -18,9 +18,8 @@ import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
 
-//TODO TimeSlot 패키지 만들기 - 완료
-//TODO by lazy 초기화 사용해보기 - 어떤거?
 class TimeSlotFragment : Fragment() {
+
     private var _binding: FragmentTimeslotBinding? = null
     private val binding get() = _binding!!
 
@@ -65,13 +64,13 @@ class TimeSlotFragment : Fragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 "${binding.editText.length()}".printLog()
-                // EditText에 아무것도 안 써있으면 우측 상단 등록 버튼 비활성화
+
                 if (binding.editText.length() == 0) {
-                    binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+                    binding.toolbar.uploadBtn.isEnabled = false
                     binding.toolbar.uploadBtn.isClickable = false
                     binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
                 } else {
-                    binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+                    binding.toolbar.uploadBtn.isEnabled = true
                     binding.toolbar.uploadBtn.isClickable = true
                     binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
                 }
@@ -87,7 +86,6 @@ class TimeSlotFragment : Fragment() {
 
             val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
             emoticonSize = emoticons.size / PAGE_EMOTICONS_SIZE + 1
-            "$emoticonSize".printLog("이모티콘 사이즈 ")
 
             binding.barIndicator.createIndicator(
                 emoticonSize,
@@ -112,7 +110,6 @@ class TimeSlotFragment : Fragment() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            "클릭".printLog()
             if (binding.editText.length() == 0) {
                 binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
                 binding.toolbar.uploadBtn.isClickable = false
