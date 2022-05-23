@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 
-//TODO BaseFragment 사용 자제하기. ViewBinding을 안쓰는 프래그먼트라면?
-//TODO 컴포즈로 구성된 프래그먼트 혹은 데이터바인딩을 사용하는 프래그먼트일 경우 문제 발생
 abstract class BaseFragment<B : ViewBinding> : Fragment() {
 
     private var _binding: B? = null
