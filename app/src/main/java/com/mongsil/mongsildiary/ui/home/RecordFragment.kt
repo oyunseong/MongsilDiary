@@ -2,6 +2,7 @@ package com.mongsil.mongsildiary.ui.home
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -12,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -23,24 +26,18 @@ import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.ui.home.timeSlot.TimeSlotViewModel
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.printError
+import java.util.jar.Manifest
 
 class RecordFragment : Fragment() {
-    //TODO activityViewModels()로 뷰모델을 생성하면. 뷰모델이 액티비티 라이프사이클 스코프 내에서 관리됨. 즉, 프래그먼트가 파괴되더라도 액티비티가 살아있는 한 해당 뷰모델이 사라지지 않고, 유지됨.
-    //TODO RecordFragment 를 종료시키더라도 해당 뷰모델을 유지해야 할 이유가 있는가?
-    //TODO 뷰모델 초기화 방법 ( 뷰모델 생성 방법 ) 찾아보기
 
     private var _binding: FragmentRecordBinding? = null
     private val binding get() = _binding!!
 
-    private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
-//    private val recordViewModel: RecordViewModel by activityViewModels()
     private val recordViewModel by viewModels<RecordViewModel>()
 
     companion object {
         private const val REQUEST_CODE = 1
     }
-
-//    private lateinit var getResult: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,13 +48,32 @@ class RecordFragment : Fragment() {
         return binding.root
     }
 
-    //    private val recordViewModel: RecordViewModel by viewModels()
-
     private fun openGallery() {
-        //TODO 권한 요청
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(intent, REQUEST_CODE)
+
+        val writePermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        val readPermission = ContextCompat.checkSelfPermission(
+            requireContext(),
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+
+        if (writePermission == PackageManager.PERMISSION_DENIED || readPermission == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ),
+                REQUEST_CODE
+            )
+        } else {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+            intent.type = "image/*"
+            startActivityForResult(intent, REQUEST_CODE)
+        }
     }
 
     /*
@@ -72,14 +88,12 @@ class RecordFragment : Fragment() {
                 val currentImageUrl: Uri? = data?.data
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(
-                        //TODO requireContext()로 교체
-                        context!!.contentResolver,
+                        requireContext().contentResolver,
                         currentImageUrl
                     )
                     binding.firstImageView.setImageBitmap(bitmap)
                 } catch (e: Exception) {
-                    "에러뜨넹 : ${e.printStackTrace()}".printLog()
-                    e.printError()
+                    "${e.printStackTrace()}".printLog()
                 }
             } else {
                 "something wrong".printLog("ActivityResult")
@@ -121,14 +135,14 @@ class RecordFragment : Fragment() {
                 if (binding.editText.length() == 0) {
                     binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
                     binding.toolbar.uploadBtn.isClickable = false
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_not_focus_color.toString()))
                     binding.blankImage.visibility = View.VISIBLE
                     binding.blank1Tv.visibility = View.VISIBLE
                     binding.blank2Tv.visibility = View.VISIBLE
                 } else {
                     binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
                     binding.toolbar.uploadBtn.isClickable = true
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_focus_color.toString()))
                     binding.blankImage.visibility = View.GONE
                     binding.blank1Tv.visibility = View.GONE
                     binding.blank2Tv.visibility = View.GONE
