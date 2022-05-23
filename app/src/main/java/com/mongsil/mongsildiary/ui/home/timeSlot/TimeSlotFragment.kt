@@ -24,6 +24,8 @@ class TimeSlotFragment : Fragment() {
     private var _binding: FragmentTimeslotBinding? = null
     private val binding get() = _binding!!
 
+    private var emoticonSize: Int = 0
+
     companion object {
         const val PAGE_EMOTICONS_SIZE = 12
     }
@@ -35,7 +37,7 @@ class TimeSlotFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTimeslotBinding.inflate(inflater,container,false)
+        _binding = FragmentTimeslotBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -43,7 +45,6 @@ class TimeSlotFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         onButtonClickListener()
         observeData()
-//        binding.springDotsIndicator.setViewPager2(binding.viewpager2)   // indicator connect adapter
 
         /**
          * 참고 블로그 :
@@ -57,18 +58,6 @@ class TimeSlotFragment : Fragment() {
             }
         })
         binding.viewpager2.clipToPadding = false
-        val dpValue = 25
-        val d = resources.displayMetrics.density
-        val margin = 0//(dpValue * d).toInt()
-        binding.viewpager2.setPadding(margin, 0, margin, 0)
-        binding.viewpager2.setPageTransformer(MarginPageTransformer(50))
-
-        binding.barIndicator.createIndicator(
-            2,
-            R.drawable.indicator_bar_off,
-            R.drawable.indicator_bar_on,
-            0
-        )
 
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -97,6 +86,15 @@ class TimeSlotFragment : Fragment() {
         timeSlotViewModel.emoticons.observe(viewLifecycleOwner) { emoticons ->
 
             val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
+            emoticonSize = emoticons.size / PAGE_EMOTICONS_SIZE + 1
+            "$emoticonSize".printLog("이모티콘 사이즈 ")
+
+            binding.barIndicator.createIndicator(
+                emoticonSize,
+                R.drawable.indicator_bar_off,
+                R.drawable.indicator_bar_on,
+                0
+            )
 
             binding.viewpager2.adapter =
                 TimeSlotAdapter(emoticonChunkList = chuckedEmoticons, object :

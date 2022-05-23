@@ -8,6 +8,8 @@ class TimeSlotViewModel : ViewModel() {
 
     private var _emoticons = MutableLiveData<List<Emoticon>>()
     val emoticons get() = _emoticons
+    val emoticonsCount = 0
+
 
     init {
         updateEmoticons()
