@@ -1,4 +1,4 @@
-package com.mongsil.mongsildiary.ui.home.timeSlot
+package com.mongsil.mongsildiary.ui.home.today
 
 import android.graphics.Color
 import android.os.Bundle
@@ -10,10 +10,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
-import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
@@ -23,13 +21,13 @@ class TimeSlotFragment : Fragment() {
     private var _binding: FragmentTimeslotBinding? = null
     private val binding get() = _binding!!
 
-    private var emoticonSize: Int = 0
+    //    private val emoticonViewModel by viewModels<EmoticonViewModel>()
+    private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
+    private var emoticonSize: Int = 2
 
     companion object {
         const val PAGE_EMOTICONS_SIZE = 12
     }
-
-    private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,18 +48,34 @@ class TimeSlotFragment : Fragment() {
          * https://black-jin0427.tistory.com/95
          * https://hyogeun-android.tistory.com/entry/ViewPager2%EC%97%90-%EA%B4%80%ED%95%9C-%EA%B3%A0%EC%B0%B0
          * */
-        binding.viewpager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                binding.barIndicator.selectBar(position)
-            }
-        })
-        binding.viewpager2.clipToPadding = false
+        binding.viewpager2.apply {
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    binding.barIndicator.selectBar(position)
+                }
+            })
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    if (position != 0){
+                        // TODO 광고 버튼 추가
+                        requireContext().showToast("$position 1번 페이지가 아님")
+                    }
+                }
+            })
+
+            clipToPadding = false
+        }
 
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
-
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 "${binding.editText.length()}".printLog()
 
@@ -82,7 +96,7 @@ class TimeSlotFragment : Fragment() {
     }
 
     private fun observeData() {
-        timeSlotViewModel.emoticons.observe(viewLifecycleOwner) { emoticons ->
+        timeSlotViewModel.emoticonState.observe(viewLifecycleOwner) { emoticons ->
 
             val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
             emoticonSize = emoticons.size / PAGE_EMOTICONS_SIZE + 1
@@ -94,13 +108,16 @@ class TimeSlotFragment : Fragment() {
                 0
             )
 
+            // viewpager의 onClickListener 구현 할 부분
             binding.viewpager2.adapter =
-                TimeSlotAdapter(emoticonChunkList = chuckedEmoticons, object :
-                    TimeSlotAdapter.ViewHolder.OnItemClickListener {
-                    override fun onClick(v: View, position: Int) {
-                        requireContext().showToast("$position 번째 item")
-                    }
-                })
+                TodayViewPagerAdapter(
+                    emoticonChunkList = chuckedEmoticons,
+                    onItemClickListener = {
+
+                        "뷰페이저 클릭".printLog("TimeSlotAdapter")
+                        requireContext().showToast("클릭")
+                    }, //emoticonViewModel
+                )
         }
     }
 
