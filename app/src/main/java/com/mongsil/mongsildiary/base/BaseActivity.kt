@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
+//TODO BaseFragment처럼 viewBinding Activity, DataBindingActivity 만들기
 abstract class BaseActivity<B : ViewBinding>(
     val bindingFactory: (LayoutInflater) -> B
 ) : AppCompatActivity() {

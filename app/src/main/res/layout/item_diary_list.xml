@@ -9,7 +9,7 @@
     app:cardElevation="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -22,8 +22,8 @@
             android:layout_marginTop="24dp"
             android:text="@string/morning"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="@id/constraint"
-            app:layout_constraintTop_toTopOf="@id/constraint" />
+            app:layout_constraintLeft_toLeftOf="@id/container"
+            app:layout_constraintTop_toTopOf="@id/container" />
 
         <TextView
             android:id="@+id/contents"
@@ -42,10 +42,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_x_24_more"
-            app:layout_constraintBottom_toBottomOf="@id/constraint"
-            app:layout_constraintLeft_toLeftOf="@id/constraint"
-            app:layout_constraintRight_toRightOf="@id/constraint"
-            app:layout_constraintTop_toTopOf="@id/constraint" />
+            app:layout_constraintBottom_toBottomOf="@id/container"
+            app:layout_constraintLeft_toLeftOf="@id/container"
+            app:layout_constraintRight_toRightOf="@id/container"
+            app:layout_constraintTop_toTopOf="@id/container" />
 
         <ImageView
             android:id="@+id/slot_img"
@@ -53,8 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:src="@drawable/ic_emoticon_01"
-            app:layout_constraintBottom_toBottomOf="@id/constraint"
-            app:layout_constraintRight_toRightOf="@id/constraint" />
+            app:layout_constraintBottom_toBottomOf="@id/container"
+            app:layout_constraintRight_toRightOf="@id/container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

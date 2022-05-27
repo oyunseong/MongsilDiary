@@ -14,6 +14,8 @@ import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 
+
+// TODO 뷰모델 하나 만들고 뷰모델에 UI 상태를 저장하는 라이브 데이터 선언하고 라이브데이터를 XML에서 바인드 시켜주면됨
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.activity = this@MainActivity
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -42,14 +45,12 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.fab.clearAnimation()
                 binding.fab.visibility = View.GONE
-
             }
         }
 
         binding.fab.setOnClickListener {
             setOnClickFloatingButton(isOpen)
         }
-
 
         binding.settingFab.setOnClickListener {
             Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
@@ -66,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             closedFab()
         }
     }
-
 
     // TODO 애니메이션 개선 작업
     /***

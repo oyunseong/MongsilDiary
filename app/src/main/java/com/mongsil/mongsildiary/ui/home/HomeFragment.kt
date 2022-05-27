@@ -17,18 +17,15 @@ import com.mongsil.mongsildiary.utils.showToast
 
 class HomeFragment : Fragment() {
 
+    // TODO Today 클릭하면 아침,점심,저녁 Text 바뀌게 수정
     private val recordViewModel: RecordViewModel by activityViewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeTimeSlotList: ArrayList<List<String>> = arrayListOf()
-    private val homeTimeSlotAdapter = HomeTimeSlotAdapter(homeTimeSlotList)
-    //object : HomeTimeSlotAdapter.OnItemClickListener {
-    //        override fun onClick(v: View, position: Int) {
-//                view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
-//                requireContext().showToast("${position}번째 item")
-    //        }
-    //    }
+    private val homeTimeSlotList: ArrayList<List<String>> = arrayListOf()   //TODO 2차원 배열 -> 데이터 클래스로 변경
+    private val homeTimeSlotAdapter = HomeTimeSlotAdapter(homeTimeSlotList, onItemClickListener = {
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,11 +77,6 @@ class HomeFragment : Fragment() {
         binding.recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        homeTimeSlotAdapter.onItemClickListener = {
-            context?.showToast("position : $it ")
-            requireView().findNavController().navigate(R.id.action_homeFragment_to_timeSlotFragment)
-        }
-
         binding.recycler.adapter = homeTimeSlotAdapter
 
         binding.recycler.addItemDecoration(VerticalItemDecorator(10))
@@ -92,8 +84,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun addData() {
-        for (i in 0..99) {
-            homeTimeSlotList.add(listOf("$i th main", "$i th sub"))
+        for (i in 0..3) {
+            homeTimeSlotList.add(listOf("$i th main"))
         }
     }
 

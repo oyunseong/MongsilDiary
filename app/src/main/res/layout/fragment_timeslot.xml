@@ -16,7 +16,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/main_background"
@@ -31,8 +31,8 @@
                 android:layout_marginTop="44dp"
                 android:text="오늘 아침\n기분 어떠세요?"
                 android:textSize="28sp"
-                app:layout_constraintLeft_toLeftOf="@id/constraint"
-                app:layout_constraintTop_toTopOf="@id/constraint" />
+                app:layout_constraintLeft_toLeftOf="@id/container"
+                app:layout_constraintTop_toTopOf="@id/container" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"

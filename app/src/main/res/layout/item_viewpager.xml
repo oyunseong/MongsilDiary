@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:spanCount="3"
         android:orientation="horizontal"
         android:paddingHorizontal="24dp"
+        app:spanCount="3"
         tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_timeslot_list" />
 

@@ -10,7 +10,6 @@ class RecordViewModel : ViewModel() {
     val contents: LiveData<String>
         get() = _contents
 
-
     override fun onCleared() {
         super.onCleared()
         "++onCleared()".printLog("RecordViewModel")
@@ -19,6 +18,4 @@ class RecordViewModel : ViewModel() {
     fun setContents(data : String){
         this._contents.value = data
     }
-
-
 }

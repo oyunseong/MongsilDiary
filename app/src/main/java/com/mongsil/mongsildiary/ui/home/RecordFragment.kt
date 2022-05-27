@@ -12,21 +12,15 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
-import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
-import com.mongsil.mongsildiary.ui.home.timeSlot.TimeSlotViewModel
 import com.mongsil.mongsildiary.utils.printLog
-import com.mongsil.mongsildiary.utils.printError
-import java.util.jar.Manifest
 
 class RecordFragment : Fragment() {
 

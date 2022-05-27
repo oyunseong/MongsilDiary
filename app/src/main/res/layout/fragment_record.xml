@@ -20,7 +20,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraint"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -37,7 +37,7 @@
                 android:textCursorDrawable="@drawable/text_cursor"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/constraint" />
+                app:layout_constraintTop_toTopOf="@id/container" />
 
             <ImageView
                 android:id="@+id/first_imageView"
