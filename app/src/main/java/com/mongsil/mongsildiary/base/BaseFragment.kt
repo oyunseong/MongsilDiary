@@ -7,14 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<B : ViewBinding> : Fragment() {
-
-    private var _binding: B? = null
-    val binding get() = _binding!!
-
+abstract class BaseFragment : Fragment() {
     private val _tag: String = this::class.java.name
 
     override fun onCreateView(
@@ -23,16 +17,13 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d(_tag, "++onCreateView")
-        _binding = getFragmentBinding(inflater, container)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(_tag, "++onViewCreated")
     }
-
-    abstract fun getFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): B
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +33,6 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d(_tag, "++onDestroyView")
-        _binding = null
     }
 
     override fun onAttach(context: Context) {
@@ -79,6 +69,4 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
         super.onDetach()
         Log.d(_tag, "++onDetach")
     }
-
-
 }
