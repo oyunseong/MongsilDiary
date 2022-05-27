@@ -47,6 +47,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
         binding.yearpickerDatepicker.maxValue = 2025
         binding.monthpickerDatepicker.maxValue = 12
 
+        binding.yearpickerDatepicker.value = 2022
+
         binding.cancelBtn.setOnClickListener {
             dismiss()
         }
