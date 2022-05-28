@@ -7,20 +7,19 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
-import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
+import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
 
 class TodayFragment : BaseFragment() {
 
-    private var _binding: FragmentTimeslotBinding? = null
+    private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
 
     //    private val emoticonViewModel by viewModels<EmoticonViewModel>()
@@ -42,7 +41,7 @@ class TodayFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentTimeslotBinding.inflate(inflater, container, false)
+        _binding = FragmentTodayBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -50,6 +49,7 @@ class TodayFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         onButtonClickListener()
         observeData()
+
 
         /**
          * @param key : requestKey 값
@@ -78,12 +78,25 @@ class TodayFragment : BaseFragment() {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                     if (position != 0) {
                         // TODO 광고 버튼 추가
-                        requireContext().showToast("$position 1번 페이지가 아님")
+                        binding.advertisingBtn.visibility = View.VISIBLE
+                        binding.advertisingImage.visibility = View.VISIBLE
+                        binding.advertisingTv.visibility = View.VISIBLE
+                        binding.advertising2Tv.visibility = View.VISIBLE
+                        binding.advertisingBtn.bringToFront()
+                        binding.advertisingImage.bringToFront()
+                        binding.advertisingTv.bringToFront()
+                        binding.advertising2Tv.bringToFront()
                     }
                 }
             })
 
             clipToPadding = false
+        }
+        binding.advertisingBtn.setOnClickListener {
+            binding.advertisingBtn.visibility = View.GONE
+            binding.advertisingImage.visibility = View.GONE
+            binding.advertisingTv.visibility = View.GONE
+            binding.advertising2Tv.visibility = View.GONE
         }
 
         binding.editText.addTextChangedListener(object : TextWatcher {
