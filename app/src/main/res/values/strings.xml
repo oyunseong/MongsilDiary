@@ -27,5 +27,8 @@
     <string name="developer_another_app">개발자의 다른 앱</string>
     <string name="version">Version 0.1</string>
     <string name="sub_record_text">기록해보세요.</string>
+    <string name="advertising_text1">광고 시청 시</string>
+    <string name="advertising_text2">24h Free</string>
+
 
 </resources>

@@ -23,6 +23,48 @@
             android:fillViewport="true">
 
             <TextView
+                android:id="@+id/advertising_btn"
+                android:layout_width="136dp"
+                android:layout_height="136dp"
+                android:background="@drawable/advertising_button"
+                app:layout_constraintBottom_toBottomOf="@id/viewpager2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/viewpager2" />
+
+            <ImageView
+                android:id="@+id/advertising_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/ic_x_24_watch"
+                app:layout_constraintEnd_toEndOf="@id/advertising_btn"
+                app:layout_constraintStart_toStartOf="@id/advertising_btn"
+                app:layout_constraintTop_toTopOf="@id/advertising_btn" />
+
+            <TextView
+                android:id="@+id/advertising_tv"
+                style="@style/Text.advertising_14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/advertising_text1"
+                app:layout_constraintEnd_toEndOf="@id/advertising_btn"
+                app:layout_constraintStart_toStartOf="@id/advertising_btn"
+                app:layout_constraintTop_toBottomOf="@id/advertising_image" />
+
+            <TextView
+                style="@style/Text.advertising_14sp"
+                android:id="@+id/advertising2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/advertising_text2"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/advertising_btn"
+                app:layout_constraintStart_toStartOf="@id/advertising_btn"
+                app:layout_constraintTop_toBottomOf="@id/advertising_tv" />
+
+            <TextView
                 android:id="@+id/title"
                 style="@style/Text.black_13sp"
                 android:layout_width="wrap_content"
@@ -32,7 +74,7 @@
                 android:textSize="28sp"
                 app:layout_constraintLeft_toLeftOf="@id/container"
                 app:layout_constraintTop_toTopOf="@id/container"
-                tools:text="asd" />
+                tools:text="오늘 아침\n기분은 어떠세요?" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"
@@ -97,18 +139,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_text" />
-
-            <!--        <TextView-->
-            <!--            android:id="@+id/confirm_btn"-->
-            <!--            style="@style/Text.White_13sp"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="56dp"-->
-            <!--            android:layout_marginHorizontal="24dp"-->
-            <!--            android:layout_marginTop="32dp"-->
-            <!--            android:background="@drawable/button_round_10dp_d5d9e2"-->
-            <!--            android:gravity="center"-->
-            <!--            android:text="@string/confirm"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/write_emotion" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

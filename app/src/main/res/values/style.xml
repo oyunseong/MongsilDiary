@@ -70,6 +70,14 @@
         <item name="android:textStyle">normal</item>
         <item name="android:lineSpacingExtra">12sp</item>
     </style>
+    
+    <style name="Text.advertising_14sp" parent="android:TextAppearance">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">-0.05</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+    </style>
 
 
 
