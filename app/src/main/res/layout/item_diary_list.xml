@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/timeslot"
+            android:id="@+id/title"
             style="@style/Text.black_13sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,8 +34,8 @@
             android:maxLines="4"
             android:text="@string/cheer_up_contents"
             android:textColor="#727788"
-            app:layout_constraintLeft_toLeftOf="@id/timeslot"
-            app:layout_constraintTop_toBottomOf="@id/timeslot" />
+            app:layout_constraintLeft_toLeftOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <ImageView
             android:id="@+id/plus_btn"
@@ -48,7 +48,7 @@
             app:layout_constraintTop_toTopOf="@id/container" />
 
         <ImageView
-            android:id="@+id/slot_img"
+            android:id="@+id/emoticon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"

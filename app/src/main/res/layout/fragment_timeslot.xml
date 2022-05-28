@@ -29,18 +29,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="44dp"
-                android:text="오늘 아침\n기분 어떠세요?"
                 android:textSize="28sp"
                 app:layout_constraintLeft_toLeftOf="@id/container"
-                app:layout_constraintTop_toTopOf="@id/container" />
+                app:layout_constraintTop_toTopOf="@id/container"
+                tools:text="asd" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:clipToPadding="false"
                 android:layout_marginTop="32dp"
                 android:background="@color/main_background"
+                android:clipToPadding="false"
                 android:orientation="horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -55,23 +55,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/viewpager2" />
-
-<!--                        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator-->
-<!--                            android:id="@+id/spring_dots_indicator"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_marginTop="40dp"-->
-<!--                            app:dampingRatio="0.5"-->
-<!--                            app:dotsColor="@color/black"-->
-<!--                            app:dotsCornerRadius="2dp"-->
-<!--                            app:dotsSize="16dp"-->
-<!--                            app:dotsSpacing="6dp"-->
-<!--                            app:dotsStrokeColor="@color/teal_200"-->
-<!--                            app:dotsStrokeWidth="2dp"-->
-<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--                            app:layout_constraintRight_toRightOf="parent"-->
-<!--                            app:layout_constraintTop_toBottomOf="@id/viewpager2"-->
-<!--                            app:stiffness="300" />-->
 
             <TextView
                 android:id="@+id/write_emotion"

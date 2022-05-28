@@ -40,7 +40,7 @@
 
     <fragment
         android:id="@+id/timeSlotFragment"
-        android:name="com.mongsil.mongsildiary.ui.home.today.TimeSlotFragment"
+        android:name="com.mongsil.mongsildiary.ui.home.today.TodayFragment"
         android:label="fragment_writing_timeslot"
         tools:layout="@layout/fragment_timeslot">
         <action
