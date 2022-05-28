@@ -7,26 +7,34 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
+import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTimeslotBinding
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
 
-class TimeSlotFragment : Fragment() {
+class TodayFragment : BaseFragment() {
 
     private var _binding: FragmentTimeslotBinding? = null
     private val binding get() = _binding!!
 
     //    private val emoticonViewModel by viewModels<EmoticonViewModel>()
-    private val timeSlotViewModel by viewModels<TimeSlotViewModel>()
+    private val todayEmoticonViewModel by viewModels<TodayEmoticonViewModel>()
     private var emoticonSize: Int = 2
 
     companion object {
         const val PAGE_EMOTICONS_SIZE = 12
+    }
+
+    // 결과를 수신하는 프래그먼트 리스터 설정
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -44,10 +52,15 @@ class TimeSlotFragment : Fragment() {
         observeData()
 
         /**
-         * 참고 블로그 :
-         * https://black-jin0427.tistory.com/95
-         * https://hyogeun-android.tistory.com/entry/ViewPager2%EC%97%90-%EA%B4%80%ED%95%9C-%EA%B3%A0%EC%B0%B0
+         * @param key : requestKey 값
+         *
          * */
+        setFragmentResultListener("TodayTitle") { key, bundle ->
+            val result = bundle.getString("bundleKey")
+            "result : $result".printLog()
+            binding.title.text = "오늘 $result\n기분은 어떠세요?"    // TODO string.xml로 수정 필요
+        }
+
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -56,14 +69,14 @@ class TimeSlotFragment : Fragment() {
                 }
             })
 
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
                     position: Int,
                     positionOffset: Float,
                     positionOffsetPixels: Int
                 ) {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    if (position != 0){
+                    if (position != 0) {
                         // TODO 광고 버튼 추가
                         requireContext().showToast("$position 1번 페이지가 아님")
                     }
@@ -76,6 +89,7 @@ class TimeSlotFragment : Fragment() {
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 "${binding.editText.length()}".printLog()
 
@@ -96,10 +110,14 @@ class TimeSlotFragment : Fragment() {
     }
 
     private fun observeData() {
-        timeSlotViewModel.emoticonState.observe(viewLifecycleOwner) { emoticons ->
+        todayEmoticonViewModel.emoticonState.observe(viewLifecycleOwner) { emoticons ->
 
             val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
-            emoticonSize = emoticons.size / PAGE_EMOTICONS_SIZE + 1
+            emoticonSize = if (emoticons.size / PAGE_EMOTICONS_SIZE == 0) {
+                emoticons.size / PAGE_EMOTICONS_SIZE
+            } else {
+                emoticons.size / PAGE_EMOTICONS_SIZE + 1
+            }
 
             binding.barIndicator.createIndicator(
                 emoticonSize,
@@ -108,15 +126,10 @@ class TimeSlotFragment : Fragment() {
                 0
             )
 
-            // viewpager의 onClickListener 구현 할 부분
             binding.viewpager2.adapter =
                 TodayViewPagerAdapter(
                     emoticonChunkList = chuckedEmoticons,
-                    onItemClickListener = {
-
-                        "뷰페이저 클릭".printLog("TimeSlotAdapter")
-                        requireContext().showToast("클릭")
-                    }, //emoticonViewModel
+                    todayEmoticonViewModel
                 )
         }
     }

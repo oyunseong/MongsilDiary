@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.R
@@ -22,8 +24,11 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private val homeTimeSlotList: ArrayList<List<String>> = arrayListOf()   //TODO 2차원 배열 -> 데이터 클래스로 변경
-    private val homeTimeSlotAdapter = HomeTimeSlotAdapter(homeTimeSlotList, onItemClickListener = {
+    private val homeTodaySlotList: ArrayList<HomeTodaySlot> =
+        arrayListOf()
+    private val homeTimeSlotAdapter = HomeTodayAdapter(homeTodaySlotList, onItemClickListener = {
+        val result = homeTodaySlotList[it].title
+        setFragmentResult("TodayTitle", bundleOf("bundleKey" to result))
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
     })
 
@@ -39,7 +44,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addData()
-        setTimeSlotRecycler()
+        setTodayRecycler()
         setRecordOption()
     }
 
@@ -73,7 +78,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setTimeSlotRecycler() {
+    private fun setTodayRecycler() {
         binding.recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
@@ -84,9 +89,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun addData() {
-        for (i in 0..3) {
-            homeTimeSlotList.add(listOf("$i th main"))
-        }
+        homeTodaySlotList.add(HomeTodaySlot("아침", R.drawable.ic_emoticon_01, "asd"))
+        homeTodaySlotList.add(HomeTodaySlot("점심", R.drawable.ic_emoticon_02, "asd"))
+        homeTodaySlotList.add(HomeTodaySlot("저녁", R.drawable.ic_emoticon_03, "asd"))
+        homeTodaySlotList.add(HomeTodaySlot("하루 끝", R.drawable.ic_emoticon_04, ""))
     }
 
 }
