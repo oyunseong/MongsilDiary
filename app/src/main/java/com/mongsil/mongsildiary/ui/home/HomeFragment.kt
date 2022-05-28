@@ -89,10 +89,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun addData() {
-        homeTodaySlotList.add(HomeTodaySlot("아침", R.drawable.ic_emoticon_01, "asd"))
-        homeTodaySlotList.add(HomeTodaySlot("점심", R.drawable.ic_emoticon_02, "asd"))
-        homeTodaySlotList.add(HomeTodaySlot("저녁", R.drawable.ic_emoticon_03, "asd"))
-        homeTodaySlotList.add(HomeTodaySlot("하루 끝", R.drawable.ic_emoticon_04, ""))
+        if(homeTodaySlotList.isEmpty()){
+            homeTodaySlotList.add(HomeTodaySlot("아침", R.drawable.ic_emoticon_01, "asd"))
+            homeTodaySlotList.add(HomeTodaySlot("점심", R.drawable.ic_emoticon_02, "asd"))
+            homeTodaySlotList.add(HomeTodaySlot("저녁", R.drawable.ic_emoticon_03, "asd"))
+            homeTodaySlotList.add(HomeTodaySlot("하루 끝", R.drawable.ic_emoticon_04, ""))
+        }
     }
 
 }
