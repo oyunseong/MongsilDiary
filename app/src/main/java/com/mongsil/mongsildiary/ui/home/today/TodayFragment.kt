@@ -30,12 +30,6 @@ class TodayFragment : BaseFragment() {
         const val PAGE_EMOTICONS_SIZE = 12
     }
 
-    // 결과를 수신하는 프래그먼트 리스터 설정
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +44,6 @@ class TodayFragment : BaseFragment() {
         onButtonClickListener()
         observeData()
 
-
         /**
          * @param key : requestKey 값
          *
@@ -58,8 +51,9 @@ class TodayFragment : BaseFragment() {
         setFragmentResultListener("TodayTitle") { key, bundle ->
             val result = bundle.getString("bundleKey")
             "result : $result".printLog()
-            binding.title.text = "오늘 $result\n기분은 어떠세요?"    // TODO string.xml로 수정 필요
+            binding.timeText.text = "오늘 $result\n기분은 어떠세요?"    // TODO string.xml로 수정 필요
         }
+
 
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

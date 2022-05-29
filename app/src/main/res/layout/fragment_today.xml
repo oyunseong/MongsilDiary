@@ -7,7 +7,10 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -23,13 +26,26 @@
             android:fillViewport="true">
 
             <TextView
+                android:id="@+id/time_text"
+                style="@style/Text.black_13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toTopOf="@id/container"
+                tools:text="오늘 아침\n기분은 어떠세요?"
+                />
+
+            <TextView
                 android:id="@+id/advertising_btn"
                 android:layout_width="136dp"
                 android:layout_height="136dp"
                 android:background="@drawable/advertising_button"
                 app:layout_constraintBottom_toBottomOf="@id/viewpager2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/viewpager2"
+                app:layout_constraintStart_toStartOf="@id/viewpager2"
                 app:layout_constraintTop_toTopOf="@id/viewpager2" />
 
             <ImageView
@@ -54,8 +70,8 @@
                 app:layout_constraintTop_toBottomOf="@id/advertising_image" />
 
             <TextView
-                style="@style/Text.advertising_14sp"
                 android:id="@+id/advertising2_tv"
+                style="@style/Text.advertising_14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/advertising_text2"
@@ -64,29 +80,17 @@
                 app:layout_constraintStart_toStartOf="@id/advertising_btn"
                 app:layout_constraintTop_toBottomOf="@id/advertising_tv" />
 
-            <TextView
-                android:id="@+id/title"
-                style="@style/Text.black_13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="44dp"
-                android:textSize="28sp"
-                app:layout_constraintLeft_toLeftOf="@id/container"
-                app:layout_constraintTop_toTopOf="@id/container"
-                tools:text="오늘 아침\n기분은 어떠세요?" />
-
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="24dp"
                 android:background="@color/main_background"
                 android:clipToPadding="false"
                 android:orientation="horizontal"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintEnd_toEndOf="@id/container"
+                app:layout_constraintStart_toStartOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/time_text"
                 tools:layout="@layout/item_timeslot_list" />
 
             <com.mongsil.mongsildiary.customView.BarIndicator
