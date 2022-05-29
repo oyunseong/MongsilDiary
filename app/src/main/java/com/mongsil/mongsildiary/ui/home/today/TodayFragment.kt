@@ -103,7 +103,7 @@ class TodayFragment : BaseFragment() {
                 if (binding.editText.length() == 0) {
                     binding.toolbar.uploadBtn.isEnabled = false
                     binding.toolbar.uploadBtn.isClickable = false
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
+                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_not_focus_color.toString()))
                 } else {
                     binding.toolbar.uploadBtn.isEnabled = true
                     binding.toolbar.uploadBtn.isClickable = true
@@ -120,10 +120,10 @@ class TodayFragment : BaseFragment() {
         todayEmoticonViewModel.emoticonState.observe(viewLifecycleOwner) { emoticons ->
 
             val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
-            emoticonSize = if (emoticons.size / PAGE_EMOTICONS_SIZE == 0) {
-                emoticons.size / PAGE_EMOTICONS_SIZE
+            emoticonSize = if (emoticons.size % PAGE_EMOTICONS_SIZE == 0) {
+                (emoticons.size / PAGE_EMOTICONS_SIZE)
             } else {
-                emoticons.size / PAGE_EMOTICONS_SIZE + 1
+                (emoticons.size / PAGE_EMOTICONS_SIZE) + 1
             }
 
             binding.barIndicator.createIndicator(
