@@ -11,15 +11,18 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.R
+import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.model.RecordViewModel
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.mongsil.mongsildiary.utils.showToast
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
-    // TODO Today 클릭하면 아침,점심,저녁 Text 바뀌게 수정
     private val recordViewModel: RecordViewModel by activityViewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -46,6 +49,14 @@ class HomeFragment : Fragment() {
         addData()
         setTodayRecycler()
         setRecordOption()
+        setCurrentDate()
+    }
+
+    private fun setCurrentDate() {
+        val currentDate = System.currentTimeMillis()
+        val date = Date(currentDate)
+        val sdf: SimpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
+        binding.date.text = sdf.format(date)
     }
 
     private fun setRecordOption() {
@@ -89,7 +100,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun addData() {
-        if(homeTodaySlotList.isEmpty()){
+        if (homeTodaySlotList.isEmpty()) {
             homeTodaySlotList.add(HomeTodaySlot("아침", R.drawable.ic_emoticon_01, "asd"))
             homeTodaySlotList.add(HomeTodaySlot("점심", R.drawable.ic_emoticon_02, "asd"))
             homeTodaySlotList.add(HomeTodaySlot("저녁", R.drawable.ic_emoticon_03, "asd"))
