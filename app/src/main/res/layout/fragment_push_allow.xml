@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/morning_bar"
+        android:layout_width="312dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/push_allow_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <TextView
+        android:id="@+id/morning_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/morning"
+        app:layout_constraintStart_toStartOf="@id/morning_bar"
+        app:layout_constraintTop_toTopOf="@id/morning_bar" />
+
+    <TextView
+        android:id="@+id/morning_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AM 07:00"
+        app:layout_constraintStart_toStartOf="@id/morning_tv"
+        app:layout_constraintTop_toBottomOf="@id/morning_tv" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="18dp"
+        android:textOff=""
+        android:scrollbarSize="43dp"
+        android:textOn=""
+        android:thumb="@drawable/switch_thumb"
+        app:layout_constraintBottom_toBottomOf="@id/morning_bar"
+        app:layout_constraintEnd_toEndOf="@id/morning_bar"
+        app:layout_constraintTop_toTopOf="@id/morning_bar"
+        app:switchMinWidth="52dp"
+
+        app:track="@drawable/switch_track_selector" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

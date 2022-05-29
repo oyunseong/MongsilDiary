@@ -36,7 +36,11 @@
         android:id="@+id/settingFragment"
         android:name="com.mongsil.mongsildiary.ui.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_pushAllowFragment"
+            app:destination="@id/pushAllowFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/timeSlotFragment"
@@ -60,6 +64,13 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pushAllowFragment"
+        android:name="com.mongsil.mongsildiary.ui.setting.PushAllowFragment"
+        android:label="fragment_push_allow"
+        tools:layout="@layout/fragment_push_allow">
     </fragment>
 
     <action
