@@ -20,4 +20,18 @@ class PushAllowFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // TODO on,Off 상태에 따라 text 출력 수정 필요
+        binding.morningSwitch.setOnCheckedChangeListener { view, isChecked ->
+            if (isChecked) {
+                binding.offTv.visibility = View.GONE
+                binding.onTv.visibility = View.VISIBLE
+            } else {
+                binding.onTv.visibility = View.GONE
+                binding.offTv.visibility = View.VISIBLE
+            }
+        }
+    }
+
 }

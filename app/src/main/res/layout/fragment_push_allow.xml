@@ -11,7 +11,8 @@
 
     <TextView
         android:id="@+id/morning_bar"
-        android:layout_width="312dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="24dp"
         android:layout_height="72dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/push_allow_bar"
@@ -38,18 +39,47 @@
         app:layout_constraintTop_toBottomOf="@id/morning_tv" />
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/morning_switch"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginEnd="18dp"
-        android:textOff=""
         android:scrollbarSize="43dp"
+        android:textOff=""
         android:textOn=""
         android:thumb="@drawable/switch_thumb"
         app:layout_constraintBottom_toBottomOf="@id/morning_bar"
         app:layout_constraintEnd_toEndOf="@id/morning_bar"
         app:layout_constraintTop_toTopOf="@id/morning_bar"
         app:switchMinWidth="52dp"
-
         app:track="@drawable/switch_track_selector" />
+
+    <TextView
+        android:id="@+id/on_tv"
+        android:layout_width="28dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="2dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:text="On"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/morning_switch"
+        app:layout_constraintStart_toStartOf="@id/morning_switch"
+        app:layout_constraintTop_toTopOf="@id/morning_switch" />
+
+    <TextView
+        android:id="@+id/off_tv"
+        android:layout_width="28dp"
+        android:layout_height="13dp"
+        android:layout_marginEnd="2dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:text="Off"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/morning_switch"
+        app:layout_constraintEnd_toEndOf="@id/morning_switch"
+        app:layout_constraintTop_toTopOf="@id/morning_switch" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
