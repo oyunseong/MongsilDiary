@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
@@ -30,8 +29,10 @@ class HomeFragment : BaseFragment() {
     private val homeTodaySlotList: ArrayList<HomeTodaySlot> =
         arrayListOf()
     private val homeTimeSlotAdapter = HomeTodayAdapter(homeTodaySlotList, onItemClickListener = {
-        val result = homeTodaySlotList[it].title
-        setFragmentResult("TodayTitle", bundleOf("bundleKey" to result))
+        val todayTitle = homeTodaySlotList[it].title
+        val todayContents = homeTodaySlotList[it].content
+        setFragmentResult("todayTitle", bundleOf("titleBundleKey" to todayTitle))
+        setFragmentResult("todayContents", bundleOf("contentsBundleKey" to todayContents))
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
     })
 
