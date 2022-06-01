@@ -1,4 +1,4 @@
-package com.mongsil.mongsildiary.model
+package com.mongsil.mongsildiary.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

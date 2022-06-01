@@ -6,8 +6,10 @@ package com.mongsil.mongsildiary.ui.home.today
 // 뷰모델을 리사이클러뷰 어댑터로 보내고, onBindViewHolder에서 옵저버
 
 data class Emoticon(
+    val id: Int = -1,
     val image: Int,
-    val name: String
+    val name: String,
+    val price: Int = 0
 )
 
 data class TodayEmoticon(

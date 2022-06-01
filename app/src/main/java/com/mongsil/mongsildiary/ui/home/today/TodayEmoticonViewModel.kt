@@ -23,8 +23,8 @@ class TodayEmoticonViewModel : ViewModel() {
 //        val emoticonList = mutableListOf<Emoticon>()
         val emoticonList = mutableListOf<TodayEmoticon>()
 
-        for (i in 0..23) {
-            emoticonList.add(TodayEmoticon(Emoticon(R.drawable.ic_emoticon_01, "$i item"), false))
+        for (i in emoticonList) {
+//            emoticonList.add(TodayEmoticon(Emoticon(R.drawable.ic_emoticon_01, i"$i item"), false))
         }
         _emoticonState.value = emoticonList
 

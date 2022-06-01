@@ -1,18 +1,18 @@
-package com.mongsil.mongsildiary.model.database
+package com.mongsil.mongsildiary.data.database
 
-import androidx.databinding.adapters.Converters
 import androidx.room.Database
 import androidx.room.TypeConverters
 import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.mongsil.mongsildiary.model.database.entity.RecordEntity
-import com.mongsil.mongsildiary.model.database.entity.SlotEntity
+import com.mongsil.mongsildiary.data.database.entity.RecordEntity
+import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 
 
 @Database(entities = [SlotEntity::class, RecordEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
+    abstract fun diaryDao(): DiaryDao
 
     companion object {
         private const val DATABASE_NAME = "MongsilDatabase"

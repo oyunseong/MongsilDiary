@@ -19,7 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
-import com.mongsil.mongsildiary.model.RecordViewModel
+import com.mongsil.mongsildiary.ui.RecordViewModel
 import com.mongsil.mongsildiary.utils.printLog
 
 class RecordFragment : Fragment() {
