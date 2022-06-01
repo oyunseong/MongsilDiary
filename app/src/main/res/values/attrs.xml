@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AllowSwitch">
+        <attr name="bg" format="reference|integer" />
+        <attr name="text" format="reference|string" />
+        <attr name="time_text" format="reference|string" />
+        <attr name="time_text_color" format="reference|integer|color" />
+        <attr name="time_color" format="reference|integer|color" />
+        <attr name="switch_text_color" format="reference|integer|color" />
+    </declare-styleable>
+
+</resources>

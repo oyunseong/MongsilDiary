@@ -9,77 +9,58 @@
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
 
-    <TextView
-        android:id="@+id/morning_bar"
-        android:layout_width="match_parent"
+    <com.mongsil.mongsildiary.customView.AllowSwitch
+        android:id="@+id/morning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_height="72dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/push_allow_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:switch_text_color="@color/white"
+        app:text="@string/morning"
+        app:time_text="AM 07:00" />
 
-    <TextView
-        android:id="@+id/morning_tv"
-        android:layout_width="wrap_content"
+    <com.mongsil.mongsildiary.customView.AllowSwitch
+        android:id="@+id/afternoon"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/morning"
-        app:layout_constraintStart_toStartOf="@id/morning_bar"
-        app:layout_constraintTop_toTopOf="@id/morning_bar" />
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/morning"
+        app:switch_text_color="@color/white"
+        app:text="@string/afternoon"
+        app:time_text="PM 12:30" />
 
-    <TextView
-        android:id="@+id/morning_time"
-        android:layout_width="wrap_content"
+    <com.mongsil.mongsildiary.customView.AllowSwitch
+        android:id="@+id/evening"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="AM 07:00"
-        app:layout_constraintStart_toStartOf="@id/morning_tv"
-        app:layout_constraintTop_toBottomOf="@id/morning_tv" />
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/afternoon"
+        app:switch_text_color="@color/white"
+        app:text="@string/evening"
+        app:time_text="PM 07:00" />
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/morning_switch"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="18dp"
-        android:scrollbarSize="43dp"
-        android:textOff=""
-        android:textOn=""
-        android:thumb="@drawable/switch_thumb"
-        app:layout_constraintBottom_toBottomOf="@id/morning_bar"
-        app:layout_constraintEnd_toEndOf="@id/morning_bar"
-        app:layout_constraintTop_toTopOf="@id/morning_bar"
-        app:switchMinWidth="52dp"
-        app:track="@drawable/switch_track_selector" />
 
-    <TextView
-        android:id="@+id/on_tv"
-        android:layout_width="28dp"
-        android:layout_height="13dp"
-        android:layout_marginStart="2dp"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:text="On"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/morning_switch"
-        app:layout_constraintStart_toStartOf="@id/morning_switch"
-        app:layout_constraintTop_toTopOf="@id/morning_switch" />
-
-    <TextView
-        android:id="@+id/off_tv"
-        android:layout_width="28dp"
-        android:layout_height="13dp"
-        android:layout_marginEnd="2dp"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:text="Off"
-        android:textSize="11sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/morning_switch"
-        app:layout_constraintEnd_toEndOf="@id/morning_switch"
-        app:layout_constraintTop_toTopOf="@id/morning_switch" />
+    <com.mongsil.mongsildiary.customView.AllowSwitch
+        android:id="@+id/end_of_the_day"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/evening"
+        app:switch_text_color="@color/white"
+        app:text="@string/end_of_the_day"
+        app:time_text="PM 11:00" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,7 +26,7 @@
             android:fillViewport="true">
 
             <TextView
-                android:id="@+id/time_text"
+                android:id="@+id/today_text"
                 style="@style/Text.black_13sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,8 +35,7 @@
                 android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toTopOf="@id/container"
-                tools:text="오늘 아침\n기분은 어떠세요?"
-                />
+                tools:text="오늘 아침\n기분은 어떠세요?" />
 
             <TextView
                 android:id="@+id/advertising_btn"
@@ -90,7 +89,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="@id/container"
                 app:layout_constraintStart_toStartOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/time_text"
+                app:layout_constraintTop_toBottomOf="@id/today_text"
                 tools:layout="@layout/item_timeslot_list" />
 
             <com.mongsil.mongsildiary.customView.BarIndicator

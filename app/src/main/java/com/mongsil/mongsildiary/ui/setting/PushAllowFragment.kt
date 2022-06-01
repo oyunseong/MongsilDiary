@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentPushAllowBinding
 
@@ -22,16 +23,23 @@ class PushAllowFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // TODO on,Off 상태에 따라 text 출력 수정 필요
-        binding.morningSwitch.setOnCheckedChangeListener { view, isChecked ->
-            if (isChecked) {
-                binding.offTv.visibility = View.GONE
-                binding.onTv.visibility = View.VISIBLE
-            } else {
-                binding.onTv.visibility = View.GONE
-                binding.offTv.visibility = View.VISIBLE
-            }
-        }
-    }
 
+        binding.toolbar.uploadBtn.visibility = View.GONE
+
+        binding.toolbar.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
+        binding.toolbar.title.text = "푸쉬 동의"
+
+        binding.morning.setOnCheckedChangeListener("morning")
+        binding.afternoon.setOnCheckedChangeListener("afternoon")
+        binding.evening.setOnCheckedChangeListener("evening")
+        binding.endOfTheDay.setOnCheckedChangeListener("end_of_the_day")
+
+        binding.morning.getPreferenceValue("morning")
+        binding.afternoon.getPreferenceValue("afternoon")
+        binding.evening.getPreferenceValue("evening")
+        binding.endOfTheDay.getPreferenceValue("end_of_the_day")
+    }
 }

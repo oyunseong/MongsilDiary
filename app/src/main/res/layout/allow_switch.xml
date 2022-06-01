@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    android:background="@drawable/push_allow_bar">
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:letterSpacing="-0.05"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/morning" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#727788"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@id/time_text"
+        app:layout_constraintTop_toBottomOf="@id/time_text"
+        tools:text="AM 07:00" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/setting_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="18dp"
+        android:scrollbarSize="43dp"
+        android:thumb="@drawable/switch_thumb"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:switchMinWidth="52dp"
+        app:track="@drawable/switch_track_selector" />
+
+    <TextView
+        android:id="@+id/on_tv"
+        android:layout_width="28dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:text="On"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/setting_switch"
+        app:layout_constraintStart_toStartOf="@id/setting_switch"
+        app:layout_constraintTop_toTopOf="@id/setting_switch" />
+
+    <TextView
+        android:id="@+id/off_tv"
+        android:layout_width="28dp"
+        android:layout_height="13dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:text="Off"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/setting_switch"
+        app:layout_constraintEnd_toEndOf="@id/setting_switch"
+        app:layout_constraintTop_toTopOf="@id/setting_switch" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -46,7 +46,7 @@ class TodayFragment : BaseFragment() {
 
         setFragmentResultListener("todayTitle") { _, bundle ->
             val todayTitle = bundle.getString("titleBundleKey")
-            binding.timeText.text = "오늘 $todayTitle\n기분은 어떠세요?"    // TODO string.xml로 수정 필요
+            binding.todayText.text = "오늘 $todayTitle\n기분은 어떠세요?"    // TODO string.xml로 수정 필요
         }
 
         setFragmentResultListener("todayContents") { _, bundle ->
