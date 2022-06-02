@@ -12,9 +12,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.AllowSwitchBinding
+import com.mongsil.mongsildiary.ui.calendar.DayPickerDialog
+import com.mongsil.mongsildiary.ui.setting.TimePickerDialog
+import com.mongsil.mongsildiary.utils.showToast
 
 class AllowSwitch : ConstraintLayout {
-
+    private val timePickerDialog = TimePickerDialog()
     private lateinit var binding: AllowSwitchBinding
 
     constructor(context: Context) : super(context) {
@@ -32,6 +35,7 @@ class AllowSwitch : ConstraintLayout {
     }
 
     private fun initView() {
+
         binding = AllowSwitchBinding.inflate(LayoutInflater.from(context), this, true)
     }
 
@@ -101,5 +105,12 @@ class AllowSwitch : ConstraintLayout {
 
     fun getPreferenceValue(key: String) {
         binding.settingSwitch.isChecked = MyApplication.prefs.getState(key, false)
+    }
+
+    fun callTimePickerDialog(){
+        binding.time.setOnClickListener {
+            context.showToast("클릭")
+            //TODO TimePicker Dialog 호출
+        }
     }
 }

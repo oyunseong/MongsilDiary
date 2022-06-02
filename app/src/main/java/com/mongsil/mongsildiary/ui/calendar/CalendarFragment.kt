@@ -26,10 +26,10 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottomSheetFragment = BottomSheetDayPickerFragment()
+        val dayPickerDialog = DayPickerDialog()
 
         binding.title.setOnClickListener {
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+            dayPickerDialog.show(parentFragmentManager, dayPickerDialog.tag)
         }
 
     }

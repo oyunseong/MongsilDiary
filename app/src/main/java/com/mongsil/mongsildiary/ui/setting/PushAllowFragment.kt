@@ -41,5 +41,9 @@ class PushAllowFragment : BaseFragment() {
         binding.afternoon.getPreferenceValue("afternoon")
         binding.evening.getPreferenceValue("evening")
         binding.endOfTheDay.getPreferenceValue("end_of_the_day")
+
+        binding.morning.setOnClickListener {
+            binding.morning.callTimePickerDialog()
+        }
     }
 }

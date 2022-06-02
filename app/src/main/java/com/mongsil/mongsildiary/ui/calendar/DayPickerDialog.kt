@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.DialogDatepickerBinding
 
-class BottomSheetDayPickerFragment : BottomSheetDialogFragment() {
+class DayPickerDialog : BottomSheetDialogFragment() {
     private var _binding: DialogDatepickerBinding? = null
     private val binding get() = _binding!!
 
@@ -25,7 +25,6 @@ class BottomSheetDayPickerFragment : BottomSheetDialogFragment() {
         return binding.root
     }
 
-    // TODO 디폴트값 설정 질문
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
