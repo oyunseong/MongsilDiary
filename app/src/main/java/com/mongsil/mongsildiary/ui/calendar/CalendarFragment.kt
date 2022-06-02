@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
 
 class CalendarFragment : Fragment() {
@@ -27,7 +26,7 @@ class CalendarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val bottomSheetFragment = BottomSheetFragment()
+        val bottomSheetFragment = BottomSheetDayPickerFragment()
 
         binding.title.setOnClickListener {
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)

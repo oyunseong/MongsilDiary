@@ -12,7 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.DialogDatepickerBinding
 
-class BottomSheetFragment : BottomSheetDialogFragment() {
+class BottomSheetDayPickerFragment : BottomSheetDialogFragment() {
     private var _binding: DialogDatepickerBinding? = null
     private val binding get() = _binding!!
 
