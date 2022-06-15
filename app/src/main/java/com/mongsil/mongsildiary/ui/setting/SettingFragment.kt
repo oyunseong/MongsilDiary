@@ -30,5 +30,8 @@ class SettingFragment : ViewBindingFragment<FragmentSettingBinding>() {
         binding.pushBtn.setOnClickListener {
             requireView().findNavController().navigate(R.id.action_settingFragment_to_pushAllowFragment)
         }
+        binding.backupBtn.setOnClickListener {
+            requireView().findNavController().navigate(R.id.action_to_settingFragment_to_backupFragment)
+        }
     }
 }

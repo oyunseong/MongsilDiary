@@ -12,9 +12,9 @@
     <TextView
         android:id="@+id/push_btn"
         style="@style/Text.setting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="42dp"
         android:drawablePadding="8dp"
         android:text="@string/push_allow"
@@ -25,50 +25,58 @@
     <TextView
         android:id="@+id/backup_btn"
         style="@style/Text.setting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         android:drawablePadding="8dp"
         android:text="@string/diary_backup"
         app:drawableStartCompat="@drawable/ic_x_24_bakup"
-        app:layout_constraintStart_toStartOf="@+id/push_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/push_btn" />
 
 
     <TextView
         android:id="@+id/review_btn"
         style="@style/Text.setting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         android:drawablePadding="8dp"
         android:text="@string/review_writing"
         app:drawableStartCompat="@drawable/ic_x_24_wording"
-        app:layout_constraintStart_toStartOf="@+id/push_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backup_btn" />
 
     <TextView
         android:id="@+id/inquiry_btn"
         style="@style/Text.setting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         android:drawablePadding="8dp"
         android:text="@string/inquiry"
         app:drawableStartCompat="@drawable/ic_x_24_message"
-        app:layout_constraintStart_toStartOf="@+id/push_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/review_btn" />
 
     <TextView
         android:id="@+id/another_app_btn"
         style="@style/Text.setting"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
         android:layout_marginTop="32dp"
         android:drawablePadding="8dp"
         android:text="@string/developer_another_app"
         app:drawableStartCompat="@drawable/ic_x_24_etcapp"
-        app:layout_constraintStart_toStartOf="@+id/push_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inquiry_btn" />
 
     <TextView

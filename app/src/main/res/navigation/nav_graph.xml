@@ -36,10 +36,15 @@
         android:id="@+id/settingFragment"
         android:name="com.mongsil.mongsildiary.ui.setting.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" >
+        tools:layout="@layout/fragment_setting">
         <action
             android:id="@+id/action_settingFragment_to_pushAllowFragment"
             app:destination="@id/pushAllowFragment" />
+        <action
+            android:id="@+id/action_to_settingFragment_to_backupFragment"
+            app:destination="@+id/backupFragment"
+            />
+
     </fragment>
 
     <fragment
@@ -67,15 +72,20 @@
     </fragment>
 
     <fragment
+        android:id="@+id/backupFragment"
+        android:name="com.mongsil.mongsildiary.ui.setting.BackupFragment"
+        android:label="fragment_backup"
+        tools:layout="@layout/fragment_backup" />
+
+    <fragment
         android:id="@+id/pushAllowFragment"
         android:name="com.mongsil.mongsildiary.ui.setting.PushAllowFragment"
         android:label="fragment_push_allow"
-        tools:layout="@layout/fragment_push_allow">
-    </fragment>
-
+        tools:layout="@layout/fragment_push_allow" />
     <action
         android:id="@+id/action_to_calendarFragment"
         app:destination="@id/calendarFragment" />
+
 
     <action
         android:id="@+id/action_to_homeFragment"
