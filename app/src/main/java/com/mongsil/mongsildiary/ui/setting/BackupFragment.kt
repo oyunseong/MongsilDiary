@@ -19,6 +19,7 @@ class BackupFragment : ViewBindingFragment<FragmentBackupBinding>(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.title.text = R.string.diary_backup.toString()   //TODO
+        binding.toolbar.title.text = resources.getString(R.string.diary_backup)
+        binding.toolbar.uploadBtn.visibility = View.GONE
     }
 }
