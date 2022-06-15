@@ -15,9 +15,9 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2022.04"
             android:layout_marginStart="32dp"
             android:layout_marginTop="74dp"
+            android:text="2022.04"
             app:layout_constraintLeft_toLeftOf="@id/container"
             app:layout_constraintTop_toTopOf="@id/container" />
 
@@ -25,18 +25,46 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="한달의 기록"
             android:textSize="28sp"
-            android:layout_marginTop="8dp"
             app:layout_constraintLeft_toLeftOf="@id/date"
             app:layout_constraintTop_toBottomOf="@id/date" />
 
         <CalendarView
-            app:layout_constraintTop_toBottomOf="@id/title"
+            android:id="@+id/calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@id/container"
             app:layout_constraintRight_toRightOf="@id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/calendar_admob"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/calendar_admob"
+            android:gravity="center"
+            android:text="AD"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/calendar" />
+
+        <TextView
+            android:id="@+id/this_month_mongsil"
+            android:layout_width="match_parent"
+            android:layout_height="233dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="94dp"
+            android:background="@drawable/round_20_ffffff"
+            android:elevation="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendar_admob" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
