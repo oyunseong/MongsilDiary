@@ -10,4 +10,10 @@
         <attr name="switch_text_color" format="reference|integer|color" />
     </declare-styleable>
 
+    <declare-styleable name="ThisMonthMongsil">
+        <attr name="count" format="integer"/>
+        <attr name="progress" format="integer"/>
+        <attr name="emoticons" format="reference|integer"/>
+    </declare-styleable>
+
 </resources>
