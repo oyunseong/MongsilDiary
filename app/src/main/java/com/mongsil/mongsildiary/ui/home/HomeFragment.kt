@@ -7,30 +7,43 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mongsil.mongsildiary.MainActivity
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
+import com.mongsil.mongsildiary.data.database.AppDatabase
+import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
+import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.ui.RecordViewModel
+import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
+import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeFragment : BaseFragment() {
-
-    private val recordViewModel: RecordViewModel by activityViewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val todayViewModel by viewModels<TodayViewModel>()
+    private val recordViewModel by viewModels<RecordViewModel>()
 
-    private val homeTodaySlotList: ArrayList<HomeTodaySlot> =
+    private val repo: DiaryRepository by lazy {
+        DiaryRepository(AppDatabase.getInstance(requireContext()).diaryDao())
+    }
+
+    private var homeTodaySlotList: List<Slot> =
         arrayListOf()
     private val homeTimeSlotAdapter = HomeTodayAdapter(homeTodaySlotList, onItemClickListener = {
-        val todayTitle = homeTodaySlotList[it].title
-        val todayContents = homeTodaySlotList[it].content
+        val todayTitle = homeTodaySlotList[it].timeSlot
+        val todayContents = homeTodaySlotList[it].text
         setFragmentResult("todayTitle", bundleOf("titleBundleKey" to todayTitle))
         setFragmentResult("todayContents", bundleOf("contentsBundleKey" to todayContents))
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
@@ -45,12 +58,41 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        repo = DiaryRepository(AppDatabase.getInstance(requireContext()).diaryDao())
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addData()
+//        addData()
+        todayViewModel.contents.observe(viewLifecycleOwner){
+            binding.recycler.adapter as HomeTodayAdapter
+        }
         setTodayRecycler()
         setRecordOption()
         setCurrentDate()
+
+        binding.cheerUpTv.setOnClickListener {
+            lifecycleScope.launch {
+                "클릭".printLog("HomeFragment")
+                repo.insertSlot(Slot.mockSlot)
+                val r = repo.getSlotsByDate(100).toString().printLog("HomeFragment")
+                homeTodaySlotList = repo.getSlotsByDate(100)
+            }
+        }
+
+//        val db = Room.databaseBuilder(
+//            requireContext(),
+//            AppDatabase::class.java, "MongsilDatabase"
+//        ).build()
+
+//        val dao = db.diaryDao()
+//        val models: List<SlotEntity> = dao.getALLInfo()
+//        binding.cheerUpTv.setOnClickListener {
+//            "$models".printLog("HomeFragment")
+//        }
     }
 
     private fun setCurrentDate() {
@@ -93,20 +135,55 @@ class HomeFragment : BaseFragment() {
     private fun setTodayRecycler() {
         binding.recycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
         binding.recycler.adapter = homeTimeSlotAdapter
-
         binding.recycler.addItemDecoration(VerticalItemDecorator(10))
         binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
+
     }
 
-    private fun addData() {
-        if (homeTodaySlotList.isEmpty()) {
-            homeTodaySlotList.add(HomeTodaySlot("아침", R.drawable.ic_emoticon_01, "asd"))
-            homeTodaySlotList.add(HomeTodaySlot("점심", R.drawable.ic_emoticon_02, "asd"))
-            homeTodaySlotList.add(HomeTodaySlot("저녁", R.drawable.ic_emoticon_03, "asd"))
-            homeTodaySlotList.add(HomeTodaySlot("하루 끝", R.drawable.ic_emoticon_04, ""))
-        }
-    }
+//    private fun addData() {
+//        if (homeTodaySlotList.isEmpty()) {
+//            homeTodaySlotList.add(
+//                Slot(
+//                    100, "아침",
+//                    TimeSlot.Morning, Emoticon(
+//                        id = 2,
+//                        image = R.drawable.ic_emoticon_03,
+//                        name = "노랑"
+//                    )
+//                )
+//            )
+//            homeTodaySlotList.add(
+//                Slot(
+//                    20220629, "점심",
+//                    TimeSlot.Launch, Emoticon(
+//                        id = 2,
+//                        image = R.drawable.ic_emoticon_03,
+//                        name = "노랑"
+//                    )
+//                )
+//            )
+//            homeTodaySlotList.add(
+//                Slot(
+//                    20220629, "저녁",
+//                    TimeSlot.Dinner, Emoticon(
+//                        id = 2,
+//                        image = R.drawable.ic_emoticon_03,
+//                        name = "노랑"
+//                    )
+//                )
+//            )
+//            homeTodaySlotList.add(
+//                Slot(
+//                    20220629, "하루끝",
+//                    TimeSlot.EndOfTheDay, Emoticon(
+//                        id = 2,
+//                        image = R.drawable.ic_emoticon_03,
+//                        name = "노랑"
+//                    )
+//                )
+//            )
+//        }
+//    }
 
 }

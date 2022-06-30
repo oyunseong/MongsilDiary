@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
+import com.mongsil.mongsildiary.domain.Slot
 
 /**
  * HomeFragment에서 보이는 TimeSlot RecyclerView의 Adapter
  * */
 
 class HomeTodayAdapter(
-    private val homeTodaySlotList: ArrayList<HomeTodaySlot>,
+    private val homeTodaySlotList: List<Slot>,
     private val onItemClickListener: ((Int) -> Unit),
 ) : RecyclerView.Adapter<HomeTodayAdapter.HomeTimeSlotListViewHolder>() {
 
@@ -34,15 +35,20 @@ class HomeTodayAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: HomeTodaySlot, position: Int) { //TODO bind 함수의 파라미터가 리스트일 필요가 없음. 고치기
+//        val date: Long,
+//        val text: String,
+//        val timeSlot: TimeSlot,
+//        val emoticon: Emoticon,
+
+        fun bind(slot: Slot, position: Int) { //TODO bind 함수의 파라미터가 리스트일 필요가 없음. 고치기
 
             binding.root.setOnClickListener {
                 onItemClickListener.invoke(position)
             }
 
-            binding.title.text = data.title
-            binding.contents.text = data.content
-            binding.emoticon.setImageResource(data.image)
+            binding.title.text = slot.timeSlot.toString()
+            binding.contents.text = slot.text
+            binding.emoticon.setImageResource(slot.emoticon.image)
 
             if (binding.contents.text.isEmpty()) {
                 binding.contents.visibility = View.GONE
@@ -52,4 +58,5 @@ class HomeTodayAdapter(
             }
         }
     }
+
 }
