@@ -1,5 +1,7 @@
 package com.mongsil.mongsildiary.mapper
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
@@ -24,14 +26,17 @@ fun RecordEntity.toRecord(): Record {
     )
 }
 
-fun List<SlotEntity>.toSlots(): List<Slot> {
+fun LiveData<List<SlotEntity>>.toSlots(): LiveData<List<Slot>> {
     return map {
-        Slot(
-            date = it.date,
-            text = it.text,
-            timeSlot = it.timeSlot,
-            emoticon = emoticons[it.emoticonId]
+        listOf(
+            Slot(
+                date = it[0].date,
+                text = it[0].text,
+                timeSlot = it[0].timeSlot,
+                emoticon = emoticons[it[0].emoticonId]
+            )
         )
+
     }
 }
 

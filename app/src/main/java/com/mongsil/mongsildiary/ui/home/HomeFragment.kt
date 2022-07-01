@@ -8,13 +8,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.MainActivity
+import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.data.database.AppDatabase
+import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.domain.Slot
@@ -32,12 +37,17 @@ import java.util.*
 class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val todayViewModel by viewModels<TodayViewModel>()
-    private val recordViewModel by viewModels<RecordViewModel>()
 
-    private val repo: DiaryRepository by lazy {
-        DiaryRepository(AppDatabase.getInstance(requireContext()).diaryDao())
-    }
+    //    private val todayViewModel by viewModels<TodayViewModel>()
+//    private val todayViewModel:TodayViewModel by viewModels{
+//        TodayViewModelFactory((context as MyApplication).repository)
+//}
+    private val recordViewModel by viewModels<RecordViewModel>()
+    private val todayViewModel by viewModels<TodayViewModel>()
+
+//    private val repo: DiaryRepository by lazy {
+//        DiaryRepository(AppDatabase.getInstance(requireContext()).diaryDao())
+//    }
 
     private var homeTodaySlotList: List<Slot> =
         arrayListOf()
@@ -67,9 +77,11 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        addData()
-        todayViewModel.contents.observe(viewLifecycleOwner){
-            binding.recycler.adapter as HomeTodayAdapter
-        }
+//        todayViewModel.slotEntity.observe(viewLifecycleOwner){
+//            it?.let { homeTimeSlotAdapter.setData() }
+//        }
+        todayViewModel.slotData
+
         setTodayRecycler()
         setRecordOption()
         setCurrentDate()
@@ -77,23 +89,19 @@ class HomeFragment : BaseFragment() {
         binding.cheerUpTv.setOnClickListener {
             lifecycleScope.launch {
                 "클릭".printLog("HomeFragment")
-                repo.insertSlot(Slot.mockSlot)
-                val r = repo.getSlotsByDate(100).toString().printLog("HomeFragment")
-                homeTodaySlotList = repo.getSlotsByDate(100)
+//                repo.insertSlot(Slot.mockSlot)
+//                val r = repo.getSlotsByDate(100).toString().printLog("HomeFragment")
+//                homeTodaySlotList = repo.getSlotsByDate(100)
             }
         }
-
-//        val db = Room.databaseBuilder(
-//            requireContext(),
-//            AppDatabase::class.java, "MongsilDatabase"
-//        ).build()
-
-//        val dao = db.diaryDao()
-//        val models: List<SlotEntity> = dao.getALLInfo()
-//        binding.cheerUpTv.setOnClickListener {
-//            "$models".printLog("HomeFragment")
-//        }
     }
+
+//    private fun updateUI() {
+//        todayViewModel.slotData?.observe(context, Observer<List<Slot>> { list ->
+//            homeTimeSlotAdapter.notifyDataSetChanged()
+//        })
+//    }
+
 
     private fun setCurrentDate() {
         val currentDate = System.currentTimeMillis()

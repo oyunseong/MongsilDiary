@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
 import com.mongsil.mongsildiary.domain.Slot
 
@@ -51,12 +52,16 @@ class HomeTodayAdapter(
             binding.emoticon.setImageResource(slot.emoticon.image)
 
             if (binding.contents.text.isEmpty()) {
-                binding.contents.visibility = View.GONE
-                binding.emoticon.visibility = View.GONE
+//                binding.contents.visibility = View.GONE
+//                binding.emoticon.visibility = View.GONE
             }else{
                 binding.plusBtn.visibility = View.GONE
             }
         }
+    }
+
+    fun setData(){
+        notifyDataSetChanged()
     }
 
 }

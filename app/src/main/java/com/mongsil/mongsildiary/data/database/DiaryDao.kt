@@ -1,11 +1,13 @@
 package com.mongsil.mongsildiary.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DiaryDao {
@@ -19,12 +21,15 @@ interface DiaryDao {
     suspend fun getRecordByDate(date: Long): RecordEntity
 
     @Query("SELECT * FROM SlotEntity WHERE date = :date")
-    suspend fun getSlotsByDate(date: Long): List<SlotEntity>
+    suspend fun getSlotsByDate(date: Long): LiveData<List<SlotEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSlot(slotEntity: SlotEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecord(recordEntity: RecordEntity)
+
+    @Query("SELECT * FROM SlotEntity")
+    fun getSlotsByDate2(): Flow<List<SlotEntity>>
 
 }
