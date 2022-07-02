@@ -1,9 +1,9 @@
 package com.mongsil.mongsildiary.domain
 
+import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.ui.home.today.Emoticon
-import java.util.*
 
 //data class Diary(
 //    val date: Long,
@@ -40,3 +40,15 @@ data class Record(
         )
     }
 }
+
+val defaultSlotList = listOf<Slot>(
+    Slot(
+        20220629, "하루끝",
+        TimeSlot.EndOfTheDay,
+        Emoticon(
+            id = 2,
+            image = R.drawable.ic_emoticon_03,
+            name = "노랑"
+        ),
+    )
+)

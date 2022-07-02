@@ -1,57 +1,48 @@
 package com.mongsil.mongsildiary.ui.home
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mongsil.mongsildiary.MainActivity
-import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
-import com.mongsil.mongsildiary.data.database.AppDatabase
-import com.mongsil.mongsildiary.data.database.entity.SlotEntity
-import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.domain.Slot
-import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.ui.RecordViewModel
-import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    //    private val todayViewModel by viewModels<TodayViewModel>()
-//    private val todayViewModel:TodayViewModel by viewModels{
-//        TodayViewModelFactory((context as MyApplication).repository)
-//}
     private val recordViewModel by viewModels<RecordViewModel>()
-    private val todayViewModel by viewModels<TodayViewModel>()
 
-//    private val repo: DiaryRepository by lazy {
-//        DiaryRepository(AppDatabase.getInstance(requireContext()).diaryDao())
-//    }
+    private val todayViewModel by viewModels<TodayViewModel>(factoryProducer = {
+        object : ViewModelProvider.NewInstanceFactory() {
+            @Suppress("unchecked_cast")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return TodayViewModel() as T
+            }
+        }
+    })
 
     private var homeTodaySlotList: List<Slot> =
-        arrayListOf()
-    private val homeTimeSlotAdapter = HomeTodayAdapter(homeTodaySlotList, onItemClickListener = {
+        emptyList()
+    private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
         val todayTitle = homeTodaySlotList[it].timeSlot
         val todayContents = homeTodaySlotList[it].text
         setFragmentResult("todayTitle", bundleOf("titleBundleKey" to todayTitle))
@@ -68,40 +59,22 @@ class HomeFragment : BaseFragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        repo = DiaryRepository(AppDatabase.getInstance(requireContext()).diaryDao())
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        addData()
-//        todayViewModel.slotEntity.observe(viewLifecycleOwner){
-//            it?.let { homeTimeSlotAdapter.setData() }
-//        }
-        todayViewModel.slotData
 
         setTodayRecycler()
         setRecordOption()
         setCurrentDate()
 
-        binding.cheerUpTv.setOnClickListener {
-            lifecycleScope.launch {
-                "클릭".printLog("HomeFragment")
-//                repo.insertSlot(Slot.mockSlot)
-//                val r = repo.getSlotsByDate(100).toString().printLog("HomeFragment")
-//                homeTodaySlotList = repo.getSlotsByDate(100)
+        todayViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
+            override fun onChanged(t: List<Slot>?) {
+                "$t".printLog("List<Slot>'s data")
+                homeTimeSlotAdapter.setData(t ?: emptyList())
             }
-        }
+        })
+
+
     }
-
-//    private fun updateUI() {
-//        todayViewModel.slotData?.observe(context, Observer<List<Slot>> { list ->
-//            homeTimeSlotAdapter.notifyDataSetChanged()
-//        })
-//    }
-
 
     private fun setCurrentDate() {
         val currentDate = System.currentTimeMillis()

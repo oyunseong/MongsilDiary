@@ -3,6 +3,7 @@ package com.mongsil.mongsildiary.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
@@ -13,9 +14,10 @@ import com.mongsil.mongsildiary.domain.Slot
  * */
 
 class HomeTodayAdapter(
-    private val homeTodaySlotList: List<Slot>,
-    private val onItemClickListener: ((Int) -> Unit),
+    private val onItemClickListener: ((Int) -> Unit)
 ) : RecyclerView.Adapter<HomeTodayAdapter.HomeTimeSlotListViewHolder>() {
+
+    private var homeTodaySlotList: List<Slot> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeTimeSlotListViewHolder {
         val binding = ItemDiaryListBinding
@@ -36,12 +38,7 @@ class HomeTodayAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
-//        val date: Long,
-//        val text: String,
-//        val timeSlot: TimeSlot,
-//        val emoticon: Emoticon,
-
-        fun bind(slot: Slot, position: Int) { //TODO bind 함수의 파라미터가 리스트일 필요가 없음. 고치기
+        fun bind(slot: Slot, position: Int) {
 
             binding.root.setOnClickListener {
                 onItemClickListener.invoke(position)
@@ -52,16 +49,19 @@ class HomeTodayAdapter(
             binding.emoticon.setImageResource(slot.emoticon.image)
 
             if (binding.contents.text.isEmpty()) {
-//                binding.contents.visibility = View.GONE
-//                binding.emoticon.visibility = View.GONE
-            }else{
+                binding.contents.visibility = View.GONE
+                binding.emoticon.visibility = View.GONE
+            } else {
                 binding.plusBtn.visibility = View.GONE
             }
         }
     }
 
-    fun setData(){
+    fun setData(list: List<Slot>) {
+        if (homeTodaySlotList == list) {
+            return
+        }
+        homeTodaySlotList = list
         notifyDataSetChanged()
     }
-
 }

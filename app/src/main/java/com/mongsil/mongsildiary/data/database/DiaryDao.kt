@@ -21,7 +21,7 @@ interface DiaryDao {
     suspend fun getRecordByDate(date: Long): RecordEntity
 
     @Query("SELECT * FROM SlotEntity WHERE date = :date")
-    suspend fun getSlotsByDate(date: Long): LiveData<List<SlotEntity>>
+    suspend fun getSlotsByDate(date: Long): List<SlotEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSlot(slotEntity: SlotEntity)

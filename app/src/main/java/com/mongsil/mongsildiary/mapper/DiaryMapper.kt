@@ -26,15 +26,13 @@ fun RecordEntity.toRecord(): Record {
     )
 }
 
-fun LiveData<List<SlotEntity>>.toSlots(): LiveData<List<Slot>> {
+fun List<SlotEntity>.toSlots(): List<Slot> {
     return map {
-        listOf(
-            Slot(
-                date = it[0].date,
-                text = it[0].text,
-                timeSlot = it[0].timeSlot,
-                emoticon = emoticons[it[0].emoticonId]
-            )
+        Slot(
+            date = it.date,
+            text = it.text,
+            timeSlot = it.timeSlot,
+            emoticon = emoticons[it.emoticonId]
         )
 
     }
