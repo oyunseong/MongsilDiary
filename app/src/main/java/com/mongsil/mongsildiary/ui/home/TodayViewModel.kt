@@ -39,10 +39,11 @@ class TodayViewModel(
     private fun getSlotData() {
         viewModelScope.launch {
             val slots = repository.getSlotsByDate(Date().date)
-            val slotsTest = repository.getSlotsByDate2()
-            "slotsTest : $slotsTest".printLog("TodayViewModel")
+//            val slotsTest = repository.getSlotsByDate2()
+//            "slotsTest : $slotsTest".printLog("TodayViewModel")
+//            "slots : $slots".printLog("getSlotData")
             _slotData.value = slots
-            "slots : $slots".printLog("getSlotData")
+
         }
     }
 

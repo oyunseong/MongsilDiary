@@ -7,19 +7,11 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.lifecycleScope
-
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
-import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
-import com.mongsil.mongsildiary.domain.Record
-import com.mongsil.mongsildiary.domain.Slot
-import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
-import com.mongsil.mongsildiary.utils.printLog
-import kotlinx.coroutines.launch
 import java.util.*
 
 
@@ -32,13 +24,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fabClose: Animation
     private lateinit var fabRClockwise: Animation
     private lateinit var fabRAntiClockwise: Animation
-//    lateinit var repo: DiaryRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.activity = this@MainActivity
-        // dbTestButton()
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -158,19 +148,6 @@ class MainActivity : AppCompatActivity() {
         binding.recordFab.isClickable = false
 
         isOpen = false
-    }
-
-    fun dbTestButton() {
-        val repo = DiaryRepository(AppDatabase.getInstance(applicationContext).diaryDao())
-        binding.testRecord.setOnClickListener {
-            lifecycleScope.launch {
-                repo.insertRecord(Record.mockRecord)
-                repo.getRecordByDate(100).toString().printLog("record")
-
-                repo.insertSlot(Slot.mockSlot)
-                repo.getSlotsByDate(100).toString().printLog("slot")
-            }
-        }
     }
 
     override fun onBackPressed() {
