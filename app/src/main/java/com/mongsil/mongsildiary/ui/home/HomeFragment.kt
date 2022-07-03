@@ -1,12 +1,9 @@
 package com.mongsil.mongsildiary.ui.home
 
-import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -18,6 +15,7 @@ import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.ui.RecordViewModel
+import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.mongsil.mongsildiary.utils.printLog
@@ -30,7 +28,6 @@ class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val recordViewModel by viewModels<RecordViewModel>()
-
     private val todayViewModel by viewModels<TodayViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
             @Suppress("unchecked_cast")
@@ -43,11 +40,11 @@ class HomeFragment : BaseFragment() {
     private var homeTodaySlotList: List<Slot> =
         emptyList()
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
-        val todayTitle = homeTodaySlotList[it].timeSlot
-        val todayContents = homeTodaySlotList[it].text
-        setFragmentResult("todayTitle", bundleOf("titleBundleKey" to todayTitle))
-        setFragmentResult("todayContents", bundleOf("contentsBundleKey" to todayContents))
-        view?.findNavController()?.navigate(R.id.action_homeFragment_to_timeSlotFragment)
+//        val todayTitle = homeTodaySlotList[it].timeSlot
+//        val todayContents = homeTodaySlotList[it].text
+//        setFragmentResult("todayTitle", bundleOf("titleBundleKey" to todayTitle))
+//        setFragmentResult("todayContents", bundleOf("contentsBundleKey" to todayContents))
+        view?.findNavController()?.navigate(R.id.action_homeFragment_to_todayFragment)
     })
 
     override fun onCreateView(
@@ -72,15 +69,10 @@ class HomeFragment : BaseFragment() {
                 homeTimeSlotAdapter.setData(t ?: emptyList())
             }
         })
-
-
     }
 
     private fun setCurrentDate() {
-        val currentDate = System.currentTimeMillis()
-        val date = Date(currentDate)
-        val sdf: SimpleDateFormat = SimpleDateFormat("yyyy.MM.dd")
-        binding.date.text = sdf.format(date)
+        binding.date.text = Date().date_dot
     }
 
     private fun setRecordOption() {
@@ -121,50 +113,4 @@ class HomeFragment : BaseFragment() {
         binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
 
     }
-
-//    private fun addData() {
-//        if (homeTodaySlotList.isEmpty()) {
-//            homeTodaySlotList.add(
-//                Slot(
-//                    100, "아침",
-//                    TimeSlot.Morning, Emoticon(
-//                        id = 2,
-//                        image = R.drawable.ic_emoticon_03,
-//                        name = "노랑"
-//                    )
-//                )
-//            )
-//            homeTodaySlotList.add(
-//                Slot(
-//                    20220629, "점심",
-//                    TimeSlot.Launch, Emoticon(
-//                        id = 2,
-//                        image = R.drawable.ic_emoticon_03,
-//                        name = "노랑"
-//                    )
-//                )
-//            )
-//            homeTodaySlotList.add(
-//                Slot(
-//                    20220629, "저녁",
-//                    TimeSlot.Dinner, Emoticon(
-//                        id = 2,
-//                        image = R.drawable.ic_emoticon_03,
-//                        name = "노랑"
-//                    )
-//                )
-//            )
-//            homeTodaySlotList.add(
-//                Slot(
-//                    20220629, "하루끝",
-//                    TimeSlot.EndOfTheDay, Emoticon(
-//                        id = 2,
-//                        image = R.drawable.ic_emoticon_03,
-//                        name = "노랑"
-//                    )
-//                )
-//            )
-//        }
-//    }
-
 }
