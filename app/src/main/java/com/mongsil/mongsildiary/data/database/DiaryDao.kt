@@ -23,13 +23,14 @@ interface DiaryDao {
     @Query("SELECT * FROM SlotEntity WHERE date = :date")
     suspend fun getSlotsByDate(date: Long): List<SlotEntity>
 
+    @Query("SELECT * FROM SlotEntity")
+    suspend fun getSlotsByDate2(): List<SlotEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSlot(slotEntity: SlotEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecord(recordEntity: RecordEntity)
 
-    @Query("SELECT * FROM SlotEntity")
-    fun getSlotsByDate2(): Flow<List<SlotEntity>>
 
 }

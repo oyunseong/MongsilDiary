@@ -13,6 +13,9 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
     suspend fun getSlotsByDate(date: Long): List<Slot> {
         return diaryDao.getSlotsByDate(date).toSlots()
     }
+    suspend fun getSlotsByDate2(): List<Slot> {
+        return diaryDao.getSlotsByDate2().toSlots()
+    }
 
     suspend fun getRecordByDate(date: Long): Record {
         return diaryDao.getRecordByDate(date).toRecord()
