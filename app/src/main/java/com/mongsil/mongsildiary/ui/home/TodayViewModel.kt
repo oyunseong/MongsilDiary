@@ -12,7 +12,6 @@ import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.Date
-import com.mongsil.mongsildiary.utils.printLog
 import kotlinx.coroutines.launch
 
 class TodayViewModel(
@@ -31,19 +30,12 @@ class TodayViewModel(
 
     fun insert(slot: Slot) = viewModelScope.launch {
         repository.insertSlot(slot)
-//        getSlotData()
-        val currentSlotData = _slotData.value ?: emptyList()
-        _slotData.value = currentSlotData + slot
     }
 
     private fun getSlotData() {
         viewModelScope.launch {
             val slots = repository.getSlotsByDate(Date().date)
-//            val slotsTest = repository.getSlotsByDate2()
-//            "slotsTest : $slotsTest".printLog("TodayViewModel")
-//            "slots : $slots".printLog("getSlotData")
             _slotData.value = slots
-
         }
     }
 

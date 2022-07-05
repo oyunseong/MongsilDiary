@@ -10,7 +10,12 @@ import com.mongsil.mongsildiary.ui.home.today.Emoticon
 //    val slotMap: Map<TimeSlot, Slot>,
 //    val record: Record,
 //)
-
+/**
+ * @param date : 날짜
+ * @param text : 내용
+ * @param timeSlot :  slot의 시간 (아침, 점심, 저녁, 하루끝)
+ * @param emoticon : 이모티콘의 정보
+ * */
 data class Slot(
     val date: Long,
     val text: String,

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
@@ -20,8 +23,6 @@ import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class HomeFragment : BaseFragment() {
@@ -37,13 +38,9 @@ class HomeFragment : BaseFragment() {
         }
     })
 
-    private var homeTodaySlotList: List<Slot> =
-        emptyList()
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
-//        val todayTitle = homeTodaySlotList[it].timeSlot
-//        val todayContents = homeTodaySlotList[it].text
-//        setFragmentResult("todayTitle", bundleOf("titleBundleKey" to todayTitle))
-//        setFragmentResult("todayContents", bundleOf("contentsBundleKey" to todayContents))
+        setFragmentResult("slotDate", bundleOf("slotDateBundleKey" to it.date))
+        setFragmentResult("timeSlot", bundleOf("slotTimeSlotBundleKey" to it.timeSlot))
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_todayFragment)
     })
 

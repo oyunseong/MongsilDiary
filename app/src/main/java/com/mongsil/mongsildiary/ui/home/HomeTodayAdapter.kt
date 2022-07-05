@@ -3,9 +3,7 @@ package com.mongsil.mongsildiary.ui.home
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
 import com.mongsil.mongsildiary.domain.Slot
 
@@ -14,7 +12,7 @@ import com.mongsil.mongsildiary.domain.Slot
  * */
 
 class HomeTodayAdapter(
-    private val onItemClickListener: ((Int) -> Unit)
+    private val onItemClickListener: (Slot) -> Unit
 ) : RecyclerView.Adapter<HomeTodayAdapter.HomeTimeSlotListViewHolder>() {
 
     private var homeTodaySlotList: List<Slot> = emptyList()
@@ -34,14 +32,14 @@ class HomeTodayAdapter(
 
     class HomeTimeSlotListViewHolder(
         private val binding: ItemDiaryListBinding,
-        private val onItemClickListener: (Int) -> Unit
+        private val onItemClickListener: (Slot) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(slot: Slot, position: Int) {
 
             binding.root.setOnClickListener {
-                onItemClickListener.invoke(position)
+                onItemClickListener.invoke(slot)
             }
 
             binding.title.text = slot.timeSlot.toString()

@@ -15,7 +15,6 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.utils.printLog
-import com.mongsil.mongsildiary.utils.showToast
 
 class TodayFragment : BaseFragment() {
 
@@ -44,16 +43,15 @@ class TodayFragment : BaseFragment() {
         onButtonClickListener()
         observeData()
 
-        setFragmentResultListener("todayTitle") { _, bundle ->
-            val todayTitle = bundle.getString("titleBundleKey")
-            binding.todayText.text = "오늘 $todayTitle\n기분은 어떠세요?"    // TODO string.xml로 수정 필요
+        setFragmentResultListener("slotDate") { _, bundle ->
+            val slotDate = bundle.getString("slotDateBundleKey")!!
+            todayEmoticonViewModel.setDate(slotDate.toLong())
         }
 
-        setFragmentResultListener("todayContents") { _, bundle ->
-            val todayContents = bundle.getString("contentsBundleKey")
-            binding.editText.setText("$todayContents")
+        setFragmentResultListener("timeSlot") { _, bundle ->
+            val timeSlot = bundle.getString("slotTimeSlotBundleKey")!!
+            todayEmoticonViewModel.setTimeSlot(timeSlot)
         }
-
 
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -154,5 +152,15 @@ class TodayFragment : BaseFragment() {
                 view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        "++onDestroy".printLog("TodayFragment")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        "++onDestroyView".printLog("TodayFragment")
     }
 }
