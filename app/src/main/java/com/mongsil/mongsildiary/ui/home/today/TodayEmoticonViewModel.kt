@@ -18,7 +18,7 @@ class TodayEmoticonViewModel(
         AppDatabase.getInstance(MyApplication.context).diaryDao()
     ),
 ) : ViewModel() {
-
+//
     private var _emoticons = MutableLiveData<List<Emoticon>>()
     val emoticons get() = _emoticons
 
