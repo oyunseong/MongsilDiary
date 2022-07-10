@@ -22,7 +22,7 @@ data class SlotEntity(
     val date: Long,
     val timeSlot: TimeSlot,
     @ColumnInfo val emoticonId: Int = -1,
-    @ColumnInfo val text: String = ""
+    @ColumnInfo var text: String = ""
 )
 
 @Entity

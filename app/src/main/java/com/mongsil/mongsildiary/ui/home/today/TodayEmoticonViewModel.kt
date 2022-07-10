@@ -78,7 +78,8 @@ class TodayEmoticonViewModel(
 //            _emoticonState.value = emoticonList
     }
 
-    fun insert(slotEntity: SlotEntity) = viewModelScope.launch {
-//        repository.insertSlotEntity()
+    fun insert() = viewModelScope.launch {
+        _slotData.value?.text = text.value ?: return@launch
+        repository.insertSlotEntity(_slotData.value ?: return@launch)
     }
 }

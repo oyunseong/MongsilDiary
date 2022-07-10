@@ -151,8 +151,9 @@ class TodayFragment : BaseFragment() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
+            viewLifecycleOwner
             todayEmoticonViewModel.setText(binding.editText.text.toString())
-//            todayEmoticonViewModel.insert(binding.editText.text)
+            todayEmoticonViewModel.insert()
             view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
         }
     }
