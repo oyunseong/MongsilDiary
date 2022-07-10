@@ -13,7 +13,10 @@ import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
+import com.mongsil.mongsildiary.data.database.entity.SlotEntity
+import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
+import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.utils.printLog
 
 class TodayFragment : BaseFragment() {
@@ -43,14 +46,17 @@ class TodayFragment : BaseFragment() {
         onButtonClickListener()
         observeData()
 
-        setFragmentResultListener("slotDate") { _, bundle ->
-            val slotDate = bundle.getString("slotDateBundleKey")!!
-            todayEmoticonViewModel.setDate(slotDate.toLong())
+        setFragmentResultListener("slot") { _, bundle ->
+            val slot = bundle.getParcelable("slotBundleKey") ?: Slot.mockSlot
+            todayEmoticonViewModel.setDate(slot.date)
+            todayEmoticonViewModel.setTimeSlot(slot.timeSlot)
+            todayEmoticonViewModel.getSlotData()
         }
 
-        setFragmentResultListener("timeSlot") { _, bundle ->
-            val timeSlot = bundle.getString("slotTimeSlotBundleKey")!!
-            todayEmoticonViewModel.setTimeSlot(timeSlot)
+        todayEmoticonViewModel.slotData.observe(viewLifecycleOwner) {
+            "${it}".printLog("kkk")
+            binding.todayText.text = "오늘 ${it.timeSlot}\n기분은 어떠세요?"
+            binding.editText.setText(it.text)
         }
 
         binding.viewpager2.apply {
@@ -101,7 +107,7 @@ class TodayFragment : BaseFragment() {
                 if (binding.editText.length() == 0) {
                     binding.toolbar.uploadBtn.isEnabled = false
                     binding.toolbar.uploadBtn.isClickable = false
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_not_focus_color.toString()))
+//                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_not_focus_color.toString()))
                 } else {
                     binding.toolbar.uploadBtn.isEnabled = true
                     binding.toolbar.uploadBtn.isClickable = true
@@ -145,12 +151,9 @@ class TodayFragment : BaseFragment() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            if (binding.editText.length() == 0) {
-                binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
-                binding.toolbar.uploadBtn.isClickable = false
-            } else {
-                view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
-            }
+            todayEmoticonViewModel.setText(binding.editText.text.toString())
+//            todayEmoticonViewModel.insert(binding.editText.text)
+            view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
         }
     }
 

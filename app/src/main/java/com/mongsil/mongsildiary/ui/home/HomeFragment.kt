@@ -39,8 +39,7 @@ class HomeFragment : BaseFragment() {
     })
 
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
-        setFragmentResult("slotDate", bundleOf("slotDateBundleKey" to it.date))
-        setFragmentResult("timeSlot", bundleOf("slotTimeSlotBundleKey" to it.timeSlot))
+        setFragmentResult("slot", bundleOf("slotBundleKey" to it))
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_todayFragment)
     })
 

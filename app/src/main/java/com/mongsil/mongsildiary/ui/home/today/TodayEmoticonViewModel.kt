@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.data.database.AppDatabase
+import com.mongsil.mongsildiary.data.database.entity.SlotEntity
+import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.printLog
@@ -22,57 +24,61 @@ class TodayEmoticonViewModel(
 
     private var _emoticonState = MutableLiveData<List<TodayEmoticon>>()
     val emoticonState get() = _emoticonState
+    val emoticonsCount = 0
 
-    private var _slotData = MutableLiveData<List<Slot>>()
-    val slotData get() = _slotData
+    private var _slotData = MutableLiveData<SlotEntity>()
+    val slotData: LiveData<SlotEntity> get() = _slotData
 
-    // 번들로부터 넘겨받은 date(날짜)
-    //                  timeSlot(아침점심저녁)
+    init {
+        updateEmoticons()
+    }
+
+    // 번들로부터 넘겨받은
+    // date(날짜)
+    // timeSlot(아침점심저녁)
     private val _date = MutableLiveData<Long>()
     val date get() = _date
 
-    private var _timeSlot = MutableLiveData<String>()
-    val timeSlot: LiveData<String> get() = _timeSlot
+    private var _timeSlot = MutableLiveData<TimeSlot>()
+    val timeSlot: LiveData<TimeSlot> get() = _timeSlot
+
+    private val _text = MutableLiveData<String>()
+    val text: LiveData<String> get() = _text
 
     fun setDate(date: Long) {
         this._date.value = date
     }
 
-    fun setTimeSlot(timeSlot: String) {
+    fun setTimeSlot(timeSlot: TimeSlot) {
         this._timeSlot.value = timeSlot
     }
 
-    val emoticonsCount = 0
-
-    init {
-        updateEmoticons()
-        getSlotData()
+    fun setText(text: String) {
+        this._text.value = text
     }
 
-    private fun getSlotData() {
-//        viewModelScope.launch {
-////            val slots = repository.getSlotByDateAndTimeSlot(date, timeSlot)
-//
-//            _slotData.value = slots
-//        }
+    fun getSlotData() {
+        viewModelScope.launch {
+            val slots = repository.getSlotByDateAndTimeSlot(
+                date.value ?: return@launch,
+                timeSlot.value ?: return@launch
+            )
+            _slotData.value = slots
+            "$slotData".printLog("kkk")
+        }
     }
 
     private fun updateEmoticons() {
-//        val emoticonList = mutableListOf<Emoticon>()
-        val emoticonList = mutableListOf<TodayEmoticon>()
-
+        val emoticonList = mutableListOf<Emoticon>()
+//            val emoticonList = mutableListOf<TodayEmoticon>()
+//
         for (i in emoticonList) {
 //            emoticonList.add(TodayEmoticon(Emoticon(R.drawable.ic_emoticon_01, i"$i item"), false))
         }
-        _emoticonState.value = emoticonList
+//            _emoticonState.value = emoticonList
     }
 
-    fun insert(slot: Slot) = viewModelScope.launch {
-//        repository.insertSlot()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        "++onCleared".printLog("TodayEmoticonViewModel")
+    fun insert(slotEntity: SlotEntity) = viewModelScope.launch {
+//        repository.insertSlotEntity()
     }
 }

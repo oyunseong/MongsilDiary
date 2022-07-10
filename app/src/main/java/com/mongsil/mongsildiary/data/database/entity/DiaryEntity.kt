@@ -1,6 +1,8 @@
 package com.mongsil.mongsildiary.data.database.entity
 
+import android.os.Parcelable
 import androidx.room.*
+import kotlinx.android.parcel.Parcelize
 
 //data class RecordWithSlots(
 //    @Embedded val recordEntity: RecordEntity,
@@ -31,6 +33,7 @@ data class RecordEntity(
 //    val imageUrls: List<String>?
 )
 
-enum class TimeSlot {
+@Parcelize
+enum class TimeSlot : Parcelable {
     Morning, Launch, Dinner, EndOfTheDay
 }

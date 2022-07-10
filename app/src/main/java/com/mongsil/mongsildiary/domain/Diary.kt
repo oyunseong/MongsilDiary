@@ -1,9 +1,11 @@
 package com.mongsil.mongsildiary.domain
 
+import android.os.Parcelable
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.ui.home.today.Emoticon
+import kotlinx.android.parcel.Parcelize
 
 //data class Diary(
 //    val date: Long,
@@ -16,12 +18,14 @@ import com.mongsil.mongsildiary.ui.home.today.Emoticon
  * @param timeSlot :  slot의 시간 (아침, 점심, 저녁, 하루끝)
  * @param emoticon : 이모티콘의 정보
  * */
+
+@Parcelize
 data class Slot(
     val date: Long,
     val text: String,
     val timeSlot: TimeSlot,
     val emoticon: Emoticon,
-) {
+) : Parcelable {
     companion object {
         val mockSlot = Slot(
             date = 100,

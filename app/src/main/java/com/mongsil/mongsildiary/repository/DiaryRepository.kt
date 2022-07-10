@@ -1,6 +1,7 @@
 package com.mongsil.mongsildiary.repository
 
 import com.mongsil.mongsildiary.data.database.DiaryDao
+import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
@@ -15,8 +16,8 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
         return diaryDao.getSlotsByDate(date).toSlots()
     }
 
-    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): List<Slot> {
-        return diaryDao.getSlotByDateAndTimeSlot(date, timeSlot).toSlots()
+    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): SlotEntity {
+        return diaryDao.getSlotByDateAndTimeSlot(date, timeSlot)
     }
 
     suspend fun getRecordByDate(date: Long): Record {
@@ -25,6 +26,10 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
 
     suspend fun insertSlot(slot: Slot) {
         diaryDao.insertSlot(slot.toSlotEntity())
+    }
+
+    suspend fun insertSlotEntity(slotEntity: SlotEntity) {
+        diaryDao.insertSlot(slotEntity)
     }
 
     suspend fun insertRecord(record: Record) {

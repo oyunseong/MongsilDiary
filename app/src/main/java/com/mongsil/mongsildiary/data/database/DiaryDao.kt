@@ -25,7 +25,7 @@ interface DiaryDao {
     suspend fun getSlotsByDate(date: Long): List<SlotEntity>
 
     @Query("SELECT * FROM SlotEntity SE WHERE SE.date = :date AND SE.timeSlot = :timeSlot")
-    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): List<SlotEntity>
+    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): SlotEntity
 
     @Query("SELECT * FROM SlotEntity")
     suspend fun getSlotsByDate2(): List<SlotEntity>
