@@ -14,7 +14,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
-import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.utils.printLog
@@ -25,7 +24,7 @@ class TodayFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     //    private val emoticonViewModel by viewModels<EmoticonViewModel>()
-    private val todayEmoticonViewModel by viewModels<TodayEmoticonViewModel>()
+    private val todayViewModel by viewModels<TodayViewModel>()
     private var emoticonSize: Int = 2
 
     companion object {
@@ -48,12 +47,14 @@ class TodayFragment : BaseFragment() {
 
         setFragmentResultListener("slot") { _, bundle ->
             val slot = bundle.getParcelable("slotBundleKey") ?: Slot.mockSlot
-            todayEmoticonViewModel.setDate(slot.date)
-            todayEmoticonViewModel.setTimeSlot(slot.timeSlot)
-            todayEmoticonViewModel.getSlotData()
+            todayViewModel.setDate(slot.date)
+            todayViewModel.setTimeSlot(slot.timeSlot)
+            todayViewModel.getSlotData()    // db에 데이터가없음
         }
 
-        todayEmoticonViewModel.slotData.observe(viewLifecycleOwner) {
+        todayViewModel.slotData.observe(viewLifecycleOwner) {
+            if (it == null)
+                return@observe
             "${it}".printLog("kkk")
             binding.todayText.text = "오늘 ${it.timeSlot}\n기분은 어떠세요?"
             binding.editText.setText(it.text)
@@ -121,7 +122,7 @@ class TodayFragment : BaseFragment() {
     }
 
     private fun observeData() {
-        todayEmoticonViewModel.emoticonState.observe(viewLifecycleOwner) { emoticons ->
+        todayViewModel.emoticonState.observe(viewLifecycleOwner) { emoticons ->
 
             val chuckedEmoticons = emoticons.chunked(PAGE_EMOTICONS_SIZE)
             emoticonSize = if (emoticons.size % PAGE_EMOTICONS_SIZE == 0) {
@@ -140,7 +141,7 @@ class TodayFragment : BaseFragment() {
             binding.viewpager2.adapter =
                 TodayViewPagerAdapter(
                     emoticonChunkList = chuckedEmoticons,
-                    todayEmoticonViewModel
+                    todayViewModel
                 )
         }
     }
@@ -151,9 +152,9 @@ class TodayFragment : BaseFragment() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            viewLifecycleOwner
-            todayEmoticonViewModel.setText(binding.editText.text.toString())
-            todayEmoticonViewModel.insert()
+            // slot data 만들어서 넘기기
+            // navigate -
+//            todayViewModel.insert(binding.editText.text.toString())
             view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
         }
     }

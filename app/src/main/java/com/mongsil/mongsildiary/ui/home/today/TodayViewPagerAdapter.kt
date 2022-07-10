@@ -2,7 +2,6 @@ package com.mongsil.mongsildiary.ui.home.today
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemViewpagerBinding
@@ -16,13 +15,13 @@ import com.mongsil.mongsildiary.utils.showToast
  * */
 class TodayViewPagerAdapter(
     private val emoticonChunkList: List<List<TodayEmoticon>>,
-    private val todayEmoticonViewModel: TodayEmoticonViewModel
+    private val todayViewModel: TodayViewModel
 ) : RecyclerView.Adapter<TodayViewPagerAdapter.ViewPagerViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewPagerViewHolder {
         val binding = ItemViewpagerBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewPagerViewHolder(binding, todayEmoticonViewModel)
+        return ViewPagerViewHolder(binding, todayViewModel)
     }
 
     override fun getItemCount(): Int = emoticonChunkList.size
@@ -33,7 +32,7 @@ class TodayViewPagerAdapter(
 
     class ViewPagerViewHolder(
         private val binding: ItemViewpagerBinding,
-        private val todayEmoticonViewModel: TodayEmoticonViewModel
+        private val todayViewModel: TodayViewModel
     ) :
         RecyclerView.ViewHolder(binding.root) {
 //        private val lifecycleOwner: LifecycleOwner

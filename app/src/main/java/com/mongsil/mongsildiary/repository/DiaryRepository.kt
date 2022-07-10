@@ -16,7 +16,7 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
         return diaryDao.getSlotsByDate(date).toSlots()
     }
 
-    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): SlotEntity {
+    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): Slot {
         return diaryDao.getSlotByDateAndTimeSlot(date, timeSlot)
     }
 
@@ -26,10 +26,6 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
 
     suspend fun insertSlot(slot: Slot) {
         diaryDao.insertSlot(slot.toSlotEntity())
-    }
-
-    suspend fun insertSlotEntity(slotEntity: SlotEntity) {
-        diaryDao.insertSlot(slotEntity)
     }
 
     suspend fun insertRecord(record: Record) {

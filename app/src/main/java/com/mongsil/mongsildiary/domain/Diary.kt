@@ -5,13 +5,9 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.ui.home.today.Emoticon
+import com.mongsil.mongsildiary.utils.Date
 import kotlinx.android.parcel.Parcelize
 
-//data class Diary(
-//    val date: Long,
-//    val slotMap: Map<TimeSlot, Slot>,
-//    val record: Record,
-//)
 /**
  * @param date : 날짜
  * @param text : 내용
@@ -50,14 +46,38 @@ data class Record(
     }
 }
 
-val defaultSlotList = listOf<Slot>(
+val defaultSlotList = arrayOf(
     Slot(
-        20220629, "하루끝",
-        TimeSlot.EndOfTheDay,
-        Emoticon(
+        Date().date, "",
+        TimeSlot.Morning, Emoticon(
             id = 2,
             image = R.drawable.ic_emoticon_03,
             name = "노랑"
-        ),
+        )
+    ),
+    Slot(
+        Date().date, "",
+        TimeSlot.Launch, Emoticon(
+            id = 2,
+            image = R.drawable.ic_emoticon_03,
+            name = "노랑"
+        )
+    ),
+    Slot(
+        Date().date, "",
+        TimeSlot.Dinner, Emoticon(
+            id = 2,
+            image = R.drawable.ic_emoticon_03,
+            name = "노랑"
+        )
+    ),
+    Slot(
+        Date().date, "",
+        TimeSlot.EndOfTheDay, Emoticon(
+            id = 2,
+            image = R.drawable.ic_emoticon_03,
+            name = "노랑"
+        )
     )
 )
+

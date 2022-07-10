@@ -13,12 +13,12 @@ import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.printLog
 import kotlinx.coroutines.launch
 
-class TodayEmoticonViewModel(
+class TodayViewModel(
     private val repository: DiaryRepository = DiaryRepository(
         AppDatabase.getInstance(MyApplication.context).diaryDao()
     ),
 ) : ViewModel() {
-//
+    //
     private var _emoticons = MutableLiveData<List<Emoticon>>()
     val emoticons get() = _emoticons
 
@@ -26,8 +26,8 @@ class TodayEmoticonViewModel(
     val emoticonState get() = _emoticonState
     val emoticonsCount = 0
 
-    private var _slotData = MutableLiveData<SlotEntity>()
-    val slotData: LiveData<SlotEntity> get() = _slotData
+    private var _slotData = MutableLiveData<Slot>()
+    val slotData: LiveData<Slot> get() = _slotData
 
     init {
         updateEmoticons()
@@ -64,7 +64,6 @@ class TodayEmoticonViewModel(
                 timeSlot.value ?: return@launch
             )
             _slotData.value = slots
-            "$slotData".printLog("kkk")
         }
     }
 
@@ -78,8 +77,7 @@ class TodayEmoticonViewModel(
 //            _emoticonState.value = emoticonList
     }
 
-    fun insert() = viewModelScope.launch {
-        _slotData.value?.text = text.value ?: return@launch
-        repository.insertSlotEntity(_slotData.value ?: return@launch)
+    fun insert(slot: Slot) = viewModelScope.launch {
+        repository.insertSlot(slot)
     }
 }

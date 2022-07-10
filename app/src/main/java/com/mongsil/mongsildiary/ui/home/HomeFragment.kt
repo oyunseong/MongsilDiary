@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
@@ -29,17 +28,20 @@ class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val recordViewModel by viewModels<RecordViewModel>()
-    private val todayViewModel by viewModels<TodayViewModel>(factoryProducer = {
+    private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
             @Suppress("unchecked_cast")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return TodayViewModel() as T
+                return HomeViewModel() as T
             }
         }
     })
 
+    // TODO
+    //  slot을 번들로 전달 -> 전달받은 번들을 멤버변수로 선언 -> slot data를 Slot객체를 생성해서 insert 함수 호출
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
-        setFragmentResult("slot", bundleOf("slotBundleKey" to it))
+//        setFragmentResult("slot", bundleOf("slotBundleKey" to it))
+//        val bundle
         view?.findNavController()?.navigate(R.id.action_homeFragment_to_todayFragment)
     })
 
@@ -59,7 +61,7 @@ class HomeFragment : BaseFragment() {
         setRecordOption()
         setCurrentDate()
 
-        todayViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
+        homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
             override fun onChanged(t: List<Slot>?) {
                 "$t".printLog("List<Slot>'s data")
                 homeTimeSlotAdapter.setData(t ?: emptyList())
