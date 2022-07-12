@@ -17,7 +17,7 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
     }
 
     suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): Slot {
-        return diaryDao.getSlotByDateAndTimeSlot(date, timeSlot)
+        return diaryDao.getSlotByDateAndTimeSlot(date, timeSlot).toSlots()
     }
 
     suspend fun getRecordByDate(date: Long): Record {

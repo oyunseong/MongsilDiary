@@ -40,9 +40,8 @@ class HomeFragment : BaseFragment() {
     // TODO
     //  slot을 번들로 전달 -> 전달받은 번들을 멤버변수로 선언 -> slot data를 Slot객체를 생성해서 insert 함수 호출
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
-//        setFragmentResult("slot", bundleOf("slotBundleKey" to it))
-//        val bundle
-        view?.findNavController()?.navigate(R.id.action_homeFragment_to_todayFragment)
+        val bundle = bundleOf("slot" to it)
+        requireView().findNavController().navigate(R.id.action_homeFragment_to_todayFragment, bundle)
     })
 
     override fun onCreateView(

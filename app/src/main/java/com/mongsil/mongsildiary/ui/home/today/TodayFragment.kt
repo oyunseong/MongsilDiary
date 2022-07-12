@@ -7,18 +7,17 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
-import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.utils.printLog
 
 class TodayFragment : BaseFragment() {
+    private lateinit var slot: Slot
 
     private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
@@ -44,18 +43,18 @@ class TodayFragment : BaseFragment() {
         onButtonClickListener()
         observeData()
 
-        //TODO 번들로 변경
-        setFragmentResultListener("slot") { _, bundle ->
-            val slot = bundle.getParcelable("slotBundleKey") ?: Slot.mockSlot
-//            todayViewModel.setDate(slot.date)
-//            todayViewModel.setTimeSlot(slot.timeSlot)
-//            todayViewModel.getSlotData()    // db에 데이터가없음
-        }
+        slot = arguments?.getParcelable<Slot>("slot") ?: Slot.mockSlot
+        todayViewModel.setDate(slot.date)
+        todayViewModel.setTimeSlot(slot.timeSlot)
+
+        todayViewModel.getSlotData()
+
 
         todayViewModel.slotData.observe(viewLifecycleOwner) {
-            if (it == null)
+            if (it == null) {
+                "slotData is null!!".printLog()
                 return@observe
-            "${it}".printLog("kkk")
+            }
             binding.todayText.text = "오늘 ${it.timeSlot}\n기분은 어떠세요?"
             binding.editText.setText(it.text)
         }
@@ -107,7 +106,6 @@ class TodayFragment : BaseFragment() {
                 if (binding.editText.length() == 0) {
                     binding.toolbar.uploadBtn.isEnabled = false
                     binding.toolbar.uploadBtn.isClickable = false
-//                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_not_focus_color.toString()))
                 } else {
                     binding.toolbar.uploadBtn.isEnabled = true
                     binding.toolbar.uploadBtn.isClickable = true
@@ -152,8 +150,7 @@ class TodayFragment : BaseFragment() {
 
         binding.toolbar.uploadBtn.setOnClickListener {
             // slot data 만들어서 넘기기
-            // navigate -
-//            todayViewModel.insert(binding.editText.text.toString())
+            todayViewModel.insert(slot)
             view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
         }
     }

@@ -74,8 +74,8 @@ class TodayViewModel(
     }
 
     private fun setEmoticons() {
-//        val emoticonList = DataProvider.getEmoticonList()
-//        _emoticonState.value = emoticonList
+        val emoticonList = DataProvider.getEmoticonList()
+        _emoticonState.value = emoticonList
     }
 
     fun insert(slot: Slot) = viewModelScope.launch {

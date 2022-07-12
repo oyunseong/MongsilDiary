@@ -1,7 +1,5 @@
 package com.mongsil.mongsildiary.mapper
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
 import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
@@ -36,6 +34,15 @@ fun List<SlotEntity>.toSlots(): List<Slot> {
         )
 
     }
+}
+
+fun SlotEntity.toSlots(): Slot {
+    return Slot(
+        date = date,
+        text = text,
+        timeSlot = timeSlot,
+        emoticon = emoticons[emoticonId]
+    )
 }
 
 fun Slot.toSlotEntity(): SlotEntity {

@@ -6,7 +6,8 @@ import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.Date
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
+
 
 /**
  * @param date : 날짜

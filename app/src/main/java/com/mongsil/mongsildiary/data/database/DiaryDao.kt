@@ -1,6 +1,5 @@
 package com.mongsil.mongsildiary.data.database
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,7 +8,6 @@ import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.domain.Slot
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DiaryDao {
@@ -26,7 +24,7 @@ interface DiaryDao {
     suspend fun getSlotsByDate(date: Long): List<SlotEntity>
 
     @Query("SELECT * FROM SlotEntity SE WHERE SE.date = :date AND SE.timeSlot = :timeSlot")
-    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): Slot
+    suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): SlotEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSlot(slotEntity: SlotEntity)
