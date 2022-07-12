@@ -5,13 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mongsil.mongsildiary.MyApplication
-import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.domain.defaultSlotList
 import com.mongsil.mongsildiary.repository.DiaryRepository
-import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.Date
 import kotlinx.coroutines.launch
 

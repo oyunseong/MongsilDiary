@@ -17,24 +17,25 @@ data class Emoticon(
     val price: Int = 0
 ) : Parcelable
 
+@Parcelize
 data class TodayEmoticon(
     val emoticon: Emoticon,
     val isSelected: Boolean = false
-)
-
-object DataProvider {
-
-    fun getEmoticonList(): List<Emoticon> {
-        return listOf<Emoticon>(
-            Emoticon(0, R.drawable.ic_emoticon_01, "몽실이", 0),
-            Emoticon(1, R.drawable.ic_emoticon_02, "몽실이", 0),
-            Emoticon(2, R.drawable.ic_emoticon_03, "몽실이", 0),
-            Emoticon(3, R.drawable.ic_emoticon_04, "몽실이", 0),
-            Emoticon(4, R.drawable.ic_emoticon_05, "몽실이", 0),
-            Emoticon(5, R.drawable.ic_emoticon_06, "몽실이", 0),
-            Emoticon(6, R.drawable.ic_emoticon_07, "몽실이", 0),
-            Emoticon(7, R.drawable.ic_emoticon_08, "몽실이", 0),
-            Emoticon(8, R.drawable.ic_emoticon_09, "몽실이", 0),
-        )
-    }
-}
+) : Parcelable
+//
+//object DataProvider {
+//
+//    fun getEmoticonList(): List<TodayEmoticon> {
+//        return listOf<TodayEmoticon>(
+//            TodayEmoticon(Emoticon(0, R.drawable.ic_emoticon_01, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(1, R.drawable.ic_emoticon_02, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(2, R.drawable.ic_emoticon_03, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(3, R.drawable.ic_emoticon_04, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(4, R.drawable.ic_emoticon_05, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(5, R.drawable.ic_emoticon_06, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(6, R.drawable.ic_emoticon_07, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(7, R.drawable.ic_emoticon_08, "몽실이", 0), false),
+//            TodayEmoticon(Emoticon(8, R.drawable.ic_emoticon_09, "몽실이", 0), false),
+//        )
+//    }
+//}

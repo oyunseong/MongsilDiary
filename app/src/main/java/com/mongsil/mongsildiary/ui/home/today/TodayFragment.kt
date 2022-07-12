@@ -23,7 +23,6 @@ class TodayFragment : BaseFragment() {
     private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
 
-    //    private val emoticonViewModel by viewModels<EmoticonViewModel>()
     private val todayViewModel by viewModels<TodayViewModel>()
     private var emoticonSize: Int = 2
 
@@ -45,11 +44,12 @@ class TodayFragment : BaseFragment() {
         onButtonClickListener()
         observeData()
 
+        //TODO 번들로 변경
         setFragmentResultListener("slot") { _, bundle ->
             val slot = bundle.getParcelable("slotBundleKey") ?: Slot.mockSlot
-            todayViewModel.setDate(slot.date)
-            todayViewModel.setTimeSlot(slot.timeSlot)
-            todayViewModel.getSlotData()    // db에 데이터가없음
+//            todayViewModel.setDate(slot.date)
+//            todayViewModel.setTimeSlot(slot.timeSlot)
+//            todayViewModel.getSlotData()    // db에 데이터가없음
         }
 
         todayViewModel.slotData.observe(viewLifecycleOwner) {
@@ -76,7 +76,6 @@ class TodayFragment : BaseFragment() {
                 ) {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                     if (position != 0) {
-                        // TODO 광고 버튼 추가
                         binding.advertisingBtn.visibility = View.VISIBLE
                         binding.advertisingImage.visibility = View.VISIBLE
                         binding.advertisingTv.visibility = View.VISIBLE
@@ -157,15 +156,5 @@ class TodayFragment : BaseFragment() {
 //            todayViewModel.insert(binding.editText.text.toString())
             view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        "++onDestroy".printLog("TodayFragment")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        "++onDestroyView".printLog("TodayFragment")
     }
 }
