@@ -18,9 +18,6 @@ class TodayViewModel(
         AppDatabase.getInstance(MyApplication.context).diaryDao()
     ),
 ) : ViewModel() {
-    //
-//    private var _emoticons = MutableLiveData<List<Emoticon>>()
-//    val emoticons: LiveData<List<Emoticon>> get() = _emoticons
 
     private var _emoticonState = MutableLiveData<List<TodayEmoticon>>()
     val emoticonState: LiveData<List<TodayEmoticon>> get() = _emoticonState
@@ -33,44 +30,8 @@ class TodayViewModel(
         setEmoticons()
     }
 
-    // 번들로부터 넘겨받은
-    // date(날짜)
-    // timeSlot(아침점심저녁)
-    private val _date = MutableLiveData<Long>()
-    val date get() = _date
-
-    private var _timeSlot = MutableLiveData<TimeSlot>()
-    val timeSlot: LiveData<TimeSlot> get() = _timeSlot
-
-    private val _text = MutableLiveData<String>()
-    val text: LiveData<String> get() = _text
-
-    fun setDate(date: Long) {
-        this._date.value = date
-    }
-
-    fun setTimeSlot(timeSlot: TimeSlot) {
-        this._timeSlot.value = timeSlot
-    }
-
-    fun getSlotData() {
-        viewModelScope.launch {
-            val slots = repository.getSlotByDateAndTimeSlot(
-                date.value ?: return@launch,
-                timeSlot.value ?: return@launch
-            )
-            _slotData.value = slots
-        }
-    }
-
-    private fun updateEmoticons() {
-        val emoticonList = mutableListOf<Emoticon>()
-//            val emoticonList = mutableListOf<TodayEmoticon>()
-//
-        for (i in emoticonList) {
-//            emoticonList.add(TodayEmoticon(Emoticon(R.drawable.ic_emoticon_01, i"$i item"), false))
-        }
-//            _emoticonState.value = emoticonList
+    fun setSlot(slot: Slot) {
+        this._slotData.value = slot
     }
 
     private fun setEmoticons() {

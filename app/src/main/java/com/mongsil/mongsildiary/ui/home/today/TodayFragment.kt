@@ -14,6 +14,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.utils.converterTimeSlot
 import com.mongsil.mongsildiary.utils.printLog
 
 class TodayFragment : BaseFragment() {
@@ -42,22 +43,11 @@ class TodayFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         onButtonClickListener()
         observeData()
-
         slot = arguments?.getParcelable<Slot>("slot") ?: Slot.mockSlot
-        todayViewModel.setDate(slot.date)
-        todayViewModel.setTimeSlot(slot.timeSlot)
-
-        todayViewModel.getSlotData()
-
-
-        todayViewModel.slotData.observe(viewLifecycleOwner) {
-            if (it == null) {
-                "slotData is null!!".printLog()
-                return@observe
-            }
-            binding.todayText.text = "오늘 ${it.timeSlot}\n기분은 어떠세요?"
-            binding.editText.setText(it.text)
-        }
+        todayViewModel.setSlot(slot)
+        binding.todayText.text = "오늘 ${slot.timeSlot.converterTimeSlot()}\n기분은 어떠세요?"
+        binding.editText.setText(slot.text)
+        emptyCheck()
 
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -86,9 +76,10 @@ class TodayFragment : BaseFragment() {
                     }
                 }
             })
-
             clipToPadding = false
         }
+
+        // TODO 광고버튼 수정
         binding.advertisingBtn.setOnClickListener {
             binding.advertisingBtn.visibility = View.GONE
             binding.advertisingImage.visibility = View.GONE
@@ -101,21 +92,24 @@ class TodayFragment : BaseFragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                "${binding.editText.length()}".printLog()
-
-                if (binding.editText.length() == 0) {
-                    binding.toolbar.uploadBtn.isEnabled = false
-                    binding.toolbar.uploadBtn.isClickable = false
-                } else {
-                    binding.toolbar.uploadBtn.isEnabled = true
-                    binding.toolbar.uploadBtn.isClickable = true
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
-                }
+                emptyCheck()
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+    }
+
+    fun emptyCheck() {
+        if (binding.editText.text.toString() == "") {
+            binding.toolbar.uploadBtn.isEnabled = false
+            binding.toolbar.uploadBtn.isClickable = false
+            binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
+        } else {
+            binding.toolbar.uploadBtn.isEnabled = true
+            binding.toolbar.uploadBtn.isClickable = true
+            binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
+        }
     }
 
     private fun observeData() {
@@ -149,8 +143,7 @@ class TodayFragment : BaseFragment() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            // slot data 만들어서 넘기기
-            todayViewModel.insert(slot)
+            todayViewModel.insert(slot.copy(text = binding.editText.text.toString()))
             view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
         }
     }
