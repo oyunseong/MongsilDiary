@@ -67,5 +67,6 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     // amitshekhariitbhu/Android-Debug-Database
+    // 사용법 : adb forward tcp:8080 tcp:8080
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 }
