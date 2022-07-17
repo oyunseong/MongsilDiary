@@ -101,6 +101,7 @@ class TodayFragment : BaseFragment() {
     }
 
     fun emptyCheck() {
+        binding.textSizeTv.text = "${binding.editText.text.length}/30"
         if (binding.editText.text.toString() == "") {
             binding.toolbar.uploadBtn.isEnabled = false
             binding.toolbar.uploadBtn.isClickable = false
