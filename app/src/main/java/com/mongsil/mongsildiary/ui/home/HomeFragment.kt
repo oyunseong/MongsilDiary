@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -17,11 +16,7 @@ import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.ui.RecordViewModel
-import com.mongsil.mongsildiary.utils.Date
-import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
-import com.mongsil.mongsildiary.utils.VerticalItemDecorator
-import com.mongsil.mongsildiary.utils.printLog
-import com.mongsil.mongsildiary.utils.showToast
+import com.mongsil.mongsildiary.utils.*
 
 
 class HomeFragment : BaseFragment() {
@@ -37,11 +32,10 @@ class HomeFragment : BaseFragment() {
         }
     })
 
-    // TODO
-    //  slot을 번들로 전달 -> 전달받은 번들을 멤버변수로 선언 -> slot data를 Slot객체를 생성해서 insert 함수 호출
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
         val bundle = bundleOf("slot" to it)
-        requireView().findNavController().navigate(R.id.action_homeFragment_to_todayFragment, bundle)
+        requireView().findNavController()
+            .navigate(R.id.action_homeFragment_to_todayFragment, bundle)
     })
 
     override fun onCreateView(
