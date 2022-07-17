@@ -41,7 +41,8 @@ class HomeViewModel(
                     TimeSlot.Morning -> arraySlots[0] = it
                     TimeSlot.Launch -> arraySlots[1] = it
                     TimeSlot.Dinner -> arraySlots[2] = it
-                    TimeSlot.EndOfTheDay -> arraySlots[3] = it
+                    TimeSlot.Advertisement -> arraySlots[3] = it
+                    TimeSlot.EndOfTheDay -> arraySlots[4] = it
                 }
             }
 

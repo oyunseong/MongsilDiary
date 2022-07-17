@@ -22,11 +22,13 @@ fun TimeSlot.converterTimeSlot(): String {
         "아침"
     } else if (this == TimeSlot.Launch) {
         "점심"
-    } else if(this == TimeSlot.Dinner){
+    } else if (this == TimeSlot.Dinner) {
         "저녁"
-    }else if (this == TimeSlot.EndOfTheDay){
+    } else if (this == TimeSlot.EndOfTheDay) {
         "하루끝"
-    }else{
+    } else if (this == TimeSlot.Advertisement) {
+        "광고"
+    } else {
         ""
     }
 }

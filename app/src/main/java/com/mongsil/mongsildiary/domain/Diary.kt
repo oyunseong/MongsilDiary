@@ -74,6 +74,14 @@ val defaultSlotList = arrayOf(
     ),
     Slot(
         Date().date, "",
+        TimeSlot.Advertisement, Emoticon(
+            id = 2,
+            image = R.drawable.ic_emoticon_03,
+            name = "노랑"
+        )
+    ),
+    Slot(
+        Date().date, "",
         TimeSlot.EndOfTheDay, Emoticon(
             id = 2,
             image = R.drawable.ic_emoticon_03,

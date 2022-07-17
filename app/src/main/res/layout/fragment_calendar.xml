@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="한달의 기록"
+            android:text="@string/a_month_record"
             android:textSize="28sp"
             app:layout_constraintLeft_toLeftOf="@id/date"
             app:layout_constraintTop_toBottomOf="@id/date" />
@@ -66,15 +66,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/calendar_admob" />
 
+        <TextView
+            android:id="@+id/this_month_mongsil_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:elevation="3dp"
+            android:text="@string/this_month_mongsil"
+            app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
+            app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+
+        <TextView
+            android:id="@+id/this_month_mongsil_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:elevation="3dp"
+            android:gravity="center"
+            android:text="@string/this_month_mongsil_empty_text"
+            app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
+            app:layout_constraintEnd_toEndOf="@id/this_month_mongsil"
+            app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
+            app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+
         <com.mongsil.mongsildiary.customView.ThisMonthMongsil
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/this_month_mongsil"
+            android:elevation="3dp"
+            app:count="1"
+            app:emoticons="@drawable/ic_emoticon_01"
             app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
             app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-            app:layout_constraintEnd_toEndOf="@id/this_month_mongsil"
-            />
-
+            app:layout_constraintTop_toTopOf="@id/this_month_mongsil"
+            app:progress="10" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

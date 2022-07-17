@@ -35,5 +35,5 @@ data class RecordEntity(
 
 @Parcelize
 enum class TimeSlot : Parcelable {
-    Morning, Launch, Dinner, EndOfTheDay
+    Morning, Launch, Dinner, EndOfTheDay, Advertisement
 }

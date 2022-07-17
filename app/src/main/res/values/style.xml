@@ -96,7 +96,7 @@
     <style name="Widget.ProgressBar.Vertical">
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/vertical_round_bar_off</item>
-        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+<!--        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>-->
 
     </style>
 <!--    <style name="SlotShadowTextViewStyle">-->

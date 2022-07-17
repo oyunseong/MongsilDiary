@@ -8,12 +8,12 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.ViewBindingFragment
 import com.mongsil.mongsildiary.databinding.FragmentBackupBinding
 
-class BackupFragment : ViewBindingFragment<FragmentBackupBinding>(){
+class BackupFragment : ViewBindingFragment<FragmentBackupBinding>() {
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentBackupBinding {
-        return FragmentBackupBinding.inflate(inflater,container,false)
+        return FragmentBackupBinding.inflate(inflater, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

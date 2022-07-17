@@ -15,7 +15,6 @@ import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.utils.converterTimeSlot
-import com.mongsil.mongsildiary.utils.printLog
 
 class TodayFragment : BaseFragment() {
     private lateinit var slot: Slot

@@ -48,23 +48,36 @@ class ThisMonthMongsil : ConstraintLayout {
     }
 
     private fun setTypedArray(typedArray: TypedArray) {
+        setBackground(typedArray)
+        setCount(typedArray)
+        setProgress(typedArray)
+        setEmoticon(typedArray)
 
-//        if (binding.settingSwitch.isChecked) {
-//            binding.offTv.visibility = View.GONE
-//        } else {
-//            binding.onTv.visibility = View.GONE
-//        }
         typedArray.recycle()
     }
 
-    fun setCount(typedArray: TypedArray){
-        binding.count.text = ""
+    private fun setCount(typedArray: TypedArray) {
+        val count = typedArray.getText(R.styleable.ThisMonthMongsil_count)
+        binding.count.text = "$count"
     }
 
-//    private fun setBackground(typedArray: TypedArray) {
-//        val backgroundResId =
-//            typedArray.getResourceId(R.styleable., R.drawable.push_allow_bar)
-//        binding.root.setBackgroundResource(backgroundResId)
-//    }
+    private fun setProgress(typedArray: TypedArray) {
+        val process = typedArray.getInt(R.styleable.ThisMonthMongsil_progress, 0)
+
+        binding.progress.progress = process
+    }
+
+    private fun setEmoticon(typedArray: TypedArray) {
+        val emoticon = typedArray.getDrawable(
+            R.styleable.ThisMonthMongsil_emoticons
+        )
+        binding.emoticon.setImageDrawable(emoticon)
+    }
+
+    private fun setBackground(typedArray: TypedArray) {
+        val backgroundResId =
+            typedArray.getResourceId(R.styleable.ThisMonthMongsil_bgg, R.drawable.push_allow_bar)
+        binding.root.setBackgroundResource(backgroundResId)
+    }
 
 }
