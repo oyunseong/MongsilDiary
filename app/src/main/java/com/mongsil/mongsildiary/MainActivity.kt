@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
+import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
@@ -148,6 +149,10 @@ class MainActivity : AppCompatActivity() {
         binding.recordFab.isClickable = false
 
         isOpen = false
+    }
+
+    fun getCurrentFragment(): BaseFragment? {
+        return supportFragmentManager.primaryNavigationFragment?.childFragmentManager?.primaryNavigationFragment as? BaseFragment
     }
 
     override fun onBackPressed() {

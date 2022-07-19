@@ -2,7 +2,7 @@ package com.mongsil.mongsildiary.ui.home.today
 
 import android.os.Parcelable
 import com.mongsil.mongsildiary.R
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 // TODO 아이템 클릭 효과
 // 선택된 이모티콘을 저장하는 라이브데이터 선언
@@ -17,6 +17,7 @@ data class Emoticon(
     val price: Int = 0
 ) : Parcelable
 
+//TODO 삭제
 @Parcelize
 data class TodayEmoticon(
     val emoticon: Emoticon,

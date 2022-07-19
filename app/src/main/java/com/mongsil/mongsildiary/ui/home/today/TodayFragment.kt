@@ -135,7 +135,12 @@ class TodayFragment : BaseFragment() {
                     todayViewModel
                 )
         }
+
+        todayViewModel.selectedEmotionState.observe(viewLifecycleOwner) {
+
+        }
     }
+
 
     private fun onButtonClickListener() {
         binding.toolbar.backBtn.setOnClickListener {

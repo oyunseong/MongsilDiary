@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.databinding.ItemViewpagerBinding
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
@@ -39,17 +40,17 @@ class TodayViewPagerAdapter(
         /**
          *  @param emoticonChunkList : chunk된 이모티콘 list
          *  @param position : ViewPager2의 position 값
+         *  @param
          * */
         fun bind(emoticonChunkList: List<TodayEmoticon>, position: Int) {
             binding.emoticonList.apply {
                 adapter = EmoticonAdapter(
                     emoticons = emoticonChunkList,
                     onItemClickListener = {
-                        "몽실이 클릭".printLog("몽실")
-                        context.showToast("$it 번 째 몽실이")
-                        // TODO 클릭했을 때 state가 false일 때 w
-                    }
-//                    emoticonViewModel
+                        "몽실이 클릭".printLog("$it 번째 몽실")
+                        todayViewModel.selectEmoticon(emoticonChunkList[it].emoticon)
+                    },
+                    todayViewModel = todayViewModel
                 )
 
                 addItemDecoration(HorizontalItemDecorator(8))
@@ -57,6 +58,9 @@ class TodayViewPagerAdapter(
                 layoutManager = GridLayoutManager(binding.root.context, 4)
             }
         }
+    }
+
+    fun setSelectedEmoticon(emoticon: Emoticon) {
 
     }
 
