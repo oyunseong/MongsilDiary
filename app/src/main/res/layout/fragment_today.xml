@@ -27,11 +27,12 @@
 
             <TextView
                 android:id="@+id/today_text"
-                style="@style/Text.black_13sp"
+                style="@style/Text.222222_bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/s_core_dream_6"
                 android:textSize="28sp"
                 app:layout_constraintStart_toStartOf="@id/container"
                 app:layout_constraintTop_toTopOf="@id/container"
@@ -115,12 +116,16 @@
 
             <EditText
                 android:id="@+id/edit_text"
+                style="@style/Text.222222_normal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
+                android:fontFamily="@font/s_core_dream_4"
                 android:gravity="top"
                 android:hint="@string/editText_input_phrases"
+                android:lineSpacingExtra="12sp"
                 android:padding="24dp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/write_emotion"
                 app:layout_constraintLeft_toLeftOf="@id/write_emotion"
                 app:layout_constraintRight_toRightOf="@id/write_emotion"
@@ -130,8 +135,25 @@
                 android:id="@+id/text_size_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/s_core_dream_4"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="14sp"
+                android:textColor="@color/btn_color"
+                app:layout_constraintBottom_toBottomOf="@id/edit_text"
+                app:layout_constraintRight_toLeftOf="@id/max_text"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/max_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="0/0"
+                android:fontFamily="@font/s_core_dream_4"
+                android:letterSpacing="-0.05"
+                android:lineSpacingExtra="14sp"
+                android:text="/30"
+                android:textColor="#cccfd7"
                 app:layout_constraintBottom_toBottomOf="@id/edit_text"
                 app:layout_constraintRight_toRightOf="@id/edit_text" />
 

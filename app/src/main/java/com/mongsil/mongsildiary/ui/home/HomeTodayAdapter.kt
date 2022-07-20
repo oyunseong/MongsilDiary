@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemDiaryListBinding
 import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.utils.converterTimeSlot
 
 /**
  * HomeFragment에서 보이는 TimeSlot RecyclerView의 Adapter
@@ -42,7 +43,7 @@ class HomeTodayAdapter(
                 onItemClickListener.invoke(slot)
             }
 
-            binding.title.text = slot.timeSlot.toString()
+            binding.title.text = slot.timeSlot.converterTimeSlot()
             binding.contents.text = slot.text
             binding.emoticon.setImageResource(slot.emoticon.image)
 

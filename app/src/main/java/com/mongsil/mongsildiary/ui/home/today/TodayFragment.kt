@@ -103,7 +103,7 @@ class TodayFragment : BaseFragment() {
     }
 
     fun emptyCheck() {
-        binding.textSizeTv.text = "${binding.editText.text.length}/30"
+        binding.textSizeTv.text = "${binding.editText.text.length}"
         if (binding.editText.text.toString() == "") {
             binding.toolbar.uploadBtn.isEnabled = false
             binding.toolbar.uploadBtn.isClickable = false
@@ -113,8 +113,6 @@ class TodayFragment : BaseFragment() {
             binding.toolbar.uploadBtn.isClickable = true
             binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
         }
-
-
     }
 
     private fun observeData() {

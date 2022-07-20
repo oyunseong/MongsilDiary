@@ -19,17 +19,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="2022.04.09"
+            android:fontFamily="@font/s_core_dream_6"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toTopOf="@id/main_constrainLayout" />
+            app:layout_constraintTop_toTopOf="@id/main_constrainLayout"
+            tools:text="2022.04.09" />
 
         <TextView
             android:id="@+id/main_title"
             style="@style/Text.black_13sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="@string/main_title"
             android:textSize="28sp"
             app:layout_constraintLeft_toLeftOf="@id/date"
@@ -52,9 +54,11 @@
 
         <TextView
             android:id="@+id/record_tv"
+            style="@style/Text.222222_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="96dp"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="@string/record"
             android:textSize="18sp"
             app:layout_constraintLeft_toLeftOf="@id/date"
@@ -62,8 +66,10 @@
 
         <TextView
             android:id="@+id/add_btn"
+            style="@style/Text.222222_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="@string/add"
             android:textSize="18sp"
             app:layout_constraintLeft_toRightOf="@id/record_tv"
@@ -74,6 +80,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
+            android:fontFamily="@font/s_core_dream_4"
             android:hint="@string/record_text"
             android:textSize="13sp"
             app:layout_constraintLeft_toLeftOf="@id/record_tv"
@@ -81,10 +88,12 @@
 
         <TextView
             android:id="@+id/delete_btn"
+            style="@style/Text.222222_normal"
             android:layout_width="64dp"
             android:layout_height="40dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/button_round_dee2ed"
+            android:fontFamily="@font/s_core_dream_4"
             android:gravity="center"
             android:text="@string/delete"
             app:layout_constraintLeft_toLeftOf="@id/record_tv"
@@ -92,11 +101,13 @@
 
         <TextView
             android:id="@+id/edit_btn"
+            style="@style/Text.222222_normal"
             android:layout_width="64dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
             android:background="@drawable/button_round_dee2ed"
+            android:fontFamily="@font/s_core_dream_4"
             android:gravity="center"
             android:text="@string/edit"
             app:layout_constraintLeft_toRightOf="@id/delete_btn"
@@ -117,6 +128,7 @@
                 android:id="@+id/cheer_up_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/s_core_dream_6"
                 android:text="응원을 보내요"
                 android:textColor="@color/white"
                 android:textSize="14sp"
@@ -131,6 +143,7 @@
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="104dp"
                 android:ellipsize="end"
+                android:fontFamily="@font/s_core_dream_4"
                 android:lines="3"
                 android:maxLines="3"
                 android:text="@string/cheer_up_contents"

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="152dp"
     android:layout_height="200dp"
     android:layout_margin="5dp"
@@ -20,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="@string/morning"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/container"
@@ -31,11 +33,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:ellipsize="end"
+            android:fontFamily="@font/s_core_dream_4"
             android:maxLines="4"
-            android:text="@string/cheer_up_contents"
             android:textColor="#727788"
             app:layout_constraintLeft_toLeftOf="@id/title"
-            app:layout_constraintTop_toBottomOf="@id/title" />
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="@string/cheer_up_contents" />
 
         <ImageView
             android:id="@+id/plus_btn"
