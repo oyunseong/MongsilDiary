@@ -7,15 +7,9 @@ import androidx.room.Query
 import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
-import com.mongsil.mongsildiary.domain.Slot
 
 @Dao
 interface DiaryDao {
-//    @Query("SELECT * FROM SlotEntity")
-//    suspend fun getAllSlot(): List<SlotEntity>?
-
-//    @Query("SELECT * FROM RecordEntity")
-//    suspend fun getAllRecord(): List<RecordEntity>?
 
     @Query("SELECT * FROM RecordEntity WHERE date = :date")
     suspend fun getRecordByDate(date: Long): RecordEntity

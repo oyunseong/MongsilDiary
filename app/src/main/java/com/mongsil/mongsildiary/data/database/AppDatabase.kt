@@ -1,16 +1,12 @@
 package com.mongsil.mongsildiary.data.database
 
-import androidx.room.Database
-import androidx.room.TypeConverters
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
+import androidx.room.TypeConverters
 import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
-import java.time.chrono.HijrahChronology.INSTANCE
 
 
 @Database(entities = [SlotEntity::class, RecordEntity::class], version = 1, exportSchema = false)
@@ -38,21 +34,4 @@ abstract class AppDatabase : RoomDatabase() {
                 .build()
         }
     }
-
-//    private class AppDataBaseCallback(
-//        private val scope: CoroutineScope
-//    ) : RoomDatabase.Callback() {
-//        override fun onCreate(db: SupportSQLiteDatabase) {
-//
-//            override fun onCreate(db: SupportSQLiteDatabase) {
-//                super.onCreate(db)
-//                INSTANCE?.let { database ->
-//                    scope.launch {
-//                        var dao = database.
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
 }

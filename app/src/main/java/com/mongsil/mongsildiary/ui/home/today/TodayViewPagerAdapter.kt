@@ -2,21 +2,18 @@ package com.mongsil.mongsildiary.ui.home.today
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.databinding.ItemViewpagerBinding
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
 import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.mongsil.mongsildiary.utils.printLog
-import com.mongsil.mongsildiary.utils.showToast
 
 /**
  * TodayFragment 안에 있는 ViewPager Adapter
  * */
 class TodayViewPagerAdapter(
-    private val emoticonChunkList: List<List<TodayEmoticon>>,
+    private val emoticonChunkList: List<List<Emoticon>>,
     private val todayViewModel: TodayViewModel
 ) : RecyclerView.Adapter<TodayViewPagerAdapter.ViewPagerViewHolder>() {
 
@@ -42,13 +39,13 @@ class TodayViewPagerAdapter(
          *  @param position : ViewPager2의 position 값
          *  @param
          * */
-        fun bind(emoticonChunkList: List<TodayEmoticon>, position: Int) {
+        fun bind(emoticonChunkList: List<Emoticon>, position: Int) {
             binding.emoticonList.apply {
                 adapter = EmoticonAdapter(
                     emoticons = emoticonChunkList,
                     onItemClickListener = {
                         "몽실이 클릭".printLog("$it 번째 몽실")
-                        todayViewModel.selectEmoticon(emoticonChunkList[it].emoticon)
+                        todayViewModel.selectEmoticon(emoticonChunkList[it])
                     },
                     todayViewModel = todayViewModel
                 )

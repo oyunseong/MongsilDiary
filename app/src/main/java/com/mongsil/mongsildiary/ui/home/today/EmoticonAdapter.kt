@@ -2,12 +2,7 @@ package com.mongsil.mongsildiary.ui.home.today
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.doOnAttach
-import androidx.core.view.doOnDetach
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.findFragment
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.databinding.ItemTimeslotListBinding
 import com.mongsil.mongsildiary.utils.findCurrentFragment
@@ -17,7 +12,7 @@ import com.mongsil.mongsildiary.utils.printLog
  * ViewPager2안에 있는 이모티콘 item
  * */
 class EmoticonAdapter(
-    val emoticons: List<TodayEmoticon>,
+    val emoticons: List<Emoticon>,
     private val onItemClickListener: ((Int) -> Unit),
     private val todayViewModel: TodayViewModel
 ) : RecyclerView.Adapter<EmoticonAdapter.EmoticonViewHolder>() {
@@ -46,10 +41,10 @@ class EmoticonAdapter(
             lifecycleOwner = findCurrentFragment(itemView)
         }
 
-        fun bind(emoticon: TodayEmoticon, position: Int) {
+        fun bind(emoticon: Emoticon, position: Int) {
 
-            binding.emoticonImage.setImageResource(emoticon.emoticon.image)
-            binding.emoticonText.text = emoticon.emoticon.name
+            binding.emoticonImage.setImageResource(emoticon.image)
+            binding.emoticonText.text = emoticon.name
 
             binding.root.setOnClickListener {
                 onItemClickListener.invoke(position)
@@ -57,7 +52,7 @@ class EmoticonAdapter(
 
             lifecycleOwner?.let {
                 todayViewModel.selectedEmotionState.observe(it) { selectedEmoticon ->
-                    binding.rootLayout.isSelected = emoticon.emoticon == selectedEmoticon
+                    binding.rootLayout.isSelected = emoticon == selectedEmoticon
                     "${binding.rootLayout.isSelected}".printLog()
                 }
             }

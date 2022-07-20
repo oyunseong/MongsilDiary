@@ -1,17 +1,10 @@
 package com.mongsil.mongsildiary.data.database.entity
 
 import android.os.Parcelable
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
-
-//data class RecordWithSlots(
-//    @Embedded val recordEntity: RecordEntity,
-//    @Relation(
-//        parentColumn = "date",
-//        entityColumn = "date"
-//    )
-//    val slotEntity: List<SlotEntity>,
-//)
 
 /**
  * 데이터 항목

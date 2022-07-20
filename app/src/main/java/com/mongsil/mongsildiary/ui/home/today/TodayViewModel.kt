@@ -16,8 +16,8 @@ class TodayViewModel(
     ),
 ) : ViewModel() {
 
-    private var _emoticonState = MutableLiveData<List<TodayEmoticon>>()
-    val emoticonState: LiveData<List<TodayEmoticon>> get() = _emoticonState
+    private var _emoticonState = MutableLiveData<List<Emoticon>>()
+    val emoticonState: LiveData<List<Emoticon>> get() = _emoticonState
 
     private var _selectedEmotionState = MutableLiveData<Emoticon>()
     val selectedEmotionState: LiveData<Emoticon> get() = _selectedEmotionState
