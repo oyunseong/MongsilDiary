@@ -38,6 +38,10 @@ class TodayViewModel(
         _emoticonState.value = emoticonList
     }
 
+    fun setSelectedEmotionState(emoticon: Emoticon){
+        _selectedEmotionState.value = emoticon
+    }
+
     fun selectEmoticon(emoticon: Emoticon) {
         _selectedEmotionState.value = emoticon
     }

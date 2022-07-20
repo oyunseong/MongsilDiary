@@ -10,7 +10,7 @@ import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.mongsil.mongsildiary.utils.printLog
 
 /**
- * TodayFragment 안에 있는 ViewPager Adapter
+ * TodayFragment 안에 있는 ViewPager2 Adapter
  * */
 class TodayViewPagerAdapter(
     private val emoticonChunkList: List<List<Emoticon>>,
@@ -30,14 +30,13 @@ class TodayViewPagerAdapter(
     }
 
     class ViewPagerViewHolder(
-        private val binding: ItemViewpagerBinding,
+        val binding: ItemViewpagerBinding,
         private val todayViewModel: TodayViewModel
     ) :
         RecyclerView.ViewHolder(binding.root) {
         /**
          *  @param emoticonChunkList : chunk된 이모티콘 list
          *  @param position : ViewPager2의 position 값
-         *  @param
          * */
         fun bind(emoticonChunkList: List<Emoticon>, position: Int) {
             binding.emoticonList.apply {
@@ -47,7 +46,7 @@ class TodayViewPagerAdapter(
                         "몽실이 클릭".printLog("$it 번째 몽실")
                         todayViewModel.selectEmoticon(emoticonChunkList[it])
                     },
-                    todayViewModel = todayViewModel
+                    todayViewModel = todayViewModel,
                 )
 
                 addItemDecoration(HorizontalItemDecorator(8))
@@ -56,9 +55,4 @@ class TodayViewPagerAdapter(
             }
         }
     }
-
-    fun setSelectedEmoticon(emoticon: Emoticon) {
-
-    }
-
 }

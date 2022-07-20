@@ -1,10 +1,10 @@
 package com.mongsil.mongsildiary.mapper
 
-import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.RecordEntity
 import com.mongsil.mongsildiary.data.database.entity.SlotEntity
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.ui.home.today.DataProvider
 
 fun List<RecordEntity>.toRecords(): List<Record> {
     return map {
@@ -30,7 +30,7 @@ fun List<SlotEntity>.toSlots(): List<Slot> {
             date = it.date,
             text = it.text,
             timeSlot = it.timeSlot,
-            emoticon = emoticons[it.emoticonId]
+            emoticon = DataProvider.getEmoticonList()[it.emoticonId]
         )
 
     }
@@ -41,7 +41,7 @@ fun SlotEntity.toSlots(): Slot {
         date = date,
         text = text,
         timeSlot = timeSlot,
-        emoticon = emoticons[emoticonId]
+        emoticon = DataProvider.getEmoticonList()[emoticonId]
     )
 }
 

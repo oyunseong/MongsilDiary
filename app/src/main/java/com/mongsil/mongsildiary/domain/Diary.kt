@@ -2,8 +2,8 @@ package com.mongsil.mongsildiary.domain
 
 import android.os.Parcelable
 import com.mongsil.mongsildiary.R
-import com.mongsil.mongsildiary.base.emoticons
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
+import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.Date
 import kotlinx.parcelize.Parcelize
@@ -28,7 +28,7 @@ data class Slot(
             date = 100,
             text = "text",
             timeSlot = TimeSlot.Morning,
-            emoticon = emoticons[0]
+            emoticon = DataProvider.getEmoticonList()[0]
         )
     }
 }
@@ -51,7 +51,7 @@ val defaultSlotList = arrayOf(
     Slot(
         Date().date, "",
         TimeSlot.Morning, Emoticon(
-            id = 2,
+            id = 0,
             image = R.drawable.ic_emoticon_03,
             name = "노랑"
         )
@@ -59,7 +59,7 @@ val defaultSlotList = arrayOf(
     Slot(
         Date().date, "",
         TimeSlot.Launch, Emoticon(
-            id = 2,
+            id = 1,
             image = R.drawable.ic_emoticon_03,
             name = "노랑"
         )
@@ -75,7 +75,7 @@ val defaultSlotList = arrayOf(
     Slot(
         Date().date, "",
         TimeSlot.Advertisement, Emoticon(
-            id = 2,
+            id = 3,
             image = R.drawable.ic_emoticon_03,
             name = "노랑"
         )
@@ -83,7 +83,7 @@ val defaultSlotList = arrayOf(
     Slot(
         Date().date, "",
         TimeSlot.EndOfTheDay, Emoticon(
-            id = 2,
+            id = 4,
             image = R.drawable.ic_emoticon_03,
             name = "노랑"
         )

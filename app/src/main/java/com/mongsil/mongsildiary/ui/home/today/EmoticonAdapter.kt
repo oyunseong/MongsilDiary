@@ -14,7 +14,7 @@ import com.mongsil.mongsildiary.utils.printLog
 class EmoticonAdapter(
     val emoticons: List<Emoticon>,
     private val onItemClickListener: ((Int) -> Unit),
-    private val todayViewModel: TodayViewModel
+    private val todayViewModel: TodayViewModel,
 ) : RecyclerView.Adapter<EmoticonAdapter.EmoticonViewHolder>() {
 
 
@@ -33,7 +33,7 @@ class EmoticonAdapter(
     class EmoticonViewHolder(
         private val binding: ItemTimeslotListBinding,
         private val onItemClickListener: (Int) -> Unit,
-        private val todayViewModel: TodayViewModel
+        private val todayViewModel: TodayViewModel,
     ) : RecyclerView.ViewHolder(binding.root) {
         private var lifecycleOwner: LifecycleOwner? = null
 
@@ -53,12 +53,8 @@ class EmoticonAdapter(
             lifecycleOwner?.let {
                 todayViewModel.selectedEmotionState.observe(it) { selectedEmoticon ->
                     binding.rootLayout.isSelected = emoticon == selectedEmoticon
-                    "${binding.rootLayout.isSelected}".printLog()
                 }
             }
         }
-
     }
-
-
 }

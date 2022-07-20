@@ -15,6 +15,7 @@ import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.utils.converterTimeSlot
+import com.mongsil.mongsildiary.utils.showToast
 
 class TodayFragment : BaseFragment() {
     private lateinit var slot: Slot
@@ -44,9 +45,11 @@ class TodayFragment : BaseFragment() {
         observeData()
         slot = arguments?.getParcelable<Slot>("slot") ?: Slot.mockSlot
         todayViewModel.setSlot(slot)
+        todayViewModel.selectEmoticon(slot.emoticon)
         binding.todayText.text = "오늘 ${slot.timeSlot.converterTimeSlot()}\n기분은 어떠세요?"
         binding.editText.setText(slot.text)
         emptyCheck()
+
 
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -110,6 +113,8 @@ class TodayFragment : BaseFragment() {
             binding.toolbar.uploadBtn.isClickable = true
             binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
         }
+
+
     }
 
     private fun observeData() {
@@ -136,11 +141,7 @@ class TodayFragment : BaseFragment() {
                 )
         }
 
-        todayViewModel.selectedEmotionState.observe(viewLifecycleOwner) {
-
-        }
     }
-
 
     private fun onButtonClickListener() {
         binding.toolbar.backBtn.setOnClickListener {
@@ -148,8 +149,17 @@ class TodayFragment : BaseFragment() {
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
-            todayViewModel.insert(slot.copy(text = binding.editText.text.toString()))
-            view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
+            if (todayViewModel.selectedEmotionState.value == null) {
+                requireContext().showToast("이모티콘을 선택해주세요")
+            } else {
+                todayViewModel.insert(
+                    slot.copy(
+                        emoticon = todayViewModel.selectedEmotionState.value ?: slot.emoticon,
+                        text = binding.editText.text.toString()
+                    )
+                )
+                view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
+            }
         }
     }
 }

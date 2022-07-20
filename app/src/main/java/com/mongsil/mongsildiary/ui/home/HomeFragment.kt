@@ -49,14 +49,12 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setTodayRecycler()
         setRecordOption()
         setCurrentDate()
 
         homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
             override fun onChanged(t: List<Slot>?) {
-                "$t".printLog("List<Slot>'s data")
                 homeTimeSlotAdapter.setData(t ?: emptyList())
             }
         })
