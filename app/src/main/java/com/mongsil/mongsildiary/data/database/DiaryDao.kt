@@ -26,5 +26,7 @@ interface DiaryDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRecord(recordEntity: RecordEntity)
 
+    @Query("DELETE FROM RecordEntity WHERE date = :date")
+    suspend fun deleteRecordByDate(date: Long)
 
 }

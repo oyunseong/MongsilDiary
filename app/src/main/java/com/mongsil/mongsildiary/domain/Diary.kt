@@ -33,11 +33,12 @@ data class Slot(
     }
 }
 
+@Parcelize
 data class Record(
     val date: Long,
     val text: String = "",
     val images: List<String> = emptyList(),
-) {
+) : Parcelable {
 
     companion object {
         val mockRecord = Record(

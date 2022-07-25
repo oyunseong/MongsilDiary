@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:background="@color/main_background">
+    android:background="@color/white">
 
     <include
         android:id="@+id/toolbar"
@@ -26,41 +26,30 @@
 
             <EditText
                 android:id="@+id/edit_text"
+                style="@style/Text.222222_normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:backgroundTint="@color/white"
+                android:fontFamily="@font/s_core_dream_4"
                 android:gravity="top"
-                android:hint="@string/record_text"
                 android:paddingHorizontal="32dp"
                 android:paddingTop="32dp"
                 android:textCursorDrawable="@drawable/text_cursor"
+                android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@id/container" />
 
             <ImageView
                 android:id="@+id/first_imageView"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:cropToPadding="true"
-                android:scaleType="centerInside"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edit_text" />
-
-            <EditText
-                android:id="@+id/edit1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:backgroundTint="@color/white"
-                android:gravity="top"
-                android:hint="@string/record_text"
-                android:paddingHorizontal="32dp"
-                android:paddingTop="32dp"
-                android:textCursorDrawable="@drawable/text_cursor"
-                app:layout_constraintTop_toBottomOf="@id/first_imageView" />
+                android:cropToPadding="true"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -78,25 +67,16 @@
 
     <TextView
         android:id="@+id/blank1_tv"
-        style="@style/Text.record_16sp"
+        style="@style/Text.cccfd7_normal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:text="@string/record_text"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/blank_image" />
-
-    <TextView
-        android:id="@+id/blank2_tv"
-        style="@style/Text.record_16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sub_record_text"
-        app:layout_constraintEnd_toEndOf="@id/blank1_tv"
-        app:layout_constraintStart_toStartOf="@id/blank1_tv"
-        app:layout_constraintTop_toBottomOf="@id/blank1_tv" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -111,7 +91,6 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:backgroundTint="#FFEB3B"
-            android:text="linear 안에 버튼"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

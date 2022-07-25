@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
+import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.domain.defaultSlotList
 import com.mongsil.mongsildiary.repository.DiaryRepository
@@ -19,16 +20,17 @@ class HomeViewModel(
     ),
 ) : ViewModel() {
 
+    private val emptyRecord = Record(0, "")
+
     private val _slotData: MutableLiveData<List<Slot>> = MutableLiveData(emptyList())
-    val slotData: LiveData<List<Slot>>
-        get() = _slotData
+    val slotData: LiveData<List<Slot>> get() = _slotData
+
+    private val _recordData = MutableLiveData<Record>(emptyRecord)
+    val recordData: LiveData<Record> get() = _recordData
 
     init {
         getSlotData()
-    }
-
-    fun insert(slot: Slot) = viewModelScope.launch {
-        repository.insertSlot(slot)
+        getRecordData()
     }
 
     private fun getSlotData() {
@@ -45,9 +47,27 @@ class HomeViewModel(
                     TimeSlot.EndOfTheDay -> arraySlots[4] = it
                 }
             }
-
             _slotData.value = arraySlots.toList()
         }
+    }
+
+    private fun getRecordData() {
+        viewModelScope.launch {
+            try {
+                _recordData.value = repository.getRecordByDate(Date().date) ?: return@launch
+            } catch (exception: Exception) {
+
+            }
+        }
+    }
+
+    fun deleteRecord() = viewModelScope.launch {
+        _recordData.value = emptyRecord
+        repository.deleteRecord(Date().date)
+    }
+
+    fun insert(record: Record) = viewModelScope.launch {
+        repository.insertRecord(record)
     }
 
 }

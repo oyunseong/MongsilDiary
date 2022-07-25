@@ -15,14 +15,13 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.domain.Slot
-import com.mongsil.mongsildiary.ui.RecordViewModel
 import com.mongsil.mongsildiary.utils.*
 
 
 class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val recordViewModel by viewModels<RecordViewModel>()
+
     private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
             @Suppress("unchecked_cast")
@@ -31,7 +30,7 @@ class HomeFragment : BaseFragment() {
             }
         }
     })
-
+    private lateinit var recordBundle: Bundle
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
         val bundle = bundleOf("slot" to it)
         requireView().findNavController()
@@ -53,6 +52,7 @@ class HomeFragment : BaseFragment() {
         setRecordOption()
         setCurrentDate()
 
+
         homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
             override fun onChanged(t: List<Slot>?) {
                 homeTimeSlotAdapter.setData(t ?: emptyList())
@@ -65,32 +65,44 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setRecordOption() {
-        binding.addBtn.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
+        recordBundle = bundleOf("record" to homeViewModel.recordData.value)
+        if (binding.recordContents.text == "") {
+            binding.deleteBtn.visibility = View.GONE
+            binding.editBtn.visibility = View.GONE
+            binding.addBtn.visibility = View.VISIBLE
+        } else {
+            binding.deleteBtn.visibility = View.VISIBLE
+            binding.editBtn.visibility = View.VISIBLE
+            binding.addBtn.visibility = View.GONE
         }
-        binding.deleteBtn.visibility = View.GONE
-        binding.editBtn.visibility = View.GONE
+        homeViewModel.recordData.observe(viewLifecycleOwner) {
 
-        recordViewModel.contents.observe(viewLifecycleOwner) {
-
-            binding.recordContents.text = recordViewModel.contents.value
-            if (it.isNotEmpty()) {
-                binding.deleteBtn.visibility = View.VISIBLE
-                binding.editBtn.visibility = View.VISIBLE
-                binding.addBtn.visibility = View.GONE
-            } else {
+            "$it".printLog("print record")
+            if (it.text == "") {
                 binding.deleteBtn.visibility = View.GONE
                 binding.editBtn.visibility = View.GONE
                 binding.addBtn.visibility = View.VISIBLE
+            } else {
+                binding.deleteBtn.visibility = View.VISIBLE
+                binding.editBtn.visibility = View.VISIBLE
+                binding.addBtn.visibility = View.GONE
             }
+            binding.recordContents.text = it.text
+        }
+
+        binding.addBtn.setOnClickListener {
+            requireView().findNavController()
+                .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
         }
 
         binding.deleteBtn.setOnClickListener {
-            recordViewModel.setContents("")
+            homeViewModel.deleteRecord()
             requireContext().showToast("삭제버튼 클릭")
         }
+
         binding.editBtn.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_homeFragment_to_recordFragment)
+            requireView().findNavController()
+                .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
         }
     }
 

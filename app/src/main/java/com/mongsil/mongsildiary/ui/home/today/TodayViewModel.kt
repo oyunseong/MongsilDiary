@@ -38,14 +38,9 @@ class TodayViewModel(
         _emoticonState.value = emoticonList
     }
 
-    fun setSelectedEmotionState(emoticon: Emoticon){
-        _selectedEmotionState.value = emoticon
-    }
-
     fun selectEmoticon(emoticon: Emoticon) {
         _selectedEmotionState.value = emoticon
     }
-
 
     fun insert(slot: Slot) = viewModelScope.launch {
         repository.insertSlot(slot)

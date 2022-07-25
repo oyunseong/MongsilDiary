@@ -1,12 +1,12 @@
 package com.mongsil.mongsildiary.ui.home.today
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
@@ -107,11 +107,21 @@ class TodayFragment : BaseFragment() {
         if (binding.editText.text.toString() == "") {
             binding.toolbar.uploadBtn.isEnabled = false
             binding.toolbar.uploadBtn.isClickable = false
-            binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#d5d9e2"))
+            binding.toolbar.uploadBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indicator_not_focus_color
+                )
+            )
         } else {
             binding.toolbar.uploadBtn.isEnabled = true
             binding.toolbar.uploadBtn.isClickable = true
-            binding.toolbar.uploadBtn.setTextColor(Color.parseColor("#7ea1ff"))
+            binding.toolbar.uploadBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indicator_focus_color
+                )
+            )
         }
     }
 

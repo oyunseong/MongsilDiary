@@ -1,9 +1,8 @@
-package com.mongsil.mongsildiary.ui.home
+package com.mongsil.mongsildiary.ui.home.record
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -19,7 +18,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
-import com.mongsil.mongsildiary.ui.RecordViewModel
+import com.mongsil.mongsildiary.domain.Record
+import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.printLog
 
 class RecordFragment : Fragment() {
@@ -97,8 +97,18 @@ class RecordFragment : Fragment() {
         }
     }
 
+    private lateinit var record: Record
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        emptyCheck()
+        onClickUpLoadButton()
+
+        record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
+        "$record".printLog("여기")
+
+        recordViewModel.setRecord(record)
+        binding.editText.setText(record.text)
+
 
         binding.galleryBtn.setOnClickListener {
             openGallery()
@@ -108,16 +118,6 @@ class RecordFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-        binding.toolbar.uploadBtn.setOnClickListener {
-            if (binding.editText.length() == 0) {
-                binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
-                binding.toolbar.uploadBtn.isClickable = false
-            } else {
-                recordViewModel.setContents(binding.editText.text.toString())
-                view.findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
-            }
-        }
-
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
@@ -125,27 +125,45 @@ class RecordFragment : Fragment() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 "${binding.editText.length()}".printLog()
-                // EditText에 아무것도 안 써있으면 우측 상단 등록 버튼 비활성화
-                if (binding.editText.length() == 0) {
-                    binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
-                    binding.toolbar.uploadBtn.isClickable = false
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_not_focus_color.toString()))
-                    binding.blankImage.visibility = View.VISIBLE
-                    binding.blank1Tv.visibility = View.VISIBLE
-                    binding.blank2Tv.visibility = View.VISIBLE
-                } else {
-                    binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
-                    binding.toolbar.uploadBtn.isClickable = true
-                    binding.toolbar.uploadBtn.setTextColor(Color.parseColor(R.color.indicator_focus_color.toString()))
-                    binding.blankImage.visibility = View.GONE
-                    binding.blank1Tv.visibility = View.GONE
-                    binding.blank2Tv.visibility = View.GONE
-                }
+                emptyCheck()
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+    }
+
+    fun emptyCheck() {
+        if (binding.editText.text.toString() == "") {
+            binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+            binding.toolbar.uploadBtn.isClickable = false
+            binding.toolbar.uploadBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indicator_not_focus_color
+                )
+            )
+            binding.blankImage.visibility = View.VISIBLE
+            binding.blank1Tv.visibility = View.VISIBLE
+        } else {
+            binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+            binding.toolbar.uploadBtn.isClickable = true
+            binding.toolbar.uploadBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indicator_focus_color
+                )
+            )
+            binding.blankImage.visibility = View.GONE
+            binding.blank1Tv.visibility = View.GONE
+        }
+    }
+
+    private fun onClickUpLoadButton() {
+        binding.toolbar.uploadBtn.setOnClickListener {
+            recordViewModel.insert(record.copy(date = Date().date, text = binding.editText.text.toString()))
+            requireView().findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
+        }
     }
 
     override fun onDestroyView() {

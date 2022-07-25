@@ -18,11 +18,10 @@ data class SlotEntity(
     @ColumnInfo var text: String = ""
 )
 
-@Entity
+@Entity(primaryKeys = ["date"])
 data class RecordEntity(
-    @PrimaryKey
     val date: Long,
-    val text: String = ""
+    @ColumnInfo val text: String = ""
 //    val imageUrls: List<String>?
 )
 

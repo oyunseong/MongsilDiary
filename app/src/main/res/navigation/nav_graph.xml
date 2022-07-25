@@ -61,7 +61,7 @@
 
     <fragment
         android:id="@+id/recordFragment"
-        android:name="com.mongsil.mongsildiary.ui.home.RecordFragment"
+        android:name="com.mongsil.mongsildiary.ui.home.record.RecordFragment"
         android:label="fragment_record"
         tools:layout="@layout/fragment_record">
         <action
