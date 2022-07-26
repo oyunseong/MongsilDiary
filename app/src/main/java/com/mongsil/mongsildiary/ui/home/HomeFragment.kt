@@ -52,7 +52,6 @@ class HomeFragment : BaseFragment() {
         setRecordOption()
         setCurrentDate()
 
-
         homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
             override fun onChanged(t: List<Slot>?) {
                 homeTimeSlotAdapter.setData(t ?: emptyList())

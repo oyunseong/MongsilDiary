@@ -1,5 +1,6 @@
 package com.mongsil.mongsildiary.domain
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
@@ -37,9 +38,9 @@ data class Slot(
 data class Record(
     val date: Long,
     val text: String = "",
-    val images: List<String> = emptyList(),
+    val images: List<Bitmap> = emptyList(),
+//    val images: Bitmap? = null
 ) : Parcelable {
-
     companion object {
         val mockRecord = Record(
             date = 100,

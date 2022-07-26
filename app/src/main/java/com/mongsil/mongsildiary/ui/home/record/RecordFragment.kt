@@ -3,6 +3,7 @@ package com.mongsil.mongsildiary.ui.home.record
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -26,7 +27,7 @@ class RecordFragment : Fragment() {
 
     private var _binding: FragmentRecordBinding? = null
     private val binding get() = _binding!!
-
+    private lateinit var record: Record
     private val recordViewModel by viewModels<RecordViewModel>()
 
     companion object {
@@ -43,7 +44,6 @@ class RecordFragment : Fragment() {
     }
 
     private fun openGallery() {
-
         val writePermission = ContextCompat.checkSelfPermission(
             requireContext(),
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -85,7 +85,8 @@ class RecordFragment : Fragment() {
                         requireContext().contentResolver,
                         currentImageUrl
                     )
-                    binding.firstImageView.setImageBitmap(bitmap)
+                    val bitmapList: List<Bitmap> = listOf(bitmap)
+                    recordViewModel.setRecord(record.copy(images = bitmapList))
                 } catch (e: Exception) {
                     "${e.printStackTrace()}".printLog()
                 }
@@ -97,7 +98,6 @@ class RecordFragment : Fragment() {
         }
     }
 
-    private lateinit var record: Record
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         emptyCheck()
@@ -108,7 +108,6 @@ class RecordFragment : Fragment() {
 
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
-
 
         binding.galleryBtn.setOnClickListener {
             openGallery()
@@ -124,17 +123,33 @@ class RecordFragment : Fragment() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                "${binding.editText.length()}".printLog()
                 emptyCheck()
             }
 
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+
+        recordViewModel.contents.observe(viewLifecycleOwner) {
+            if (it.images.isNotEmpty()) {
+                binding.firstImageView.setImageBitmap(it.images[0])
+            }
+        }
     }
 
     fun emptyCheck() {
-        if (binding.editText.text.toString() == "") {
+        binding.blankImage.visibility = View.GONE
+        binding.blank1Tv.visibility = View.GONE
+        if (binding.editText.text.toString() != "" || binding.firstImageView.drawable != null) {
+            binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+            binding.toolbar.uploadBtn.isClickable = true
+            binding.toolbar.uploadBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indicator_focus_color
+                )
+            )
+        } else {
             binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
             binding.toolbar.uploadBtn.isClickable = false
             binding.toolbar.uploadBtn.setTextColor(
@@ -145,29 +160,19 @@ class RecordFragment : Fragment() {
             )
             binding.blankImage.visibility = View.VISIBLE
             binding.blank1Tv.visibility = View.VISIBLE
-        } else {
-            binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
-            binding.toolbar.uploadBtn.isClickable = true
-            binding.toolbar.uploadBtn.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.indicator_focus_color
-                )
-            )
-            binding.blankImage.visibility = View.GONE
-            binding.blank1Tv.visibility = View.GONE
         }
     }
 
     private fun onClickUpLoadButton() {
         binding.toolbar.uploadBtn.setOnClickListener {
-            recordViewModel.insert(record.copy(date = Date().date, text = binding.editText.text.toString()))
-            requireView().findNavController().navigate(R.id.action_recordFragment_to_homeFragment)
+            recordViewModel.insert(
+                record.copy(
+                    date = Date().date,
+                    text = binding.editText.text.toString()
+                )
+            )
+            requireView().findNavController()
+                .navigate(R.id.action_recordFragment_to_homeFragment)
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-    }
-
 }

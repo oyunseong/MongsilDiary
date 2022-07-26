@@ -8,7 +8,6 @@ import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.repository.DiaryRepository
-import com.mongsil.mongsildiary.utils.Date
 import kotlinx.coroutines.launch
 
 class RecordViewModel(

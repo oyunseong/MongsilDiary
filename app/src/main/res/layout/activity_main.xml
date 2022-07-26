@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="activity"
             type="com.mongsil.mongsildiary.MainActivity" />
@@ -66,6 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="Setting"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/setting_fab"
@@ -92,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="@string/calendar"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/calendar_fab"
@@ -118,6 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="0dp"
+            android:fontFamily="@font/s_core_dream_6"
             android:text="@string/record_tv"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="@id/record_fab"

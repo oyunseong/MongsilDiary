@@ -1,9 +1,9 @@
 package com.mongsil.mongsildiary.data.database.entity
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -21,8 +21,8 @@ data class SlotEntity(
 @Entity(primaryKeys = ["date"])
 data class RecordEntity(
     val date: Long,
-    @ColumnInfo val text: String = ""
-//    val imageUrls: List<String>?
+    @ColumnInfo val text: String = "",
+    @ColumnInfo val imageUrls: List<Bitmap>? = null
 )
 
 @Parcelize
