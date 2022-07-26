@@ -22,7 +22,7 @@ data class SlotEntity(
 data class RecordEntity(
     val date: Long,
     @ColumnInfo val text: String = "",
-    @ColumnInfo val imageUrls: List<Bitmap>? = null
+//    @ColumnInfo val imageUrls: List<Bitmap>? = null
 )
 
 @Parcelize
