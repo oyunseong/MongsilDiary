@@ -103,13 +103,11 @@ class RecordFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        emptyCheck()
-        onClickUpLoadButton()
-
         record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
-
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
+        emptyCheck()
+        onClickUpLoadButton()
 
         binding.galleryBtn.setOnClickListener {
             openGallery()
@@ -134,18 +132,7 @@ class RecordFragment : BaseFragment() {
     }
 
     fun emptyCheck() {
-        if (binding.editText.text.toString() != "") {
-            binding.blankImage.visibility = View.GONE
-            binding.blank1Tv.visibility = View.GONE
-            binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
-            binding.toolbar.uploadBtn.isClickable = true
-            binding.toolbar.uploadBtn.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.indicator_focus_color
-                )
-            )
-        } else {
+        if (binding.editText.text.isEmpty()) {
             binding.blankImage.visibility = View.VISIBLE
             binding.blank1Tv.visibility = View.VISIBLE
             binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
@@ -154,6 +141,17 @@ class RecordFragment : BaseFragment() {
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.indicator_not_focus_color
+                )
+            )
+        } else {
+            binding.blankImage.visibility = View.GONE
+            binding.blank1Tv.visibility = View.GONE
+            binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+            binding.toolbar.uploadBtn.isClickable = true
+            binding.toolbar.uploadBtn.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.indicator_focus_color
                 )
             )
         }
