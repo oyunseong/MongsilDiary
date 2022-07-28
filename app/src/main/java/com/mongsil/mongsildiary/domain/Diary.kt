@@ -38,13 +38,11 @@ data class Slot(
 data class Record(
     val date: Long,
     val text: String = "",
-    val images: List<Bitmap> = emptyList(),
-//    val images: Bitmap? = null
 ) : Parcelable {
     companion object {
         val mockRecord = Record(
             date = 100,
-            text = "text",
+            text = "",
         )
     }
 }

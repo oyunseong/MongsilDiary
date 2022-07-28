@@ -64,7 +64,10 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setRecordOption() {
-        recordBundle = bundleOf("record" to homeViewModel.recordData.value)
+        homeViewModel.recordData.observe(viewLifecycleOwner){
+            recordBundle = bundleOf("record" to homeViewModel.recordData.value)
+        }
+
         if (binding.recordContents.text == "") {
             binding.deleteBtn.visibility = View.GONE
             binding.editBtn.visibility = View.GONE

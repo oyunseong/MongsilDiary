@@ -20,7 +20,7 @@ class HomeViewModel(
     ),
 ) : ViewModel() {
 
-    private val emptyRecord = Record(0, "")
+    private val emptyRecord = Record.mockRecord
 
     private val _slotData: MutableLiveData<List<Slot>> = MutableLiveData(emptyList())
     val slotData: LiveData<List<Slot>> get() = _slotData
@@ -62,8 +62,8 @@ class HomeViewModel(
     }
 
     fun deleteRecord() = viewModelScope.launch {
-        _recordData.value = emptyRecord
         repository.deleteRecord(Date().date)
+        _recordData.value = emptyRecord
     }
 
     fun insert(record: Record) = viewModelScope.launch {

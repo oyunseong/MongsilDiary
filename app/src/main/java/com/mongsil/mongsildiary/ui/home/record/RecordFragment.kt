@@ -18,16 +18,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.mongsil.mongsildiary.R
+import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.printLog
 
-class RecordFragment : Fragment() {
+class RecordFragment : BaseFragment() {
 
     private var _binding: FragmentRecordBinding? = null
     private val binding get() = _binding!!
     private lateinit var record: Record
+    private lateinit var bitmap: Bitmap
     private val recordViewModel by viewModels<RecordViewModel>()
 
     companion object {
@@ -81,12 +83,13 @@ class RecordFragment : Fragment() {
             if (requestCode == REQUEST_CODE) {
                 val currentImageUrl: Uri? = data?.data
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(
+                    bitmap = MediaStore.Images.Media.getBitmap(
                         requireContext().contentResolver,
                         currentImageUrl
                     )
-                    val bitmapList: List<Bitmap> = listOf(bitmap)
-                    recordViewModel.setRecord(record.copy(images = bitmapList))
+//                    recordViewModel.setRecord(record.copy(images = bitmap))
+//                    "${recordViewModel.contents.value}".printLog()
+//                    val bitmapList: List<Bitmap> = listOf(bitmap)
                 } catch (e: Exception) {
                     "${e.printStackTrace()}".printLog()
                 }
@@ -104,7 +107,6 @@ class RecordFragment : Fragment() {
         onClickUpLoadButton()
 
         record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
-        "$record".printLog("여기")
 
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
@@ -129,18 +131,12 @@ class RecordFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {
             }
         })
-
-        recordViewModel.contents.observe(viewLifecycleOwner) {
-            if (it.images.isNotEmpty()) {
-                binding.firstImageView.setImageBitmap(it.images[0])
-            }
-        }
     }
 
     fun emptyCheck() {
-        binding.blankImage.visibility = View.GONE
-        binding.blank1Tv.visibility = View.GONE
-        if (binding.editText.text.toString() != "" || binding.firstImageView.drawable != null) {
+        if (binding.editText.text.toString() != "") {
+            binding.blankImage.visibility = View.GONE
+            binding.blank1Tv.visibility = View.GONE
             binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
             binding.toolbar.uploadBtn.isClickable = true
             binding.toolbar.uploadBtn.setTextColor(
@@ -150,6 +146,8 @@ class RecordFragment : Fragment() {
                 )
             )
         } else {
+            binding.blankImage.visibility = View.VISIBLE
+            binding.blank1Tv.visibility = View.VISIBLE
             binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
             binding.toolbar.uploadBtn.isClickable = false
             binding.toolbar.uploadBtn.setTextColor(
@@ -158,8 +156,6 @@ class RecordFragment : Fragment() {
                     R.color.indicator_not_focus_color
                 )
             )
-            binding.blankImage.visibility = View.VISIBLE
-            binding.blank1Tv.visibility = View.VISIBLE
         }
     }
 
@@ -171,6 +167,7 @@ class RecordFragment : Fragment() {
                     text = binding.editText.text.toString()
                 )
             )
+            "$record".printLog("record copy data : ")
             requireView().findNavController()
                 .navigate(R.id.action_recordFragment_to_homeFragment)
         }

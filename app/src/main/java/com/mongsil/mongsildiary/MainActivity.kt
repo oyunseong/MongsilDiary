@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.FragmentNavigator
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
+import com.mongsil.mongsildiary.ui.home.record.RecordFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 import java.util.*
 
@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.settingFragment ||
+                destination.id == R.id.recordFragment ||
                 destination.id == R.id.calendarFragment ||
                 destination.id == R.id.homeFragment
             ) {
@@ -52,8 +53,14 @@ class MainActivity : AppCompatActivity() {
             setOnClickFloatingButton(isOpen)
         }
 
+        binding.recordFab.setOnClickListener {
+            if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == RecordFragment::class.java.name)
+                return@setOnClickListener
+            navController.navigate(R.id.recordFragment)
+            closedFab()
+        }
+
         binding.settingFab.setOnClickListener {
-            Toast.makeText(this, "setting 버튼을 클릭하셨습니다", Toast.LENGTH_SHORT).show()
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name)
                 return@setOnClickListener
             navController.navigate(R.id.settingFragment)

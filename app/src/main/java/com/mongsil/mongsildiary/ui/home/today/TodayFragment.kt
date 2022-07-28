@@ -50,7 +50,6 @@ class TodayFragment : BaseFragment() {
         binding.editText.setText(slot.text)
         emptyCheck()
 
-
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
