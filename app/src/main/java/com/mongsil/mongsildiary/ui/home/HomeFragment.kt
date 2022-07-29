@@ -65,7 +65,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setRecordOption() {
         homeViewModel.recordData.observe(viewLifecycleOwner){
-            recordBundle = bundleOf("record" to homeViewModel.recordData.value)
+            recordBundle = bundleOf("record" to it)
         }
 
         if (binding.recordContents.text == "") {
@@ -92,14 +92,14 @@ class HomeFragment : BaseFragment() {
             binding.recordContents.text = it.text
         }
 
-        binding.addBtn.setOnClickListener {
-            requireView().findNavController()
-                .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
-        }
-
         binding.deleteBtn.setOnClickListener {
             homeViewModel.deleteRecord()
             requireContext().showToast("삭제버튼 클릭")
+        }
+
+        binding.addBtn.setOnClickListener {
+            requireView().findNavController()
+                .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
         }
 
         binding.editBtn.setOnClickListener {
@@ -114,6 +114,5 @@ class HomeFragment : BaseFragment() {
         binding.recycler.adapter = homeTimeSlotAdapter
         binding.recycler.addItemDecoration(VerticalItemDecorator(10))
         binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
-
     }
 }

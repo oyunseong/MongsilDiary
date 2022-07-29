@@ -4,15 +4,21 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
+import com.mongsil.mongsildiary.ui.home.HomeViewModel
 import com.mongsil.mongsildiary.ui.home.record.RecordFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
+import com.mongsil.mongsildiary.utils.printLog
 import java.util.*
 
 
@@ -25,6 +31,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fabClose: Animation
     private lateinit var fabRClockwise: Animation
     private lateinit var fabRAntiClockwise: Animation
+    private lateinit var recordBundle: Bundle
+
+    private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
+        object : ViewModelProvider.NewInstanceFactory() {
+            @Suppress("unchecked_cast")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return HomeViewModel() as T
+            }
+        }
+    })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +50,9 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
+        homeViewModel.recordData.observe(this) {
+            recordBundle = bundleOf("record" to it)
+        }
         setFloatingButtonAnimation()
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -56,7 +75,9 @@ class MainActivity : AppCompatActivity() {
         binding.recordFab.setOnClickListener {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == RecordFragment::class.java.name)
                 return@setOnClickListener
-            navController.navigate(R.id.recordFragment)
+
+            navController.navigate(R.id.recordFragment, recordBundle)
+            "$recordBundle".printLog("mainactivity : ")
             closedFab()
         }
 
