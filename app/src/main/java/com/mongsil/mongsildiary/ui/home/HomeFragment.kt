@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
@@ -27,6 +28,15 @@ class HomeFragment : BaseFragment() {
             @Suppress("unchecked_cast")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return HomeViewModel() as T
+            }
+        }
+    })
+
+    private val mainViewModel by viewModels<MainViewModel>(factoryProducer = {
+        object : ViewModelProvider.NewInstanceFactory() {
+            @Suppress("unchecked_cast")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return MainViewModel() as T
             }
         }
     })
@@ -64,7 +74,7 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setRecordOption() {
-        homeViewModel.recordData.observe(viewLifecycleOwner){
+        mainViewModel.recordData.observe(viewLifecycleOwner){
             recordBundle = bundleOf("record" to it)
         }
 
@@ -77,7 +87,7 @@ class HomeFragment : BaseFragment() {
             binding.editBtn.visibility = View.VISIBLE
             binding.addBtn.visibility = View.GONE
         }
-        homeViewModel.recordData.observe(viewLifecycleOwner) {
+        mainViewModel.recordData.observe(viewLifecycleOwner) {
 
             "$it".printLog("print record")
             if (it.text == "") {
@@ -93,7 +103,7 @@ class HomeFragment : BaseFragment() {
         }
 
         binding.deleteBtn.setOnClickListener {
-            homeViewModel.deleteRecord()
+            mainViewModel.deleteRecord()
             requireContext().showToast("삭제버튼 클릭")
         }
 

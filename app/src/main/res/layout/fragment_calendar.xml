@@ -1,108 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
-    android:fillViewport="true">
+    android:background="@color/main_background">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="74dp"
-            android:text="2022.04"
-            app:layout_constraintLeft_toLeftOf="@id/container"
-            app:layout_constraintTop_toTopOf="@id/container" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/a_month_record"
-            android:textSize="28sp"
-            app:layout_constraintLeft_toLeftOf="@id/date"
-            app:layout_constraintTop_toBottomOf="@id/date" />
-
-        <CalendarView
-            android:id="@+id/calendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="@id/container"
-            app:layout_constraintRight_toRightOf="@id/container"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <TextView
-            android:id="@+id/calendar_admob"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/calendar_admob"
-            android:gravity="center"
-            android:text="AD"
-            android:textColor="@color/white"
-            android:textSize="15sp"
-            app:layout_constraintTop_toBottomOf="@id/calendar" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/this_month_mongsil"
-            android:layout_width="match_parent"
-            android:layout_height="233dp"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="94dp"
-            android:background="@drawable/round_20_ffffff"
-            android:elevation="3dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendar_admob" />
+            <TextView
+                android:id="@+id/date"
+                style="@style/Text.222222_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/s_core_dream_4"
+                app:layout_constraintLeft_toLeftOf="@id/container"
+                app:layout_constraintTop_toTopOf="@id/container"
+                tools:text="2022.04" />
 
-        <TextView
-            android:id="@+id/this_month_mongsil_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:elevation="3dp"
-            android:text="@string/this_month_mongsil"
-            app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-            app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+            <TextView
+                android:id="@+id/title"
+                style="@style/Text.222222_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/s_core_dream_6"
+                android:text="@string/a_month_record"
+                android:textSize="28sp"
+                app:layout_constraintLeft_toLeftOf="@id/date"
+                app:layout_constraintTop_toBottomOf="@id/date" />
 
-        <TextView
-            android:id="@+id/this_month_mongsil_empty_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="24dp"
-            android:layout_marginTop="24dp"
-            android:elevation="3dp"
-            android:gravity="center"
-            android:text="@string/this_month_mongsil_empty_text"
-            app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
-            app:layout_constraintEnd_toEndOf="@id/this_month_mongsil"
-            app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-            app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+            <CalendarView
+                android:id="@+id/calendar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintLeft_toLeftOf="@id/container"
+                app:layout_constraintRight_toRightOf="@id/container"
+                app:layout_constraintTop_toBottomOf="@id/title" />
 
-        <com.mongsil.mongsildiary.customView.ThisMonthMongsil
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:elevation="3dp"
-            app:count="1"
-            app:emoticons="@drawable/ic_emoticon_01"
-            app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
-            app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-            app:layout_constraintTop_toTopOf="@id/this_month_mongsil"
-            app:progress="10" />
+            <TextView
+                android:id="@+id/calendar_admob"
+                android:layout_width="match_parent"
+                android:layout_height="96dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/calendar_admob"
+                android:gravity="center"
+                android:text="AD"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintTop_toBottomOf="@id/calendar" />
+
+            <TextView
+                android:id="@+id/this_month_mongsil"
+                android:layout_width="match_parent"
+                android:layout_height="233dp"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="94dp"
+                android:background="@drawable/round_20_ffffff"
+                android:elevation="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calendar_admob" />
+
+            <TextView
+                android:id="@+id/this_month_mongsil_title"
+                style="@style/Text.222222_bold"
+                android:layout_width="wrap_content"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/s_core_dream_6"
+                android:text="@string/this_month_mongsil"
+                app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
+                app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+
+            <TextView
+                android:id="@+id/this_month_mongsil_empty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="24dp"
+                android:elevation="3dp"
+                android:fontFamily="@font/s_core_dream_4"
+                style="@style/Text.cccfd7_normal"
+                android:lineSpacingExtra="10sp"
+                android:gravity="center"
+                android:text="@string/this_month_mongsil_empty_text"
+                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
+                app:layout_constraintEnd_toEndOf="@id/this_month_mongsil"
+                app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
+                app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+
+            <com.mongsil.mongsildiary.customView.ThisMonthMongsil
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="3dp"
+                app:count="1"
+                app:emoticons="@drawable/ic_emoticon_01"
+                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
+                app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
+                app:layout_constraintTop_toTopOf="@id/this_month_mongsil"
+                app:progress="10" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.mongsil.mongsildiary.R
+import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
+import com.mongsil.mongsildiary.utils.printLog
+import java.text.Format
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : BaseFragment() {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
 
@@ -20,17 +24,22 @@ class CalendarFragment : Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.title.setText(R.string.calendar)
+        binding.toolbar.uploadBtn.visibility = View.GONE
+
         val dayPickerDialog = DayPickerDialog()
 
+        binding.toolbar.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
+
         binding.title.setOnClickListener {
+            "클릭 ".printLog()
             dayPickerDialog.show(parentFragmentManager, dayPickerDialog.tag)
         }
+
 
     }
 

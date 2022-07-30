@@ -30,7 +30,7 @@ class HomeViewModel(
 
     init {
         getSlotData()
-        getRecordData()
+//        getRecordData()
     }
 
     private fun getSlotData() {

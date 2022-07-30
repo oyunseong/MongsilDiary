@@ -13,7 +13,6 @@ import com.mongsil.mongsildiary.base.ViewBindingFragment
 import com.mongsil.mongsildiary.databinding.FragmentSettingBinding
 
 class SettingFragment : ViewBindingFragment<FragmentSettingBinding>() {
-    private val toolbarTitle: String = "Setting"
 
     override fun getFragmentBinding(
         inflater: LayoutInflater,
@@ -24,7 +23,7 @@ class SettingFragment : ViewBindingFragment<FragmentSettingBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.title.text = toolbarTitle
+        binding.toolbar.title.setText(R.string.setting)
         binding.toolbar.uploadBtn.visibility = View.GONE
 
         binding.pushBtn.setOnClickListener {

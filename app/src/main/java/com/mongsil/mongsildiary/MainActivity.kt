@@ -1,6 +1,8 @@
 package com.mongsil.mongsildiary
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,6 +16,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
+import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.home.HomeViewModel
 import com.mongsil.mongsildiary.ui.home.record.RecordFragment
@@ -33,11 +36,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fabRAntiClockwise: Animation
     private lateinit var recordBundle: Bundle
 
-    private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
+    private val mainViewModel by viewModels<MainViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
             @Suppress("unchecked_cast")
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return HomeViewModel() as T
+                return MainViewModel() as T
             }
         }
     })
@@ -50,10 +53,15 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        homeViewModel.recordData.observe(this) {
+        mainViewModel.recordData.observe(this) {
             recordBundle = bundleOf("record" to it)
         }
+
         setFloatingButtonAnimation()
+
+        mainViewModel.recordData.observe(this) {
+            recordBundle = bundleOf("record" to it)
+        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.settingFragment ||
@@ -94,6 +102,10 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.calendarFragment)
             closedFab()
         }
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
     }
 
     // TODO 애니메이션 개선 작업
