@@ -8,6 +8,7 @@ import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.Date
+import com.mongsil.mongsildiary.utils.printLog
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -20,11 +21,7 @@ class MainViewModel(
     private val _recordData = MutableLiveData<Record>(emptyRecord)
     val recordData: LiveData<Record> get() = _recordData
 
-    init {
-        getRecordData()
-    }
-
-    private fun getRecordData() {
+    fun getRecordData() {
         viewModelScope.launch {
             try {
                 _recordData.value = repository.getRecordByDate(Date().date) ?: return@launch

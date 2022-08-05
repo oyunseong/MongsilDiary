@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
@@ -166,8 +167,7 @@ class RecordFragment : BaseFragment() {
                 )
             )
             "$record".printLog("record copy data : ")
-            requireView().findNavController()
-                .navigate(R.id.action_recordFragment_to_homeFragment)
+            findNavController().popBackStack()
         }
     }
 }

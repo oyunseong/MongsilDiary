@@ -38,47 +38,48 @@
                 app:layout_constraintTop_toTopOf="@id/container"
                 tools:text="오늘 아침\n기분은 어떠세요?" />
 
-            <TextView
-                android:id="@+id/advertising_btn"
-                android:layout_width="136dp"
-                android:layout_height="136dp"
-                android:background="@drawable/advertising_button"
-                app:layout_constraintBottom_toBottomOf="@id/viewpager2"
-                app:layout_constraintEnd_toEndOf="@id/viewpager2"
-                app:layout_constraintStart_toStartOf="@id/viewpager2"
-                app:layout_constraintTop_toTopOf="@id/viewpager2" />
+<!--            광고 시청 버튼 24hFree  제거 -->
+<!--            <TextView-->
+<!--                android:id="@+id/advertising_btn"-->
+<!--                android:layout_width="136dp"-->
+<!--                android:layout_height="136dp"-->
+<!--                android:background="@drawable/advertising_button"-->
+<!--                app:layout_constraintBottom_toBottomOf="@id/viewpager2"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/viewpager2"-->
+<!--                app:layout_constraintStart_toStartOf="@id/viewpager2"-->
+<!--                app:layout_constraintTop_toTopOf="@id/viewpager2" />-->
 
-            <ImageView
-                android:id="@+id/advertising_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:src="@drawable/ic_x_24_watch"
-                app:layout_constraintEnd_toEndOf="@id/advertising_btn"
-                app:layout_constraintStart_toStartOf="@id/advertising_btn"
-                app:layout_constraintTop_toTopOf="@id/advertising_btn" />
+<!--            <ImageView-->
+<!--                android:id="@+id/advertising_image"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="28dp"-->
+<!--                android:src="@drawable/ic_x_24_watch"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/advertising_btn"-->
+<!--                app:layout_constraintStart_toStartOf="@id/advertising_btn"-->
+<!--                app:layout_constraintTop_toTopOf="@id/advertising_btn" />-->
 
-            <TextView
-                android:id="@+id/advertising_tv"
-                style="@style/Text.advertising_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/advertising_text1"
-                app:layout_constraintEnd_toEndOf="@id/advertising_btn"
-                app:layout_constraintStart_toStartOf="@id/advertising_btn"
-                app:layout_constraintTop_toBottomOf="@id/advertising_image" />
+<!--            <TextView-->
+<!--                android:id="@+id/advertising_tv"-->
+<!--                style="@style/Text.advertising_14sp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="12dp"-->
+<!--                android:text="@string/advertising_text1"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/advertising_btn"-->
+<!--                app:layout_constraintStart_toStartOf="@id/advertising_btn"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/advertising_image" />-->
 
-            <TextView
-                android:id="@+id/advertising2_tv"
-                style="@style/Text.advertising_14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/advertising_text2"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@id/advertising_btn"
-                app:layout_constraintStart_toStartOf="@id/advertising_btn"
-                app:layout_constraintTop_toBottomOf="@id/advertising_tv" />
+<!--            <TextView-->
+<!--                android:id="@+id/advertising2_tv"-->
+<!--                style="@style/Text.advertising_14sp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@string/advertising_text2"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintEnd_toEndOf="@id/advertising_btn"-->
+<!--                app:layout_constraintStart_toStartOf="@id/advertising_btn"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/advertising_tv" />-->
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager2"

@@ -32,5 +32,9 @@ class SettingFragment : ViewBindingFragment<FragmentSettingBinding>() {
         binding.backupBtn.setOnClickListener {
             requireView().findNavController().navigate(R.id.action_to_settingFragment_to_backupFragment)
         }
+
+        binding.toolbar.backBtn.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 }

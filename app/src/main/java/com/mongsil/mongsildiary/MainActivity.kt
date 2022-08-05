@@ -25,7 +25,6 @@ import com.mongsil.mongsildiary.utils.printLog
 import java.util.*
 
 
-// TODO 뷰모델 하나 만들고 뷰모델에 UI 상태를 저장하는 라이브 데이터 선언하고 라이브데이터를 XML에서 바인드 시켜주면됨
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -58,10 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setFloatingButtonAnimation()
-
-        mainViewModel.recordData.observe(this) {
-            recordBundle = bundleOf("record" to it)
-        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.settingFragment ||
@@ -111,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     // TODO 애니메이션 개선 작업
     /***
      * @param fabOpen : 플로팅버튼이 켜질 때 애니메이션
-     * @param fabCLose : 플로팅버튼이 닫힐 때 애니메이션
+     * @param fabClose : 플로팅버튼이 닫힐 때 애니메이션
      * @param fabRClockwise : 플로팅버튼이 켜질 때 회전하는 애니메이션
      * @param fabRAntiClockwise : 플로팅버튼이 켜질 때 회전하는 애니메이션
      */

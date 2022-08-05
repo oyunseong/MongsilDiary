@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,7 @@ import com.mongsil.mongsildiary.utils.*
 class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var recordBundle: Bundle
 
     private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
@@ -32,15 +34,13 @@ class HomeFragment : BaseFragment() {
         }
     })
 
-    private val mainViewModel by viewModels<MainViewModel>(factoryProducer = {
-        object : ViewModelProvider.NewInstanceFactory() {
-            @Suppress("unchecked_cast")
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return MainViewModel() as T
-            }
-        }
-    })
-    private lateinit var recordBundle: Bundle
+    //    private val mainViewModel by viewModels<MainViewModel>(ownerProducer = {
+//        requireActivity()
+//    })
+
+    //TODO Activity ViewModel
+    private val mainViewModel by activityViewModels<MainViewModel>()
+
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
         val bundle = bundleOf("slot" to it)
         requireView().findNavController()
@@ -58,6 +58,7 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainViewModel.getRecordData()
         setTodayRecycler()
         setRecordOption()
         setCurrentDate()
@@ -74,20 +75,8 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setRecordOption() {
-        mainViewModel.recordData.observe(viewLifecycleOwner){
-            recordBundle = bundleOf("record" to it)
-        }
-
-        if (binding.recordContents.text == "") {
-            binding.deleteBtn.visibility = View.GONE
-            binding.editBtn.visibility = View.GONE
-            binding.addBtn.visibility = View.VISIBLE
-        } else {
-            binding.deleteBtn.visibility = View.VISIBLE
-            binding.editBtn.visibility = View.VISIBLE
-            binding.addBtn.visibility = View.GONE
-        }
         mainViewModel.recordData.observe(viewLifecycleOwner) {
+            recordBundle = bundleOf("record" to it)
 
             "$it".printLog("print record")
             if (it.text == "") {

@@ -5,11 +5,18 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
 import com.mongsil.mongsildiary.MainActivity
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
+import java.time.DayOfWeek
+import java.time.temporal.WeekFields
+import java.util.*
 
 fun String.printLog(tag: String? = null) {
     Log.d("+++ $tag", this)
@@ -29,6 +36,37 @@ fun findCurrentFragment(view: View?): Fragment? {
     } catch (e: Exception) {
         (unwrap(view?.context ?: return null) as? MainActivity)?.getCurrentFragment()
     }
+}
+
+fun View.makeVisible() {
+    visibility = View.VISIBLE
+}
+
+fun View.makeInVisible() {
+    visibility = View.INVISIBLE
+}
+
+fun View.makeGone() {
+    visibility = View.GONE
+}
+
+internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
+
+internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
+
+internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
+
+fun daysOfWeekFromLocale(): Array<DayOfWeek> {
+    val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
+    var daysOfWeek = DayOfWeek.values()
+    // Order `daysOfWeek` array so that firstDayOfWeek is at index 0.
+    // Only necessary if firstDayOfWeek != DayOfWeek.MONDAY which has ordinal 0.
+    if (firstDayOfWeek != DayOfWeek.MONDAY) {
+        val rhs = daysOfWeek.sliceArray(firstDayOfWeek.ordinal..daysOfWeek.indices.last)
+        val lhs = daysOfWeek.sliceArray(0 until firstDayOfWeek.ordinal)
+        daysOfWeek = rhs + lhs
+    }
+    return daysOfWeek
 }
 
 fun unwrap(wrappedContext: Context): Activity? {

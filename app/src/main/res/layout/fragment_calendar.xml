@@ -11,7 +11,7 @@
         layout="@layout/toolbar"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/nested"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -23,7 +23,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp">
 
             <TextView
                 android:id="@+id/date"
@@ -38,7 +38,7 @@
                 tools:text="2022.04" />
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/titlea"
                 style="@style/Text.222222_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,15 +49,27 @@
                 app:layout_constraintLeft_toLeftOf="@id/date"
                 app:layout_constraintTop_toBottomOf="@id/date" />
 
-            <CalendarView
-                android:id="@+id/calendar"
-                android:layout_width="0dp"
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:layout_constraintHorizontal_bias="1.0"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintLeft_toLeftOf="@id/container"
                 app:layout_constraintRight_toRightOf="@id/container"
-                app:layout_constraintTop_toBottomOf="@id/title" />
+                app:layout_constraintTop_toBottomOf="@id/titlea">
+
+                <com.kizitonwose.calendarview.CalendarView
+                    android:id="@+id/calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    app:cv_dayViewResource="@layout/calendar_day"
+                    app:cv_monthHeaderResource="@layout/fragment_calendar_header"
+                    app:cv_orientation="horizontal"
+                    app:cv_scrollMode="paged" />
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/calendar_admob"
@@ -70,7 +82,7 @@
                 android:text="AD"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@id/calendar" />
+                app:layout_constraintTop_toBottomOf="@id/frame" />
 
             <TextView
                 android:id="@+id/this_month_mongsil"
@@ -90,27 +102,27 @@
                 android:id="@+id/this_month_mongsil_title"
                 style="@style/Text.222222_bold"
                 android:layout_width="wrap_content"
-                android:textSize="18sp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 android:elevation="3dp"
                 android:fontFamily="@font/s_core_dream_6"
                 android:text="@string/this_month_mongsil"
+                android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
                 app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
 
             <TextView
                 android:id="@+id/this_month_mongsil_empty_text"
+                style="@style/Text.cccfd7_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 android:elevation="3dp"
                 android:fontFamily="@font/s_core_dream_4"
-                style="@style/Text.cccfd7_normal"
-                android:lineSpacingExtra="10sp"
                 android:gravity="center"
+                android:lineSpacingExtra="10sp"
                 android:text="@string/this_month_mongsil_empty_text"
                 app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
                 app:layout_constraintEnd_toEndOf="@id/this_month_mongsil"
@@ -130,6 +142,6 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

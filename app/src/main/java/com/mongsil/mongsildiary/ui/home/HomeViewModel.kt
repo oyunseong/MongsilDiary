@@ -30,7 +30,6 @@ class HomeViewModel(
 
     init {
         getSlotData()
-//        getRecordData()
     }
 
     private fun getSlotData() {
@@ -47,23 +46,9 @@ class HomeViewModel(
                     TimeSlot.EndOfTheDay -> arraySlots[4] = it
                 }
             }
+
             _slotData.value = arraySlots.toList()
         }
-    }
-
-    private fun getRecordData() {
-        viewModelScope.launch {
-            try {
-                _recordData.value = repository.getRecordByDate(Date().date) ?: return@launch
-            } catch (exception: Exception) {
-
-            }
-        }
-    }
-
-    fun deleteRecord() = viewModelScope.launch {
-        repository.deleteRecord(Date().date)
-        _recordData.value = emptyRecord
     }
 
     fun insert(record: Record) = viewModelScope.launch {

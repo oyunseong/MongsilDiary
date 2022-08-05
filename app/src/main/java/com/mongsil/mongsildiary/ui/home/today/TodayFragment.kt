@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
@@ -58,35 +59,35 @@ class TodayFragment : BaseFragment() {
                 }
             })
 
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                    if (position != 0) {
-                        binding.advertisingBtn.visibility = View.VISIBLE
-                        binding.advertisingImage.visibility = View.VISIBLE
-                        binding.advertisingTv.visibility = View.VISIBLE
-                        binding.advertising2Tv.visibility = View.VISIBLE
-                        binding.advertisingBtn.bringToFront()
-                        binding.advertisingImage.bringToFront()
-                        binding.advertisingTv.bringToFront()
-                        binding.advertising2Tv.bringToFront()
-                    }
-                }
-            })
-            clipToPadding = false
+//            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+//                override fun onPageScrolled(
+//                    position: Int,
+//                    positionOffset: Float,
+//                    positionOffsetPixels: Int
+//                ) {
+//                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+//                    if (position != 0) {
+//                        binding.advertisingBtn.visibility = View.VISIBLE
+//                        binding.advertisingImage.visibility = View.VISIBLE
+//                        binding.advertisingTv.visibility = View.VISIBLE
+//                        binding.advertising2Tv.visibility = View.VISIBLE
+//                        binding.advertisingBtn.bringToFront()
+//                        binding.advertisingImage.bringToFront()
+//                        binding.advertisingTv.bringToFront()
+//                        binding.advertising2Tv.bringToFront()
+//                    }
+//                }
+//            })
+//            clipToPadding = false
         }
 
-        // TODO 광고버튼 수정
-        binding.advertisingBtn.setOnClickListener {
-            binding.advertisingBtn.visibility = View.GONE
-            binding.advertisingImage.visibility = View.GONE
-            binding.advertisingTv.visibility = View.GONE
-            binding.advertising2Tv.visibility = View.GONE
-        }
+        // 이모티콘 리스트 스크롤 시 광고버튼
+//        binding.advertisingBtn.setOnClickListener {
+//            binding.advertisingBtn.visibility = View.GONE
+//            binding.advertisingImage.visibility = View.GONE
+//            binding.advertisingTv.visibility = View.GONE
+//            binding.advertising2Tv.visibility = View.GONE
+//        }
 
         binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -165,7 +166,7 @@ class TodayFragment : BaseFragment() {
                         text = binding.editText.text.toString()
                     )
                 )
-                view?.findNavController()?.navigate(R.id.action_timeSlotFragment_to_homeFragment)
+                findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
             }
         }
     }
