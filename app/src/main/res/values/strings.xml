@@ -29,11 +29,19 @@
     <string name="inquiry">건의/문의하기</string>
     <string name="developer_another_app">개발자의 다른 앱</string>
     <string name="version">Version 0.1</string>
-
     <string name="advertising_text1">광고 시청 시</string>
     <string name="advertising_text2">24h Free</string>
     <string name="a_month_record">한달의 기록</string>
     <string name="this_month_mongsil_empty_text">등록된 몽실이가 없어요\n기록을 시작해보세요!</string>
 
+    <string-array name="custom_month">
+        <item>M</item>
+        <item>T</item>
+        <item>W</item>
+        <item>T</item>
+        <item>F</item>
+        <item>S</item>
+        <item>S</item>
+    </string-array>
 
 </resources>

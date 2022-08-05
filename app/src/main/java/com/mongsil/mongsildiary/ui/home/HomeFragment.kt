@@ -34,10 +34,6 @@ class HomeFragment : BaseFragment() {
         }
     })
 
-    //    private val mainViewModel by viewModels<MainViewModel>(ownerProducer = {
-//        requireActivity()
-//    })
-
     //TODO Activity ViewModel
     private val mainViewModel by activityViewModels<MainViewModel>()
 
