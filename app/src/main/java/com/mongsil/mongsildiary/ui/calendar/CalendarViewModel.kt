@@ -6,17 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.mongsil.mongsildiary.utils.Date
 
 class CalendarViewModel : ViewModel() {
-    private var _date: MutableLiveData<Long> = MutableLiveData(Date().date)
-    val date: LiveData<Long> get() = _date
+    private var _date: MutableLiveData<String> = MutableLiveData(Date().date.toString())
+    val date: LiveData<String> get() = _date
 
     init {
-        _date.value = Date().date
+        _date.value = Date().date.toString()
     }
 
-    fun setDate(date: Long) {
+    fun setDate(date: String) {
         _date.value = date
     }
-
-    fun d(date: Long) = Date().removeDayOfDate(date)
-
 }
