@@ -70,9 +70,13 @@ dependencies {
     // 사용법 : .\adb forward tcp:8080 tcp:8080
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
-    // 커스텀 캘린더 : https://github.com/kizitonwose/CalendarView#migration
+    // 커스텀 캘린더 : https://github.com/kizitonwose/CalendarView#migration - 현재 사용 안함
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.0'
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
-    // https://github.com/prolificinteractive/material-calendarview
+
+    // 캘린더 : https://github.com/prolificinteractive/material-calendarview
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
+
+    // ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
 }

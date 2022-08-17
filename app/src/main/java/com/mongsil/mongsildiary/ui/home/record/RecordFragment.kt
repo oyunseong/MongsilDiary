@@ -14,9 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
@@ -110,9 +108,9 @@ class RecordFragment : BaseFragment() {
         emptyCheck()
         onClickUpLoadButton()
 
-        binding.galleryBtn.setOnClickListener {
-            openGallery()
-        }
+//        binding.galleryBtn.setOnClickListener {
+//            openGallery()
+//        }
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
@@ -162,7 +160,7 @@ class RecordFragment : BaseFragment() {
         binding.toolbar.uploadBtn.setOnClickListener {
             recordViewModel.insert(
                 record.copy(
-                    date = Date().date,
+                    date = Date().currentLongTypeDate(),
                     text = binding.editText.text.toString()
                 )
             )

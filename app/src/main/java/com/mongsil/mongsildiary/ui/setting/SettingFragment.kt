@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.base.ViewBindingFragment
@@ -27,14 +28,15 @@ class SettingFragment : ViewBindingFragment<FragmentSettingBinding>() {
         binding.toolbar.uploadBtn.visibility = View.GONE
 
         binding.pushBtn.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_settingFragment_to_pushAllowFragment)
+            findNavController().navigate(R.id.action_settingFragment_to_pushAllowFragment)
         }
         binding.backupBtn.setOnClickListener {
-            requireView().findNavController().navigate(R.id.action_to_settingFragment_to_backupFragment)
+            findNavController().navigate(R.id.action_to_settingFragment_to_backupFragment)
         }
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
+
 }

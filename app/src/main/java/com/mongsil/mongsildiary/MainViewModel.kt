@@ -8,7 +8,6 @@ import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.Date
-import com.mongsil.mongsildiary.utils.printLog
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -24,7 +23,7 @@ class MainViewModel(
     fun getRecordData() {
         viewModelScope.launch {
             try {
-                _recordData.value = repository.getRecordByDate(Date().date) ?: return@launch
+                _recordData.value = repository.getRecordByDate(Date().currentLongTypeDate()) ?: return@launch
             } catch (exception: Exception) {
 
             }
@@ -32,7 +31,7 @@ class MainViewModel(
     }
 
     fun deleteRecord() = viewModelScope.launch {
-        repository.deleteRecord(Date().date)
+        repository.deleteRecord(Date().currentLongTypeDate())
         _recordData.value = emptyRecord
     }
 }

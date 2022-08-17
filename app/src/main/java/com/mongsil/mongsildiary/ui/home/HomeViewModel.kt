@@ -12,6 +12,7 @@ import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.domain.defaultSlotList
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.Date
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -28,31 +29,39 @@ class HomeViewModel(
     private val _recordData = MutableLiveData<Record>(emptyRecord)
     val recordData: LiveData<Record> get() = _recordData
 
+    private val _date: MutableLiveData<Long> = MutableLiveData(Date().currentLongTypeDate())
+    val date: LiveData<Long> get() = _date
+
     init {
-        getSlotData()
+        // TODO 캘린더 타입으로 파라미터 입력
+        setSlotDate(CalendarDay.today())
+        getSlotData(date.value ?: Date().currentLongTypeDate())
     }
 
-    private fun getSlotData() {
+    fun getSlotData(date: Long) {
         viewModelScope.launch {
-            val slots = repository.getSlotsByDate(Date().date)
+            val slots = repository.getSlotsByDate(date)
             val arraySlots = defaultSlotList
 
             slots.forEach {
                 when (it.timeSlot) {
-                    TimeSlot.Morning -> arraySlots[0] = it
-                    TimeSlot.Launch -> arraySlots[1] = it
-                    TimeSlot.Dinner -> arraySlots[2] = it
-                    TimeSlot.Advertisement -> arraySlots[3] = it
-                    TimeSlot.EndOfTheDay -> arraySlots[4] = it
+                    TimeSlot.Morning -> arraySlots[0] =
+                        it.copy(date = date)
+                    TimeSlot.Launch -> arraySlots[1] =
+                        it.copy(date = date)
+                    TimeSlot.Dinner -> arraySlots[2] =
+                        it.copy(date = date)
+                    TimeSlot.Advertisement -> arraySlots[3] =
+                        it.copy(date = date)
+                    TimeSlot.EndOfTheDay -> arraySlots[4] =
+                        it.copy(date = date)
                 }
             }
-
             _slotData.value = arraySlots.toList()
         }
     }
 
-    fun insert(record: Record) = viewModelScope.launch {
-        repository.insertRecord(record)
+    fun setSlotDate(date: CalendarDay) {
+        this._date.value = Date().convertCalendarDayToLong(date.date)
     }
-
 }

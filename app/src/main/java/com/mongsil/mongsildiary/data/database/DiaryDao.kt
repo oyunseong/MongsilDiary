@@ -17,6 +17,10 @@ interface DiaryDao {
     @Query("SELECT * FROM SlotEntity WHERE date = :date")
     suspend fun getSlotsByDate(date: Long): List<SlotEntity>
 
+    // ex) SELECT * FROM SlotEntity WHERE date LIKE "202207__"
+    @Query("SELECT * FROM SlotEntity WHERE date LIKE :date")
+    suspend fun getSlotsBySimilarDate(date: String): List<SlotEntity>
+
     @Query("SELECT * FROM SlotEntity SE WHERE SE.date = :date AND SE.timeSlot = :timeSlot")
     suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): SlotEntity
 

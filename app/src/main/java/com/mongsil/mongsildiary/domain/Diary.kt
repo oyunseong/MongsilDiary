@@ -1,6 +1,5 @@
 package com.mongsil.mongsildiary.domain
 
-import android.graphics.Bitmap
 import android.os.Parcelable
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
@@ -49,7 +48,7 @@ data class Record(
 
 val defaultSlotList = arrayOf(
     Slot(
-        Date().date, "",
+        Date().currentLongTypeDate(), "",
         TimeSlot.Morning, Emoticon(
             id = 0,
             image = R.drawable.ic_emoticon_03,
@@ -57,7 +56,7 @@ val defaultSlotList = arrayOf(
         )
     ),
     Slot(
-        Date().date, "",
+        Date().currentLongTypeDate(), "",
         TimeSlot.Launch, Emoticon(
             id = 1,
             image = R.drawable.ic_emoticon_03,
@@ -65,7 +64,7 @@ val defaultSlotList = arrayOf(
         )
     ),
     Slot(
-        Date().date, "",
+        Date().currentLongTypeDate(), "",
         TimeSlot.Dinner, Emoticon(
             id = 2,
             image = R.drawable.ic_emoticon_03,
@@ -73,7 +72,7 @@ val defaultSlotList = arrayOf(
         )
     ),
     Slot(
-        Date().date, "",
+        Date().currentLongTypeDate(), "",
         TimeSlot.Advertisement, Emoticon(
             id = 3,
             image = R.drawable.ic_emoticon_03,
@@ -81,7 +80,7 @@ val defaultSlotList = arrayOf(
         )
     ),
     Slot(
-        Date().date, "",
+        Date().currentLongTypeDate(), "",
         TimeSlot.EndOfTheDay, Emoticon(
             id = 4,
             image = R.drawable.ic_emoticon_03,

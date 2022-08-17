@@ -1,18 +1,21 @@
 package com.mongsil.mongsildiary.ui.calendar
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
-import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.DialogDatepickerBinding
 
-class DayPickerDialog : BottomSheetDialogFragment() {
+class DayPickerDialog() :
+    BottomSheetDialogFragment() {
     private var _binding: DialogDatepickerBinding? = null
     private val binding get() = _binding!!
 
@@ -49,11 +52,20 @@ class DayPickerDialog : BottomSheetDialogFragment() {
         binding.yearpickerDatepicker.value = 2022
 
         binding.cancelBtn.setOnClickListener {
-            dismiss()
+            dialog?.cancel()
         }
 
         binding.confirmBtb.setOnClickListener {
-            dismiss()
+            val month = binding.monthpickerDatepicker.value
+            val year = binding.yearpickerDatepicker.value
+            val result = if (month < 10) {
+                "${year}0${month}".toInt()
+            } else {
+                "$year$month".toInt()
+            }
+            setFragmentResult("DialogRequestKey", bundleOf("DialogBundleKey" to result))
+            dialog?.dismiss()
         }
     }
 }
+
