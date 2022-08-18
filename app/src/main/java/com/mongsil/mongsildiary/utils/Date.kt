@@ -1,10 +1,9 @@
 package com.mongsil.mongsildiary.utils
 
 import android.annotation.SuppressLint
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.threeten.bp.LocalDate
-import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Date
 
 class Date {
     @SuppressLint("SimpleDateFormat")
@@ -21,17 +20,6 @@ class Date {
 
     @SuppressLint("SimpleDateFormat")
     val dotYearMonth: SimpleDateFormat = SimpleDateFormat("yyyy.MM")
-
-    fun removeDayOfDate(value: String): String {
-        var date = Date()
-        try {
-            date = dotYearMonthDayFormat.parse(value) as Date
-
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }
-        return dotYearMonthDayFormat.format(date)
-    }
 
     /**
      * 현재 날짜를 long Type으로 가져와서
@@ -64,9 +52,19 @@ class Date {
     /**
      * LocalDate Type을 Long Type으로 변환
      * */
-    fun convertCalendarDayToLong(date: LocalDate): Long {
+    fun convertLocalDateToLong(date: LocalDate): Long {
         val splitDate = date.toString().split("-")
         return concat(splitDate[0], splitDate[1], splitDate[2]).toLong()
+    }
+
+    fun convertCalendarDayToLong(date: CalendarDay): Long {
+        val splitDate = date.date.toString().split("-")
+        return concat(splitDate[0], splitDate[1], splitDate[2]).toLong()
+    }
+
+    fun plusDotCalendarDay(date: CalendarDay): String {
+        val splitDate = date.date.toString().split("-")
+        return concat(splitDate[0], ".", splitDate[1], ".", splitDate[2])
     }
 }
 

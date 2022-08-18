@@ -8,30 +8,43 @@ import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.Date
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val repository: DiaryRepository = DiaryRepository(
         AppDatabase.getInstance(MyApplication.context).diaryDao()
     ),
-):ViewModel() {
+) : ViewModel() {
     private val emptyRecord = Record.mockRecord
 
     private val _recordData = MutableLiveData<Record>(emptyRecord)
     val recordData: LiveData<Record> get() = _recordData
 
+    private val _date: MutableLiveData<CalendarDay> = MutableLiveData<CalendarDay>()
+    val date: LiveData<CalendarDay> get() = _date
+
+    init {
+        _date.value = CalendarDay.today()
+    }
+
     fun getRecordData() {
         viewModelScope.launch {
             try {
-                _recordData.value = repository.getRecordByDate(Date().currentLongTypeDate()) ?: return@launch
+                _recordData.value =
+                    repository.getRecordByDate(Date().convertCalendarDayToLong(date.value!!))
             } catch (exception: Exception) {
-
+                exception.printStackTrace()
             }
         }
     }
 
     fun deleteRecord() = viewModelScope.launch {
-        repository.deleteRecord(Date().currentLongTypeDate())
+        repository.deleteRecord(Date().convertCalendarDayToLong(date.value!!))
         _recordData.value = emptyRecord
+    }
+
+    fun setDate(date: CalendarDay) {
+        _date.value = date
     }
 }

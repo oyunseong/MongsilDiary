@@ -25,7 +25,6 @@ class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var recordBundle: Bundle
-//    private lateinit var bundleDate: CalendarDay
 
     private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
@@ -36,7 +35,6 @@ class HomeFragment : BaseFragment() {
         }
     })
 
-    //TODO Activity ViewModel
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
@@ -58,17 +56,10 @@ class HomeFragment : BaseFragment() {
         mainViewModel.getRecordData()
         setTodayRecycler()
         setRecordOption()
-        setCurrentDate(Date().convertCalendarDayToLong(CalendarDay.today().date))
 
-        val nullCheckCalendarDay = CalendarDay.from(2000, 1, 1)
-        val bundleDate = arguments?.getParcelable<CalendarDay>("calendarDayKey") ?: nullCheckCalendarDay
-        //TODO 캘린더에서 date가 오면 setDate -> Slot list 조회
-        if (bundleDate != nullCheckCalendarDay) {
-            homeViewModel.setSlotDate(bundleDate)
-            homeViewModel.date.observe(viewLifecycleOwner) {
-                homeViewModel.getSlotData(it)
-                setCurrentDate(it)
-            }
+        mainViewModel.date.observe(viewLifecycleOwner) {
+            homeViewModel.getSlotData(it)
+            setCurrentDate(it)
         }
 
         homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
@@ -78,16 +69,14 @@ class HomeFragment : BaseFragment() {
         })
     }
 
-    private fun setCurrentDate(date: Long) {
-        // TODO 캘린더에서 넘어왔을 때 경우 추가
-        binding.date.text = Date().removeDayOfDate(date.toString())
+    private fun setCurrentDate(date: CalendarDay) {
+        binding.date.text = Date().plusDotCalendarDay(date)
     }
+
 
     private fun setRecordOption() {
         mainViewModel.recordData.observe(viewLifecycleOwner) {
             recordBundle = bundleOf("record" to it)
-
-            "$it".printLog("print record")
             if (it.text == "") {
                 binding.deleteBtn.visibility = View.GONE
                 binding.editBtn.visibility = View.GONE
@@ -102,7 +91,6 @@ class HomeFragment : BaseFragment() {
 
         binding.deleteBtn.setOnClickListener {
             mainViewModel.deleteRecord()
-            requireContext().showToast("삭제버튼 클릭")
         }
 
         binding.addBtn.setOnClickListener {

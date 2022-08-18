@@ -29,16 +29,12 @@ class HomeViewModel(
     private val _recordData = MutableLiveData<Record>(emptyRecord)
     val recordData: LiveData<Record> get() = _recordData
 
-    private val _date: MutableLiveData<Long> = MutableLiveData(Date().currentLongTypeDate())
-    val date: LiveData<Long> get() = _date
-
     init {
-        // TODO 캘린더 타입으로 파라미터 입력
-        setSlotDate(CalendarDay.today())
-        getSlotData(date.value ?: Date().currentLongTypeDate())
+        getSlotData(CalendarDay.today())
     }
 
-    fun getSlotData(date: Long) {
+    fun getSlotData(calendarDay: CalendarDay) {
+        val date = Date().convertCalendarDayToLong(calendarDay)
         viewModelScope.launch {
             val slots = repository.getSlotsByDate(date)
             val arraySlots = defaultSlotList
@@ -59,9 +55,5 @@ class HomeViewModel(
             }
             _slotData.value = arraySlots.toList()
         }
-    }
-
-    fun setSlotDate(date: CalendarDay) {
-        this._date.value = Date().convertCalendarDayToLong(date.date)
     }
 }

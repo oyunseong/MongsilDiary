@@ -10,14 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
 import com.mongsil.mongsildiary.utils.Date
-import com.mongsil.mongsildiary.utils.printLog
 import com.prolificinteractive.materialcalendarview.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -27,6 +27,7 @@ import java.util.*
 class CalendarFragment : BaseFragment(), OnDateSelectedListener {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private val calendarViewModel by viewModels<CalendarViewModel>()
     private val dayPickerDialog = DayPickerDialog()
     override fun onCreateView(
@@ -40,26 +41,24 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        observeData()
+        initCalendarView()
         binding.toolbar.title.setText(R.string.calendar)
         binding.toolbar.uploadBtn.visibility = View.GONE
-        calendarViewModel.setDate(calendarViewModel.date.value ?: "999999")
-        observeData()
+
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
         }
 
-        calendarViewModel.date.observe(viewLifecycleOwner) {
-            binding.date.text = Date().removeDayOfDate(it)
+        mainViewModel.date.observe(viewLifecycleOwner) {
+            binding.date.text = it.toString()
         }
-
-        initCalendarView()
     }
 
     private fun observeData() {
-        calendarViewModel.date.observe(viewLifecycleOwner) {
-            binding.date.text = Date().removeDayOfDate(it)
-        }
+//        calendarViewModel.date.observe(viewLifecycleOwner) {
+//            binding.date.text = Date().removeDayOfDate(it)
+//        }
     }
 
     private fun initCalendarView() {
@@ -149,27 +148,16 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         }
     }
 
-    private var currentTime: Long = 0
-    private var onClickCheck: Boolean = false
+    /**
+     * Calender Day Click event
+     *
+     * */
     override fun onDateSelected(
         widget: MaterialCalendarView,
         date: CalendarDay,
         selected: Boolean
     ) {
-        val bundle = bundleOf("calendarDayKey" to date)
-        findNavController().navigate(R.id.action_calendarFragment_to_homeFragment, bundle)
-//        findNavController().popBackStack()
-//        if (!onClickCheck) {
-//            onClickCheck = true
-//            currentTime = Calendar.getInstance().timeInMillis
-//            "한번 클릭".printLog()
-//            startTimer()
-//        }
-//        date.toString().printLog("onDateSelected date : ")
+        mainViewModel.setDate(date = date)
+        findNavController().popBackStack()
     }
-
-    fun startTimer() {
-
-    }
-
 }

@@ -17,9 +17,6 @@ class CalendarViewModel(
     ),
 ) : ViewModel() {
 
-    private var _date: MutableLiveData<String> = MutableLiveData(Date().currentLongTypeDate().toString())
-    val date: LiveData<String> get() = _date
-
     private val _slotData: MutableLiveData<List<Slot>> = MutableLiveData(emptyList())
     val slotData: LiveData<List<Slot>> get() = _slotData
 
@@ -27,14 +24,8 @@ class CalendarViewModel(
 
     // TODO 년월을 넘겨주면 DB조회
     init {
-        _date.value = Date().currentLongTypeDate().toString()
         getData()
     }
-
-    fun setDate(date: String) {
-        _date.value = date
-    }
-
 
     // TODO 해당 달 조회하고 이모티콘 개수 세서 세팅
     private fun getData() {
