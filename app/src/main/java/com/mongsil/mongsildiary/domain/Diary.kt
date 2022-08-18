@@ -51,7 +51,7 @@ val defaultSlotList = arrayOf(
         Date().currentLongTypeDate(), "",
         TimeSlot.Morning, Emoticon(
             id = 0,
-            image = R.drawable.ic_emoticon_03,
+            image = R.drawable.ic_emoticon_01,
             name = "노랑"
         )
     ),
@@ -59,8 +59,8 @@ val defaultSlotList = arrayOf(
         Date().currentLongTypeDate(), "",
         TimeSlot.Launch, Emoticon(
             id = 1,
-            image = R.drawable.ic_emoticon_03,
-            name = "노랑"
+            image = R.drawable.ic_emoticon_02,
+            name = "분홍"
         )
     ),
     Slot(
@@ -68,23 +68,23 @@ val defaultSlotList = arrayOf(
         TimeSlot.Dinner, Emoticon(
             id = 2,
             image = R.drawable.ic_emoticon_03,
-            name = "노랑"
+            name = "주황"
         )
     ),
     Slot(
         Date().currentLongTypeDate(), "",
         TimeSlot.Advertisement, Emoticon(
             id = 3,
-            image = R.drawable.ic_emoticon_03,
-            name = "노랑"
+            image = R.drawable.ic_emoticon_04,
+            name = "다홍"
         )
     ),
     Slot(
         Date().currentLongTypeDate(), "",
         TimeSlot.EndOfTheDay, Emoticon(
             id = 4,
-            image = R.drawable.ic_emoticon_03,
-            name = "노랑"
+            image = R.drawable.ic_emoticon_05,
+            name = "연보라"
         )
     )
 )

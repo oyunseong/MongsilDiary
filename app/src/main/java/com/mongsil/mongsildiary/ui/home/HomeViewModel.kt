@@ -11,6 +11,7 @@ import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.domain.defaultSlotList
 import com.mongsil.mongsildiary.repository.DiaryRepository
+import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.utils.Date
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
@@ -33,11 +34,12 @@ class HomeViewModel(
         getSlotData(CalendarDay.today())
     }
 
+
     fun getSlotData(calendarDay: CalendarDay) {
-        val date = Date().convertCalendarDayToLong(calendarDay)
         viewModelScope.launch {
+            val date = Date().convertCalendarDayToLong(calendarDay)
             val slots = repository.getSlotsByDate(date)
-            val arraySlots = defaultSlotList
+            val arraySlots = DataProvider.getDefaultSlotList(date)
 
             slots.forEach {
                 when (it.timeSlot) {

@@ -11,9 +11,14 @@ import com.mongsil.mongsildiary.mapper.toSlots
 
 class DiaryRepository(private val diaryDao: DiaryDao) {
 
+    suspend fun getSlotDataAll(): List<Slot> {
+        return diaryDao.getSlotDataAll().toSlots()
+    }
+
     suspend fun getSlotsByDate(date: Long): List<Slot> {
         return diaryDao.getSlotsByDate(date).toSlots()
     }
+
     suspend fun getSlotsFindByWithoutDate(date: String): List<Slot> {
         return diaryDao.getSlotsBySimilarDate(date).toSlots()
     }

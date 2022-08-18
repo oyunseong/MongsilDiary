@@ -41,7 +41,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initCalendarView()
         binding.toolbar.title.setText(R.string.calendar)
         binding.toolbar.uploadBtn.visibility = View.GONE
 
@@ -53,23 +52,29 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             // TODO 캘린더를 눌러 이동한 날짜라면 Text 다르게 표시
             binding.date.text = Date().plusDotCalendarDay(it)
         }
-    }
 
-    private fun initCalendarView() {
-        val arrayList = ArrayList<CalendarDay>()
-        arrayList.add(CalendarDay.today())
-        arrayList.add(CalendarDay.from(2022, 8, 13))
-        arrayList.add(CalendarDay.from(2022, 6, 13))
-
-        binding.calendar.apply {
-            setOnDateChangedListener(this@CalendarFragment)
-            addDecorators(
+        calendarViewModel.arrayList.observe(viewLifecycleOwner) {
+            binding.calendar.addDecorators(
                 SaturdayDecorator(),
                 SundayDecorator(),
                 TodayDecorator(),
-                EventDecorator(arrayList)
+                EventDecorator(it)      // TODO 동시성 문제??? 나왔다가 안나왔다하는거보니
             )
         }
+        binding.calendar.setOnDateChangedListener(this@CalendarFragment)
+        initCalendarView()
+    }
+
+    private fun initCalendarView() {
+//        binding.calendar.apply {
+//            setOnDateChangedListener(this@CalendarFragment)
+//            addDecorators(
+//                SaturdayDecorator(),
+//                SundayDecorator(),
+//                TodayDecorator(),
+//                EventDecorator(calendarViewModel.arrayList.value)
+//            )
+//        }
 
     }
 
@@ -112,7 +117,7 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         }
     }
 
-    inner class EventDecorator(dates: Collection<CalendarDay>) :
+    inner class EventDecorator(dates: ArrayList<CalendarDay>) :
         DayViewDecorator {
         private var dates = HashSet<CalendarDay>()
         private val drawable: Drawable
@@ -152,6 +157,9 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         selected: Boolean
     ) {
         mainViewModel.setDate(date = date)
-        findNavController().popBackStack()
+//        findNavController().popBackStack()
+        // 화면을 옮긴 상태를 초기화 하기 위해서 화면을 다시 그림
+        // 예를들어 slot을 오른쪽으로 넘기던가 화면을 내린 상태
+        findNavController().navigate(R.id.homeFragment)
     }
 }

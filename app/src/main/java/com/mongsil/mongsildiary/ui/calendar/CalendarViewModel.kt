@@ -9,7 +9,9 @@ import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.utils.Date
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 
 class CalendarViewModel(
     private val repository: DiaryRepository = DiaryRepository(
@@ -20,30 +22,39 @@ class CalendarViewModel(
     private val _slotData: MutableLiveData<List<Slot>> = MutableLiveData(emptyList())
     val slotData: LiveData<List<Slot>> get() = _slotData
 
-    private val map = mutableMapOf<Int, Int>()
+    private val _arrayList: MutableLiveData<ArrayList<CalendarDay>> =
+        MutableLiveData(ArrayList<CalendarDay>())
+    val arrayList: LiveData<ArrayList<CalendarDay>> get() = _arrayList
 
-    // TODO 년월을 넘겨주면 DB조회
+    private var _slotDataMap = MutableLiveData<Map<Int, Int>>()
+    val slotDataMap: LiveData<Map<Int, Int>> get() = _slotDataMap
+
+
     init {
+        setSlotData()
         getData()
+
     }
 
-    // TODO 해당 달 조회하고 이모티콘 개수 세서 세팅
-    private fun getData() {
-
+    //TODO 전체 slot Table을 조회하고, list 크기만큼 for문을 돌려
+    fun setSlotData() {
         viewModelScope.launch {
-            try {
-//                _slotData.value =
-//                    date.value?.let { repository.getSlotsFindByWithoutDate("${it}__") }
-//                        ?: return@launch
+            _slotData.value = repository.getSlotDataAll()
 
-                if (slotData.value != null) {
-                    slotData.value!!.forEach {
-                        map[it.emoticon.id] = map[it.emoticon.id]!!.plus(1)
-                    }
-                }
-            } catch (exception: Exception) {
-                exception.printStackTrace()
-            }
+//            if (slotData.value != null) {
+//                slotData.value!!.forEach { it ->
+//                    _slotDataMap.value.get(it.emoticon.id) = _slotDataMap[it.emoticon.id]!!.plus(1)
+//                }
+//            }
+
+        }
+    }
+
+
+    fun getData() {
+        if (slotData.value == null) print("안됨?")
+        slotData.value?.forEach { it ->
+            _arrayList.value?.add(CalendarDay.from(Date().convertLongToLocalDate(it.date)))
         }
     }
 }

@@ -57,6 +57,25 @@ class Date {
         return concat(splitDate[0], splitDate[1], splitDate[2]).toLong()
     }
 
+    fun convertLongToLocalDate(date: Long): LocalDate {
+        val strDate = date.toString()
+        val year = concat(
+            strDate[0].toString(),
+            strDate[1].toString(),
+            strDate[2].toString(),
+            strDate[3].toString()
+        ).toInt()
+        val month = concat(
+            strDate[4].toString(),
+            strDate[5].toString()
+        ).toInt()
+        val day = concat(
+            strDate[6].toString(),
+            strDate[7].toString()
+        ).toInt()
+        return LocalDate.of(year, month, day)
+    }
+
     fun convertCalendarDayToLong(date: CalendarDay): Long {
         val splitDate = date.date.toString().split("-")
         return concat(splitDate[0], splitDate[1], splitDate[2]).toLong()

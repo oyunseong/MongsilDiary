@@ -3,6 +3,10 @@ package com.mongsil.mongsildiary.ui.home.today
 
 import android.os.Parcelable
 import com.mongsil.mongsildiary.R
+import com.mongsil.mongsildiary.data.database.entity.TimeSlot
+import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.utils.Date
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.parcelize.Parcelize
 
 
@@ -44,4 +48,47 @@ object DataProvider {
             Emoticon(23, R.drawable.ic_emoticon_24, "몽실이", 0),
         )
     }
+
+    fun getDefaultSlotList(date: Long) = arrayOf(
+        Slot(
+            date, "",
+            TimeSlot.Morning, Emoticon(
+                id = 0,
+                image = R.drawable.ic_emoticon_01,
+                name = "노랑"
+            )
+        ),
+        Slot(
+            date, "",
+            TimeSlot.Launch, Emoticon(
+                id = 1,
+                image = R.drawable.ic_emoticon_02,
+                name = "분홍"
+            )
+        ),
+        Slot(
+            date, "",
+            TimeSlot.Dinner, Emoticon(
+                id = 2,
+                image = R.drawable.ic_emoticon_03,
+                name = "주황"
+            )
+        ),
+        Slot(
+            date, "",
+            TimeSlot.Advertisement, Emoticon(
+                id = 3,
+                image = R.drawable.ic_emoticon_04,
+                name = "다홍"
+            )
+        ),
+        Slot(
+            date, "",
+            TimeSlot.EndOfTheDay, Emoticon(
+                id = 4,
+                image = R.drawable.ic_emoticon_05,
+                name = "연보라"
+            )
+        )
+    )
 }
