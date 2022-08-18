@@ -14,8 +14,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
@@ -30,6 +32,7 @@ class RecordFragment : BaseFragment() {
     private lateinit var record: Record
     private lateinit var bitmap: Bitmap
     private val recordViewModel by viewModels<RecordViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     companion object {
         private const val REQUEST_CODE = 1
@@ -158,13 +161,13 @@ class RecordFragment : BaseFragment() {
 
     private fun onClickUpLoadButton() {
         binding.toolbar.uploadBtn.setOnClickListener {
+            val date = Date().convertCalendarDayToLong(mainViewModel.date.value!!)
             recordViewModel.insert(
                 record.copy(
-                    date = Date().currentLongTypeDate(),
+                    date = date,
                     text = binding.editText.text.toString()
                 )
             )
-            "$record".printLog("record copy data : ")
             findNavController().popBackStack()
         }
     }

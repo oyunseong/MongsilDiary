@@ -26,6 +26,7 @@ class MainViewModel(
 
     init {
         _date.value = CalendarDay.today()
+        getRecordData()
     }
 
     fun getRecordData() {
@@ -33,8 +34,8 @@ class MainViewModel(
             try {
                 _recordData.value =
                     repository.getRecordByDate(Date().convertCalendarDayToLong(date.value!!))
-            } catch (exception: Exception) {
-                exception.printStackTrace()
+            } catch (e: Exception) {
+                _recordData.value = emptyRecord
             }
         }
     }

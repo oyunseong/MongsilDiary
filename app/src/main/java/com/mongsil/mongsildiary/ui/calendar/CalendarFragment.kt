@@ -41,7 +41,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeData()
         initCalendarView()
         binding.toolbar.title.setText(R.string.calendar)
         binding.toolbar.uploadBtn.visibility = View.GONE
@@ -51,14 +50,9 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         }
 
         mainViewModel.date.observe(viewLifecycleOwner) {
-            binding.date.text = it.toString()
+            // TODO 캘린더를 눌러 이동한 날짜라면 Text 다르게 표시
+            binding.date.text = Date().plusDotCalendarDay(it)
         }
-    }
-
-    private fun observeData() {
-//        calendarViewModel.date.observe(viewLifecycleOwner) {
-//            binding.date.text = Date().removeDayOfDate(it)
-//        }
     }
 
     private fun initCalendarView() {

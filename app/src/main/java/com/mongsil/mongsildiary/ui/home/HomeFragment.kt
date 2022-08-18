@@ -57,6 +57,7 @@ class HomeFragment : BaseFragment() {
         setTodayRecycler()
         setRecordOption()
 
+
         mainViewModel.date.observe(viewLifecycleOwner) {
             homeViewModel.getSlotData(it)
             setCurrentDate(it)
