@@ -17,7 +17,9 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
 import com.mongsil.mongsildiary.domain.Slot
-import com.mongsil.mongsildiary.utils.*
+import com.mongsil.mongsildiary.utils.Date
+import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
+import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.prolificinteractive.materialcalendarview.CalendarDay
 
 
@@ -39,7 +41,7 @@ class HomeFragment : BaseFragment() {
 
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
         val bundle = bundleOf("slot" to it)
-        findNavController().navigate(R.id.action_homeFragment_to_todayFragment, bundle)
+        findNavController().navigate(R.id.todayFragment, bundle)
     })
 
     override fun onCreateView(
@@ -56,22 +58,37 @@ class HomeFragment : BaseFragment() {
         mainViewModel.getRecordData()
         setTodayRecycler()
         setRecordOption()
-
+        setToolbar()
 
         mainViewModel.date.observe(viewLifecycleOwner) {
             homeViewModel.getSlotData(it)
             setCurrentDate(it)
         }
 
-        homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
-            override fun onChanged(t: List<Slot>?) {
-                homeTimeSlotAdapter.setData(t ?: emptyList())
-            }
-        })
+        homeViewModel.slotData.observe(viewLifecycleOwner) {
+            homeTimeSlotAdapter.setData(it)
+        }
+
+//        homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
+//            override fun onChanged(t: List<Slot>) {
+//                homeTimeSlotAdapter.setData(t)
+//            }
+//        })
+
     }
 
     private fun setCurrentDate(date: CalendarDay) {
-        binding.date.text = Date().plusDotCalendarDay(date)
+        if (date == CalendarDay.today()) {
+            binding.date.visibility = View.VISIBLE
+            binding.date.text = Date().plusDotCalendarDay(date)
+            binding.mainTitle.setText(R.string.main_title)
+            binding.toolbar.toolbar.visibility = View.GONE
+        } else {
+            binding.mainTitle.text = "${Date().otherDayText(date)}\n기록이에요"
+            binding.date.visibility = View.GONE
+            binding.toolbar.toolbar.visibility = View.VISIBLE
+        }
+
     }
 
 
@@ -111,5 +128,17 @@ class HomeFragment : BaseFragment() {
         binding.recycler.adapter = homeTimeSlotAdapter
         binding.recycler.addItemDecoration(VerticalItemDecorator(10))
         binding.recycler.addItemDecoration(HorizontalItemDecorator(10))
+    }
+
+    private fun setToolbar() {
+        binding.toolbar.apply {
+            toolbar.visibility = View.GONE
+            title.visibility = View.GONE
+            uploadBtn.visibility = View.GONE
+        }
+
+        binding.toolbar.backBtn.setOnClickListener {
+            mainViewModel.setDate(CalendarDay.today())
+        }
     }
 }

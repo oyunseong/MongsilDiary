@@ -85,5 +85,10 @@ class Date {
         val splitDate = date.date.toString().split("-")
         return concat(splitDate[0], ".", splitDate[1], ".", splitDate[2])
     }
+
+    fun otherDayText(date: CalendarDay): String {
+        val splitDate = date.date.toString().split("-")
+        return concat(splitDate[0], "년 ", splitDate[1], "월 ", splitDate[2],"일")
+    }
 }
 

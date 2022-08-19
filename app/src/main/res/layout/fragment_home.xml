@@ -13,17 +13,22 @@
         android:layout_height="match_parent"
         android:descendantFocusability="blocksDescendants">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar"
+            app:layout_constraintTop_toTopOf="@id/main_constrainLayout" />
+
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginLeft="32dp"
             android:fontFamily="@font/s_core_dream_6"
             android:textColor="@color/black"
             android:textSize="13sp"
             app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toTopOf="@id/main_constrainLayout"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_goneMarginTop="32dp"
             tools:text="2022.04.09" />
 
         <TextView
@@ -31,11 +36,13 @@
             style="@style/Text.black_13sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
             android:fontFamily="@font/s_core_dream_6"
             android:text="@string/main_title"
             android:textSize="28sp"
-            app:layout_constraintLeft_toLeftOf="@id/date"
-            app:layout_constraintTop_toBottomOf="@id/date" />
+            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+            app:layout_constraintTop_toBottomOf="@id/date"
+            app:layout_goneMarginTop="24dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
@@ -57,11 +64,12 @@
             style="@style/Text.222222_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="96dp"
             android:fontFamily="@font/s_core_dream_6"
             android:text="@string/record"
             android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="@id/date"
+            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
             app:layout_constraintTop_toBottomOf="@id/recycler" />
 
         <TextView

@@ -23,6 +23,7 @@ import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CalendarFragment : BaseFragment(), OnDateSelectedListener {
     private var _binding: FragmentCalendarBinding? = null
@@ -52,29 +53,33 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             // TODO 캘린더를 눌러 이동한 날짜라면 Text 다르게 표시
             binding.date.text = Date().plusDotCalendarDay(it)
         }
+        initCalendarView()
+        binding.calendar.setOnDateChangedListener(this@CalendarFragment)
 
-        calendarViewModel.arrayList.observe(viewLifecycleOwner) {
+        calendarViewModel.slotData.observe(viewLifecycleOwner) {
+            calendarViewModel.getData()
+        }
+
+        calendarViewModel.eventList.observe(viewLifecycleOwner) {
             binding.calendar.addDecorators(
                 SaturdayDecorator(),
                 SundayDecorator(),
                 TodayDecorator(),
-                EventDecorator(it)      // TODO 동시성 문제??? 나왔다가 안나왔다하는거보니
+                EventDecorator(it)
             )
         }
-        binding.calendar.setOnDateChangedListener(this@CalendarFragment)
-        initCalendarView()
     }
 
     private fun initCalendarView() {
-//        binding.calendar.apply {
-//            setOnDateChangedListener(this@CalendarFragment)
-//            addDecorators(
-//                SaturdayDecorator(),
-//                SundayDecorator(),
-//                TodayDecorator(),
-//                EventDecorator(calendarViewModel.arrayList.value)
-//            )
-//        }
+        binding.calendar.apply {
+            setOnDateChangedListener(this@CalendarFragment)
+            addDecorators(
+                SaturdayDecorator(),
+                SundayDecorator(),
+                TodayDecorator(),
+                EventDecorator(calendarViewModel.eventList.value!!)
+            )
+        }
 
     }
 
@@ -160,6 +165,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 //        findNavController().popBackStack()
         // 화면을 옮긴 상태를 초기화 하기 위해서 화면을 다시 그림
         // 예를들어 slot을 오른쪽으로 넘기던가 화면을 내린 상태
-        findNavController().navigate(R.id.homeFragment)
+        findNavController().popBackStack()
     }
 }

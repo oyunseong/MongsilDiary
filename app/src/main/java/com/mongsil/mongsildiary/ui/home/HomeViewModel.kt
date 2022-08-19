@@ -22,13 +22,8 @@ class HomeViewModel(
     ),
 ) : ViewModel() {
 
-    private val emptyRecord = Record.mockRecord
-
     private val _slotData: MutableLiveData<List<Slot>> = MutableLiveData(emptyList())
     val slotData: LiveData<List<Slot>> get() = _slotData
-
-    private val _recordData = MutableLiveData<Record>(emptyRecord)
-    val recordData: LiveData<Record> get() = _recordData
 
     init {
         getSlotData(CalendarDay.today())
@@ -38,9 +33,8 @@ class HomeViewModel(
     fun getSlotData(calendarDay: CalendarDay) {
         viewModelScope.launch {
             val date = Date().convertCalendarDayToLong(calendarDay)
-            val slots = repository.getSlotsByDate(date)
             val arraySlots = DataProvider.getDefaultSlotList(date)
-
+            val slots = repository.getSlotsByDate(date)
             slots.forEach {
                 when (it.timeSlot) {
                     TimeSlot.Morning -> arraySlots[0] =
@@ -57,5 +51,6 @@ class HomeViewModel(
             }
             _slotData.value = arraySlots.toList()
         }
+
     }
 }

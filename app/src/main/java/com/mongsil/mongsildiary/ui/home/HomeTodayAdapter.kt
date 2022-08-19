@@ -38,7 +38,6 @@ class HomeTodayAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(slot: Slot, position: Int) {
-
             binding.root.setOnClickListener {
                 onItemClickListener.invoke(slot)
             }
@@ -47,10 +46,13 @@ class HomeTodayAdapter(
             binding.contents.text = slot.text
             binding.emoticon.setImageResource(slot.emoticon.image)
 
-            if (binding.contents.text.isEmpty()) {
+            if (slot.text.isEmpty()) {
                 binding.contents.visibility = View.GONE
                 binding.emoticon.visibility = View.GONE
+                binding.plusBtn.visibility = View.VISIBLE
             } else {
+                binding.contents.visibility = View.VISIBLE
+                binding.emoticon.visibility = View.VISIBLE
                 binding.plusBtn.visibility = View.GONE
             }
         }
