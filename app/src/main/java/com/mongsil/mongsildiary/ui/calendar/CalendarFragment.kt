@@ -1,5 +1,6 @@
 package com.mongsil.mongsildiary.ui.calendar
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.os.Bundle
@@ -28,7 +29,7 @@ import kotlin.collections.ArrayList
 class CalendarFragment : BaseFragment(), OnDateSelectedListener {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    val mainViewModel by activityViewModels<MainViewModel>()
     private val calendarViewModel by viewModels<CalendarViewModel>()
     private val dayPickerDialog = DayPickerDialog()
     override fun onCreateView(
@@ -44,6 +45,7 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.title.setText(R.string.calendar)
         binding.toolbar.uploadBtn.visibility = View.GONE
+        mainViewModel.setDate(CalendarDay.today())
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
@@ -60,27 +62,46 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             calendarViewModel.getData()
         }
 
+        val startTimeCalendar = Calendar.getInstance()
+        val endTimeCalendar = Calendar.getInstance()
+
+        val currentYear = startTimeCalendar.get(Calendar.YEAR)
+        val currentMonth = startTimeCalendar.get(Calendar.MONTH)
+        val currentDate = startTimeCalendar.get(Calendar.DATE)
+
+        endTimeCalendar.set(Calendar.MONTH, currentMonth + 10)
+
+        val stCalendarDay = CalendarDay.from(currentYear, currentMonth, currentDate)
+        val enCalendarDay = CalendarDay.from(
+            endTimeCalendar.get(Calendar.YEAR),
+            endTimeCalendar.get(Calendar.MONTH),
+            endTimeCalendar.get(Calendar.DATE)
+        )
+
         calendarViewModel.eventList.observe(viewLifecycleOwner) {
             binding.calendar.addDecorators(
                 SaturdayDecorator(),
                 SundayDecorator(),
                 TodayDecorator(),
+//                MinMaxDecorator(stCalendarDay, enCalendarDay),
                 EventDecorator(it)
             )
         }
     }
 
     private fun initCalendarView() {
-        binding.calendar.apply {
-            setOnDateChangedListener(this@CalendarFragment)
-            addDecorators(
-                SaturdayDecorator(),
-                SundayDecorator(),
-                TodayDecorator(),
-                EventDecorator(calendarViewModel.eventList.value!!)
-            )
+
+    }
+
+
+    inner class TodayDecorator : DayViewDecorator {
+        override fun shouldDecorate(day: CalendarDay): Boolean {
+            return day == CalendarDay.today()
         }
 
+        override fun decorate(view: DayViewFacade) {
+            view.addSpan(StyleSpan(Typeface.BOLD))
+        }
     }
 
     inner class SaturdayDecorator : DayViewDecorator {
@@ -99,11 +120,13 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
                     )
                 )
             )
+            view.setDaysDisabled(true)
         }
     }
 
     // 일요일
     inner class SundayDecorator : DayViewDecorator {
+
         override fun shouldDecorate(day: CalendarDay): Boolean {
             val date = day.date
             val dayOfWeek = date.dayOfWeek
@@ -119,6 +142,28 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
                     )
                 )
             )
+            view.setDaysDisabled(true)
+        }
+    }
+
+    inner class MinMaxDecorator(min: CalendarDay, max: CalendarDay) : DayViewDecorator {
+        val maxDay = max
+        val minDay = min
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+            return (day?.month == maxDay.month && day.day > maxDay.day)
+                    || (day?.month == minDay.month && day.day < minDay.day)
+        }
+
+        override fun decorate(view: DayViewFacade?) {
+            view?.addSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.other_month_day
+                    )
+                )
+            )
+            view?.setDaysDisabled(true)
         }
     }
 
@@ -130,6 +175,7 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         init {
             this.dates = HashSet(dates)
             drawable = requireContext().resources.getDrawable(R.drawable.ic_emoticon_01)
+
         }
 
         override fun shouldDecorate(day: CalendarDay?): Boolean {
@@ -138,17 +184,14 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 
         override fun decorate(view: DayViewFacade) {
             view.setSelectionDrawable(drawable)
-        }
-    }
-
-    class TodayDecorator : DayViewDecorator {
-        override fun shouldDecorate(day: CalendarDay): Boolean {
-            return day == CalendarDay.today()
-        }
-
-        override fun decorate(view: DayViewFacade) {
-            view.addSpan(StyleSpan(Typeface.BOLD))
-            view.addSpan(RelativeSizeSpan(1.4f))
+            view.addSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.transparency
+                    )
+                )
+            )
         }
     }
 
