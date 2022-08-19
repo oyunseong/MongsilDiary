@@ -11,14 +11,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
+import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.ui.home.HomeViewModel
 import com.mongsil.mongsildiary.ui.home.record.RecordFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
@@ -79,15 +82,19 @@ class MainActivity : AppCompatActivity() {
         binding.recordFab.setOnClickListener {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == RecordFragment::class.java.name)
                 return@setOnClickListener
-
+            if ((navController.currentDestination as? FragmentNavigator.Destination)?.className != HomeFragment::class.java.name) {
+                navController.popBackStack()
+            }
             navController.navigate(R.id.recordFragment, recordBundle)
-            "$recordBundle".printLog("mainactivity : ")
             closedFab()
         }
 
         binding.settingFab.setOnClickListener {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == SettingFragment::class.java.name)
                 return@setOnClickListener
+            if ((navController.currentDestination as? FragmentNavigator.Destination)?.className != HomeFragment::class.java.name) {
+                navController.popBackStack()
+            }
             navController.navigate(R.id.settingFragment)
             closedFab()
         }
@@ -95,13 +102,12 @@ class MainActivity : AppCompatActivity() {
         binding.calendarFab.setOnClickListener {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className == CalendarFragment::class.java.name)
                 return@setOnClickListener
+            if ((navController.currentDestination as? FragmentNavigator.Destination)?.className != HomeFragment::class.java.name) {
+                navController.popBackStack()
+            }
             navController.navigate(R.id.calendarFragment)
             closedFab()
         }
-    }
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        return super.onCreateView(name, context, attrs)
     }
 
     // TODO 애니메이션 개선 작업

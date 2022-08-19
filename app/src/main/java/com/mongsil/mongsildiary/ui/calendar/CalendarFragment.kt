@@ -162,9 +162,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         selected: Boolean
     ) {
         mainViewModel.setDate(date = date)
-//        findNavController().popBackStack()
-        // 화면을 옮긴 상태를 초기화 하기 위해서 화면을 다시 그림
-        // 예를들어 slot을 오른쪽으로 넘기던가 화면을 내린 상태
         findNavController().popBackStack()
     }
 }
