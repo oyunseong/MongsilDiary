@@ -135,8 +135,9 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             return dates.contains(day)
         }
 
+        // TODO slot의 가장 앞의 Emoticon의 이모티콘을 표시 만약 없다면 default 이모티콘 표시
         override fun decorate(view: DayViewFacade) {
-            view.setSelectionDrawable(drawable)
+            view.setSelectionDrawable(requireContext().resources.getDrawable(R.drawable.ic_emoticon_01))
             view.addSpan(
                 ForegroundColorSpan(
                     ContextCompat.getColor(
