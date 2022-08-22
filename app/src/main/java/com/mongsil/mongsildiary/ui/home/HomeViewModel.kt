@@ -51,6 +51,5 @@ class HomeViewModel(
             }
             _slotData.value = arraySlots.toList()
         }
-
     }
 }

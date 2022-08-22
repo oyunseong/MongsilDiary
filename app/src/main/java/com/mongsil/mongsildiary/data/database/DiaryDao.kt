@@ -14,6 +14,9 @@ interface DiaryDao {
     @Query("SELECT * FROM SlotEntity")
     suspend fun getSlotDataAll(): List<SlotEntity>
 
+    @Query("SELECT * FROM RecordEntity")
+    suspend fun getRecordDataAll(): List<RecordEntity>
+
     @Query("SELECT * FROM RecordEntity WHERE date = :date")
     suspend fun getRecordByDate(date: Long): RecordEntity
 

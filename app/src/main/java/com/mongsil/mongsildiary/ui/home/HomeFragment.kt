@@ -56,7 +56,6 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel.getRecordData()
-        setTodayRecycler()
         setRecordOption()
         setToolbar()
 
@@ -68,6 +67,8 @@ class HomeFragment : BaseFragment() {
         homeViewModel.slotData.observe(viewLifecycleOwner) {
             homeTimeSlotAdapter.setData(it)
         }
+
+        setTodayRecycler()
 
 //        homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
 //            override fun onChanged(t: List<Slot>) {

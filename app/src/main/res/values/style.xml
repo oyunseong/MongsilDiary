@@ -45,6 +45,8 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+
     <style name="Transparent" parent="@style/Theme.AppCompat">
         <!--Titlebar 없애는 옵션
             true : Titlebar x
