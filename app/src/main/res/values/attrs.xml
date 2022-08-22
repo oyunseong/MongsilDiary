@@ -12,7 +12,7 @@
 
     <declare-styleable name="ThisMonthMongsil">
         <attr name="bgg" format="reference|integer" />
-        <attr name="count" format="reference|string|integer" />
+        <attr name="count" format="reference|integer" />
         <attr name="progress" format="integer" />
         <attr name="emoticons" format="reference|color" />
     </declare-styleable>

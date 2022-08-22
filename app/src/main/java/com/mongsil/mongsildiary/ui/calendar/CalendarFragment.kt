@@ -42,7 +42,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.title.setText(R.string.calendar)
         binding.toolbar.uploadBtn.visibility = View.GONE
-//        mainViewModel.setDate(CalendarDay.today())
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
@@ -99,7 +98,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         }
     }
 
-    // 일요일
     inner class SundayDecorator : DayViewDecorator {
 
         override fun shouldDecorate(day: CalendarDay): Boolean {
@@ -161,4 +159,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         mainViewModel.setDate(date = date)
         findNavController().popBackStack()
     }
+
+
 }

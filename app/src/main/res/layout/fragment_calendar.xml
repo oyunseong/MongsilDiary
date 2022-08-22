@@ -85,9 +85,9 @@
                 app:layout_constraintTop_toBottomOf="@id/calendar" />
 
             <TextView
-                android:id="@+id/this_month_mongsil"
+                android:id="@+id/this_month_mongsil_container"
                 android:layout_width="match_parent"
-                android:layout_height="233dp"
+                android:layout_height="0dp"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="94dp"
@@ -109,8 +109,8 @@
                 android:fontFamily="@font/s_core_dream_6"
                 android:text="@string/this_month_mongsil"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-                app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+                app:layout_constraintStart_toStartOf="@id/this_month_mongsil_container"
+                app:layout_constraintTop_toTopOf="@id/this_month_mongsil_container" />
 
             <TextView
                 android:id="@+id/this_month_mongsil_empty_text"
@@ -124,21 +124,41 @@
                 android:gravity="center"
                 android:lineSpacingExtra="10sp"
                 android:text="@string/this_month_mongsil_empty_text"
-                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
-                app:layout_constraintEnd_toEndOf="@id/this_month_mongsil"
-                app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-                app:layout_constraintTop_toTopOf="@id/this_month_mongsil" />
+                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil_container"
+                app:layout_constraintEnd_toEndOf="@id/this_month_mongsil_container"
+                app:layout_constraintStart_toStartOf="@id/this_month_mongsil_container"
+                app:layout_constraintTop_toTopOf="@id/this_month_mongsil_container" />
 
-            <com.mongsil.mongsildiary.customView.ThisMonthMongsil
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mongsil_recycler"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginVertical="32dp"
+                android:clipToPadding="false"
                 android:elevation="3dp"
-                app:count="1"
-                app:emoticons="@drawable/ic_emoticon_01"
-                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil"
-                app:layout_constraintStart_toStartOf="@id/this_month_mongsil"
-                app:layout_constraintTop_toTopOf="@id/this_month_mongsil"
-                app:progress="10" />
+                android:orientation="horizontal"
+                android:paddingHorizontal="24dp"
+                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil_container"
+                app:layout_constraintLeft_toLeftOf="@id/this_month_mongsil_container"
+                app:layout_constraintRight_toRightOf="@id/this_month_mongsil_container"
+                app:layout_constraintTop_toBottomOf="@id/this_month_mongsil_title"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                tools:listitem="@layout/this_month_mongsil" />
+
+            <!--            <com.mongsil.mongsildiary.customView.ThisMonthMongsil-->
+            <!--                android:id="@+id/first_mongsil"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginVertical="24dp"-->
+            <!--                android:layout_marginLeft="32dp"-->
+            <!--                android:elevation="3dp"-->
+            <!--                app:count="1"-->
+            <!--                app:emoticons="@drawable/ic_emoticon_01"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/this_month_mongsil_container"-->
+            <!--                app:layout_constraintLeft_toLeftOf="@id/this_month_mongsil_container"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/this_month_mongsil_title"-->
+            <!--                app:progress="50" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

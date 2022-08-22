@@ -60,11 +60,17 @@ class ThisMonthMongsil : ConstraintLayout {
         val count = typedArray.getText(R.styleable.ThisMonthMongsil_count)
         binding.count.text = "$count"
     }
+    fun setCount(count:Int){
+        binding.count.text = "$count"
+    }
 
     private fun setProgress(typedArray: TypedArray) {
         val process = typedArray.getInt(R.styleable.ThisMonthMongsil_progress, 0)
-
         binding.progress.progress = process
+    }
+
+    fun setRate(progress: Int) {
+        binding.progress.progress = progress
     }
 
     private fun setEmoticon(typedArray: TypedArray) {
@@ -79,5 +85,4 @@ class ThisMonthMongsil : ConstraintLayout {
             typedArray.getResourceId(R.styleable.ThisMonthMongsil_bgg, R.drawable.push_allow_bar)
         binding.root.setBackgroundResource(backgroundResId)
     }
-
 }

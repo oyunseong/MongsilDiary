@@ -32,6 +32,9 @@ class CalendarViewModel(
     private var _slotDataMap = MutableLiveData<Map<Int, Int>>()
     val slotDataMap: LiveData<Map<Int, Int>> get() = _slotDataMap
 
+    val textList: List<Int> = listOf(1, 2, 3, 4)
+
+
     init {
         setSlotData()
         setRecordData()
