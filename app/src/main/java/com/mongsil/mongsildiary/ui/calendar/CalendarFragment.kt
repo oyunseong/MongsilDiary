@@ -12,11 +12,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
 import com.mongsil.mongsildiary.utils.Date
+import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
+import com.mongsil.mongsildiary.utils.VerticalItemDecorator
 import com.prolificinteractive.materialcalendarview.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -29,6 +32,8 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
     val mainViewModel by activityViewModels<MainViewModel>()
     private val calendarViewModel by viewModels<CalendarViewModel>()
     private val dayPickerDialog = DayPickerDialog()
+    private val thisMonthMongsilAdapter = ThisMonthMongsilAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +47,7 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.title.setText(R.string.calendar)
         binding.toolbar.uploadBtn.visibility = View.GONE
+        setThisMonthMongsilRecycler()
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
@@ -53,7 +59,13 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         binding.calendar.setOnDateChangedListener(this@CalendarFragment)
 
         calendarViewModel.slotData.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.thisMonthMongsilEmptyText.visibility = View.VISIBLE
+            } else {
+                binding.thisMonthMongsilEmptyText.visibility = View.GONE
+            }
             calendarViewModel.getSlotData()
+            thisMonthMongsilAdapter.setMongsilList(it)
         }
         calendarViewModel.recordData.observe(viewLifecycleOwner) {
             calendarViewModel.getRecordData()
@@ -160,5 +172,11 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         findNavController().popBackStack()
     }
 
-
+    private fun setThisMonthMongsilRecycler() {
+        binding.mongsilRecycler.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.mongsilRecycler.adapter = thisMonthMongsilAdapter
+//        binding.mongsilRecycler.addItemDecoration(VerticalItemDecorator(10))
+        binding.mongsilRecycler.addItemDecoration(HorizontalItemDecorator(20))
+    }
 }
