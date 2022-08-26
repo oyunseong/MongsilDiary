@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.ThisMonthMongsilBinding
 import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.utils.printLog
 import java.util.*
 import kotlin.collections.HashMap
@@ -38,33 +39,8 @@ class ThisMonthMongsilAdapter() :
     class ThisMonthMongsilViewHolder(private val binding: ThisMonthMongsilBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(list: Pair<Int, Int>) {
-            when (list.first) {
-                0 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_01)
-                1 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_02)
-                2 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_03)
-                3 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_04)
-                4 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_05)
-                5 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_06)
-                6 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_07)
-                7 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_08)
-                8 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_09)
-                9 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_10)
-                10 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_11)
-                11 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_12)
-                12 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_13)
-                13 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_14)
-                14 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_15)
-                15 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_16)
-                16 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_17)
-                17 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_18)
-                18 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_19)
-                19 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_20)
-                20 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_21)
-                21 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_22)
-                22 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_23)
-                23 -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_24)
-                else -> binding.emoticon.setImageResource(R.drawable.ic_emoticon_01)
-            }
+            val emoticonList = DataProvider.getEmoticonList()
+            binding.emoticon.setImageResource(emoticonList[list.first].image)
             binding.progress.progress = list.second
             binding.count.text = list.second.toString()
         }
