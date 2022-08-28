@@ -61,8 +61,10 @@ class CalendarViewModel(
     fun getRecordData() {
         val defaultEmoticon = Emoticon(0, R.drawable.ic_emoticon_01, "몽실이", 0)
         recordData.value!!.forEach {
-            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))] =
-                defaultEmoticon.id
+            if (!hashMap.containsKey(CalendarDay.from(Date().convertLongToLocalDate(it.date)))) {
+                hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))] =
+                    defaultEmoticon.id
+            }
         }
         _eventList.value = hashMap
     }

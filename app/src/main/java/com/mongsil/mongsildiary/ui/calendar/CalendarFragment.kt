@@ -61,29 +61,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             binding.date.text = Date().plusDotCalendarDay(it)
         }
 
-        calendarViewModel.apply {
-            slotData.observe(viewLifecycleOwner) {
-                if (it.isEmpty()) {
-                    binding.thisMonthMongsilEmptyText.visibility = View.VISIBLE
-                } else {
-                    binding.thisMonthMongsilEmptyText.visibility = View.GONE
-                }
-                calendarViewModel.getSlotData()
-                thisMonthMongsilAdapter.setMongsilList(it)
-            }
-
-            recordData.observe(viewLifecycleOwner) {
-                calendarViewModel.getRecordData()
-            }
-
-            eventList.observe(viewLifecycleOwner) {
-                it.forEach { (k, v) ->
-                    binding.calendar.addDecorator(EventDecorator(k, v))
-                }
-            }
-
-        }
-
         binding.calendar.apply {
             setOnDateChangedListener(this@CalendarFragment)
             addDecorators(
@@ -101,6 +78,28 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
                     setSlotData(date)
                     setRecordData(date)
                 }
+            }
+        }
+
+        calendarViewModel.apply {
+            slotData.observe(viewLifecycleOwner) {
+                if (it.isEmpty()) {
+                    binding.thisMonthMongsilEmptyText.visibility = View.VISIBLE
+                } else {
+                    binding.thisMonthMongsilEmptyText.visibility = View.GONE
+                }
+                calendarViewModel.getSlotData()
+                thisMonthMongsilAdapter.setMongsilList(it)
+            }
+
+
+            eventList.observe(viewLifecycleOwner) {
+                it.forEach { (k, v) ->
+                    binding.calendar.addDecorator(EventDecorator(k, v))
+                }
+            }
+            recordData.observe(viewLifecycleOwner) {
+                calendarViewModel.getRecordData()
             }
         }
     }
