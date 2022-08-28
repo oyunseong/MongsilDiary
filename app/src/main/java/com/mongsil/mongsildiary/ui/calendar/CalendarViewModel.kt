@@ -25,24 +25,19 @@ class CalendarViewModel(
     private val _recordData: MutableLiveData<List<Record>> = MutableLiveData(emptyList())
     val recordData: LiveData<List<Record>> get() = _recordData
 
-    private val _eventList: MutableLiveData<HashSet<CalendarDay>> =
-        MutableLiveData(HashSet<CalendarDay>())
-    val eventList: LiveData<HashSet<CalendarDay>> get() = _eventList
-
-    private var _slotDataMap = MutableLiveData<Map<Int, Int>>()
-    val slotDataMap: LiveData<Map<Int, Int>> get() = _slotDataMap
-
-    val textList: List<Int> = listOf(1, 2, 3, 4)
-
+    private val _eventList: MutableLiveData<HashMap<CalendarDay, Int>> =
+        MutableLiveData(HashMap())
+    val eventList: LiveData<HashMap<CalendarDay, Int>> get() = _eventList
 
     init {
-        setSlotData()
+        setSlotData(CalendarDay.today())
         setRecordData()
     }
 
-    private fun setSlotData() {
+    fun setSlotData(date : CalendarDay) {
         viewModelScope.launch {
-            _slotData.value = repository.getSlotDataAll()
+//            _slotData.value = repository.getSlotDataAll()
+            _slotData.value = repository.getSlotsFindByWithoutDate(Date().removeDateOfDayFromCalendarDay(date))
         }
     }
 
@@ -56,25 +51,19 @@ class CalendarViewModel(
      * 현재 전체 데이터를 조회하는 중
      * 특정 기간 데이터만 조회하는 방법으로 바꿀 필요있음
      * */
-    private val hashSet = HashSet<CalendarDay>()
+    private var hashMap = HashMap<CalendarDay, Int>()
     fun getSlotData() {
         slotData.value!!.forEach {
-            hashSet.add(CalendarDay.from(Date().convertLongToLocalDate(it.date)))
+            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))] = it.emoticon.image
         }
-        _eventList.value = hashSet
+        _eventList.value = hashMap
     }
 
     fun getRecordData() {
         recordData.value!!.forEach {
-            hashSet.add(CalendarDay.from(Date().convertLongToLocalDate(it.date)))
+            // TODO record는 이모티콘이 없는데 어떻게 처리할지 생각!
+//            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))]
         }
-        _eventList.value = hashSet
+//        _eventList.value = hashMap
     }
 }
-
-
-//            if (slotData.value != null) {
-//                slotData.value!!.forEach { it ->
-//                    _slotDataMap.value.get(it.emoticon.id) = _slotDataMap[it.emoticon.id]!!.plus(1)
-//                }
-//            }

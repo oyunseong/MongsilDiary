@@ -19,11 +19,10 @@ import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
 import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
-import com.mongsil.mongsildiary.utils.VerticalItemDecorator
+import com.mongsil.mongsildiary.utils.printLog
 import com.prolificinteractive.materialcalendarview.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
-import kotlin.collections.HashSet
 
 
 class CalendarFragment : BaseFragment(), OnDateSelectedListener {
@@ -67,17 +66,29 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             calendarViewModel.getSlotData()
             thisMonthMongsilAdapter.setMongsilList(it)
         }
+
         calendarViewModel.recordData.observe(viewLifecycleOwner) {
             calendarViewModel.getRecordData()
         }
 
         calendarViewModel.eventList.observe(viewLifecycleOwner) {
+            it.forEach { _ ->
+                binding.calendar.addDecorator(EventDecorator2(calendarViewModel.eventList.value))
+            }
             binding.calendar.addDecorators(
                 SaturdayDecorator(),
                 SundayDecorator(),
                 TodayDecorator(),
                 EventDecorator(it),
             )
+        }
+
+        /**
+         * Calendar 스크롤 시 해당 달 DB date 조회
+         * Ex) SELECT * From SlotEntity date LIKE "202208__"
+         * */
+        binding.calendar.setOnMonthChangedListener { widget, date ->
+            calendarViewModel.setSlotData(date)
         }
     }
 
@@ -131,23 +142,63 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         }
     }
 
-    inner class EventDecorator(dates: HashSet<CalendarDay>) :
+    inner class EventDecorator(dates: HashMap<CalendarDay, Int>) :
         DayViewDecorator {
-        private var dates = HashSet<CalendarDay>()
+        private var dates = HashMap<CalendarDay, Int>()
         private val drawable: Drawable
 
         init {
-            this.dates = HashSet(dates)
+            this.dates = HashMap(dates)
             drawable = requireContext().resources.getDrawable(R.drawable.ic_emoticon_01)
         }
 
         override fun shouldDecorate(day: CalendarDay?): Boolean {
-            return dates.contains(day)
+//            return dates.contains(day)
+            return dates.containsKey(day)
         }
+
 
         // TODO slot의 가장 앞의 Emoticon의 이모티콘을 표시 만약 없다면 default 이모티콘 표시
         override fun decorate(view: DayViewFacade) {
-            view.setSelectionDrawable(requireContext().resources.getDrawable(R.drawable.ic_emoticon_01))
+//            dates.forEach {
+//                view.setSelectionDrawable(it.value)
+//            }
+//            view.setSelectionDrawable(requireContext().resources.getDrawable(R.drawable.ic_emoticon_02))
+            view.setSelectionDrawable(drawable)
+            view.addSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.transparency
+                    )
+                )
+            )
+        }
+    }
+
+    inner class EventDecorator2(dates: HashMap<CalendarDay, Int>?) :
+        DayViewDecorator {
+        private var dates = HashMap<CalendarDay, Int>()
+        private val drawable: Drawable
+
+        init {
+            this.dates = HashMap(dates)
+            drawable = requireContext().resources.getDrawable(R.drawable.ic_emoticon_01)
+        }
+
+        override fun shouldDecorate(day: CalendarDay?): Boolean {
+//            return dates.contains(day)
+            return dates.containsKey(day)
+        }
+
+
+        // TODO slot의 가장 앞의 Emoticon의 이모티콘을 표시 만약 없다면 default 이모티콘 표시
+        override fun decorate(view: DayViewFacade) {
+//            dates.forEach {
+//                view.setSelectionDrawable(it.value)
+//            }
+//            view.setSelectionDrawable(requireContext().resources.getDrawable(R.drawable.ic_emoticon_02))
+            view.setSelectionDrawable(drawable)
             view.addSpan(
                 ForegroundColorSpan(
                     ContextCompat.getColor(

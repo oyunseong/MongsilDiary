@@ -81,6 +81,11 @@ class Date {
         return concat(splitDate[0], splitDate[1], splitDate[2]).toLong()
     }
 
+    fun removeDateOfDayFromCalendarDay(date: CalendarDay): String {
+        val splitDate = date.date.toString().split("-")
+        return concat(splitDate[0], splitDate[1], "__")
+    }
+
     fun plusDotCalendarDay(date: CalendarDay): String {
         val splitDate = date.date.toString().split("-")
         return concat(splitDate[0], ".", splitDate[1], ".", splitDate[2])
@@ -88,7 +93,7 @@ class Date {
 
     fun otherDayText(date: CalendarDay): String {
         val splitDate = date.date.toString().split("-")
-        return concat(splitDate[0], "년 ", splitDate[1], "월 ", splitDate[2],"일")
+        return concat(splitDate[0], "년 ", splitDate[1], "월 ", splitDate[2], "일")
     }
 }
 

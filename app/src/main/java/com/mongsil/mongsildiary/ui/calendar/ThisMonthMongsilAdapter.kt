@@ -41,7 +41,7 @@ class ThisMonthMongsilAdapter() :
         fun bind(list: Pair<Int, Int>) {
             val emoticonList = DataProvider.getEmoticonList()
             binding.emoticon.setImageResource(emoticonList[list.first].image)
-            binding.progress.progress = list.second
+            binding.progress.progress = list.second * 10
             binding.count.text = list.second.toString()
         }
 
@@ -58,6 +58,7 @@ class ThisMonthMongsilAdapter() :
      * TODO 출력되는 달의 emoticon만 출력하도록 수정
      * */
     fun setMongsilList(list: List<Slot>) {
+        hashmap = HashMap() /* = java.util.HashMap<kotlin.Int, kotlin.Int> */
         list.forEach {
             if (hashmap.containsKey(it.emoticon.id)) {
                 hashmap[it.emoticon.id] = hashmap[it.emoticon.id]!!.toInt() + 1
