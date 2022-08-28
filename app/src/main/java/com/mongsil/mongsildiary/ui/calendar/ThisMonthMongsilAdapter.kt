@@ -9,6 +9,7 @@ import com.mongsil.mongsildiary.databinding.ThisMonthMongsilBinding
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.utils.printLog
+import com.mongsil.mongsildiary.utils.setTextColorRes
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -29,7 +30,7 @@ class ThisMonthMongsilAdapter() :
     }
 
     override fun onBindViewHolder(holder: ThisMonthMongsilViewHolder, position: Int) {
-        holder.bind(thisMonthMongsilList[position])
+        holder.bind(thisMonthMongsilList[position], thisMonthMongsilList[0].second)
     }
 
     override fun getItemCount(): Int {
@@ -38,11 +39,26 @@ class ThisMonthMongsilAdapter() :
 
     class ThisMonthMongsilViewHolder(private val binding: ThisMonthMongsilBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(list: Pair<Int, Int>) {
+        fun bind(list: Pair<Int, Int>, max: Int) {
+
+            /**
+             * 제일 높은 값을 최고값으로 설정
+             * 제일 높은 값을 기준으로 모든 값을 나눈다
+             * ex) 가장 높은값 3
+             * 3/3 * 100 = 100%
+             * 2/3 * 100 = 66%
+             * 1/3 * 100 = 33%
+             * */
+
             val emoticonList = DataProvider.getEmoticonList()
             binding.emoticon.setImageResource(emoticonList[list.first].image)
-            binding.progress.progress = list.second * 10
+            binding.progress.progress = ((list.second.toFloat() / max) * 100).toInt()
             binding.count.text = list.second.toString()
+            if ((list.second / max) * 100 == 100) {
+                binding.count.setTextColorRes(R.color.btn_color)
+            }else{
+                binding.count.setTextColorRes(R.color.gray_font)
+            }
         }
 
     }

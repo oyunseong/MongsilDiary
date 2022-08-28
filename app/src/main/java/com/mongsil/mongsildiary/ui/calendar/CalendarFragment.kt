@@ -1,6 +1,9 @@
 package com.mongsil.mongsildiary.ui.calendar
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
@@ -17,9 +20,9 @@ import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
+import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
-import com.mongsil.mongsildiary.utils.printLog
 import com.prolificinteractive.materialcalendarview.*
 import org.threeten.bp.DayOfWeek
 import org.threeten.bp.LocalDate
@@ -28,7 +31,7 @@ import org.threeten.bp.LocalDate
 class CalendarFragment : BaseFragment(), OnDateSelectedListener {
     private var _binding: FragmentCalendarBinding? = null
     private val binding get() = _binding!!
-    val mainViewModel by activityViewModels<MainViewModel>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private val calendarViewModel by viewModels<CalendarViewModel>()
     private val dayPickerDialog = DayPickerDialog()
     private val thisMonthMongsilAdapter = ThisMonthMongsilAdapter()
@@ -44,51 +47,61 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.title.setText(R.string.calendar)
-        binding.toolbar.uploadBtn.visibility = View.GONE
         setThisMonthMongsilRecycler()
 
-        binding.toolbar.backBtn.setOnClickListener {
-            requireActivity().onBackPressed()
+        binding.toolbar.apply {
+            title.setText(R.string.calendar)
+            uploadBtn.visibility = View.GONE
+            backBtn.setOnClickListener {
+                requireActivity().onBackPressed()
+            }
         }
 
         mainViewModel.date.observe(viewLifecycleOwner) {
             binding.date.text = Date().plusDotCalendarDay(it)
         }
-        binding.calendar.setOnDateChangedListener(this@CalendarFragment)
 
-        calendarViewModel.slotData.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
-                binding.thisMonthMongsilEmptyText.visibility = View.VISIBLE
-            } else {
-                binding.thisMonthMongsilEmptyText.visibility = View.GONE
+        calendarViewModel.apply {
+            slotData.observe(viewLifecycleOwner) {
+                if (it.isEmpty()) {
+                    binding.thisMonthMongsilEmptyText.visibility = View.VISIBLE
+                } else {
+                    binding.thisMonthMongsilEmptyText.visibility = View.GONE
+                }
+                calendarViewModel.getSlotData()
+                thisMonthMongsilAdapter.setMongsilList(it)
             }
-            calendarViewModel.getSlotData()
-            thisMonthMongsilAdapter.setMongsilList(it)
+
+            recordData.observe(viewLifecycleOwner) {
+                calendarViewModel.getRecordData()
+            }
+
+            eventList.observe(viewLifecycleOwner) {
+                it.forEach { (k, v) ->
+                    binding.calendar.addDecorator(EventDecorator(k, v))
+                }
+            }
+
         }
 
-        calendarViewModel.recordData.observe(viewLifecycleOwner) {
-            calendarViewModel.getRecordData()
-        }
-
-        calendarViewModel.eventList.observe(viewLifecycleOwner) {
-            it.forEach { _ ->
-                binding.calendar.addDecorator(EventDecorator2(calendarViewModel.eventList.value))
-            }
-            binding.calendar.addDecorators(
+        binding.calendar.apply {
+            setOnDateChangedListener(this@CalendarFragment)
+            addDecorators(
                 SaturdayDecorator(),
                 SundayDecorator(),
                 TodayDecorator(),
-                EventDecorator(it),
             )
-        }
 
-        /**
-         * Calendar 스크롤 시 해당 달 DB date 조회
-         * Ex) SELECT * From SlotEntity date LIKE "202208__"
-         * */
-        binding.calendar.setOnMonthChangedListener { widget, date ->
-            calendarViewModel.setSlotData(date)
+            /**
+             * Calendar 스크롤 시 해당 달 DB date 조회
+             * Ex) SELECT * From SlotEntity date LIKE "202208__"
+             * */
+            setOnMonthChangedListener { widget, date ->
+                calendarViewModel.apply {
+                    setSlotData(date)
+                    setRecordData(date)
+                }
+            }
         }
     }
 
@@ -142,29 +155,21 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         }
     }
 
-    inner class EventDecorator(dates: HashMap<CalendarDay, Int>) :
+    inner class EventDecorator(val dates: CalendarDay, val emoticonId: Int) :
         DayViewDecorator {
-        private var dates = HashMap<CalendarDay, Int>()
-        private val drawable: Drawable
-
-        init {
-            this.dates = HashMap(dates)
-            drawable = requireContext().resources.getDrawable(R.drawable.ic_emoticon_01)
-        }
 
         override fun shouldDecorate(day: CalendarDay?): Boolean {
-//            return dates.contains(day)
-            return dates.containsKey(day)
+            return dates == day
         }
 
-
-        // TODO slot의 가장 앞의 Emoticon의 이모티콘을 표시 만약 없다면 default 이모티콘 표시
         override fun decorate(view: DayViewFacade) {
-//            dates.forEach {
-//                view.setSelectionDrawable(it.value)
-//            }
-//            view.setSelectionDrawable(requireContext().resources.getDrawable(R.drawable.ic_emoticon_02))
-            view.setSelectionDrawable(drawable)
+            val emoticonList = DataProvider.getEmoticonList()
+            val bitmap: Bitmap = BitmapFactory.decodeResource(
+                requireContext().resources,
+                emoticonList[emoticonId].image
+            )
+            view.setSelectionDrawable(BitmapDrawable(resources, bitmap))
+
             view.addSpan(
                 ForegroundColorSpan(
                     ContextCompat.getColor(
@@ -173,40 +178,7 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
                     )
                 )
             )
-        }
-    }
 
-    inner class EventDecorator2(dates: HashMap<CalendarDay, Int>?) :
-        DayViewDecorator {
-        private var dates = HashMap<CalendarDay, Int>()
-        private val drawable: Drawable
-
-        init {
-            this.dates = HashMap(dates)
-            drawable = requireContext().resources.getDrawable(R.drawable.ic_emoticon_01)
-        }
-
-        override fun shouldDecorate(day: CalendarDay?): Boolean {
-//            return dates.contains(day)
-            return dates.containsKey(day)
-        }
-
-
-        // TODO slot의 가장 앞의 Emoticon의 이모티콘을 표시 만약 없다면 default 이모티콘 표시
-        override fun decorate(view: DayViewFacade) {
-//            dates.forEach {
-//                view.setSelectionDrawable(it.value)
-//            }
-//            view.setSelectionDrawable(requireContext().resources.getDrawable(R.drawable.ic_emoticon_02))
-            view.setSelectionDrawable(drawable)
-            view.addSpan(
-                ForegroundColorSpan(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.transparency
-                    )
-                )
-            )
         }
     }
 
@@ -227,7 +199,6 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         binding.mongsilRecycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.mongsilRecycler.adapter = thisMonthMongsilAdapter
-//        binding.mongsilRecycler.addItemDecoration(VerticalItemDecorator(10))
         binding.mongsilRecycler.addItemDecoration(HorizontalItemDecorator(20))
     }
 }

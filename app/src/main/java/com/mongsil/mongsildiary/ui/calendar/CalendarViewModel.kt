@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mongsil.mongsildiary.MyApplication
+import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.repository.DiaryRepository
+import com.mongsil.mongsildiary.ui.home.today.Emoticon
 import com.mongsil.mongsildiary.utils.Date
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
@@ -31,39 +33,37 @@ class CalendarViewModel(
 
     init {
         setSlotData(CalendarDay.today())
-        setRecordData()
+        setRecordData(CalendarDay.today())
     }
 
-    fun setSlotData(date : CalendarDay) {
+    fun setSlotData(date: CalendarDay) {
         viewModelScope.launch {
-//            _slotData.value = repository.getSlotDataAll()
-            _slotData.value = repository.getSlotsFindByWithoutDate(Date().removeDateOfDayFromCalendarDay(date))
+            _slotData.value =
+                repository.getSlotsFindByWithoutDate(Date().removeDateOfDayFromCalendarDay(date))
         }
     }
 
-    private fun setRecordData() {
+    fun setRecordData(date: CalendarDay) {
         viewModelScope.launch {
-            _recordData.value = repository.getRecordDataAll()
+            _recordData.value =
+                repository.getRecordFindByWithoutDate(Date().removeDateOfDayFromCalendarDay(date))
         }
     }
 
-    /**
-     * 현재 전체 데이터를 조회하는 중
-     * 특정 기간 데이터만 조회하는 방법으로 바꿀 필요있음
-     * */
     private var hashMap = HashMap<CalendarDay, Int>()
     fun getSlotData() {
         slotData.value!!.forEach {
-            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))] = it.emoticon.image
+            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))] = it.emoticon.id
         }
         _eventList.value = hashMap
     }
 
     fun getRecordData() {
+        val defaultEmoticon = Emoticon(0, R.drawable.ic_emoticon_01, "몽실이", 0)
         recordData.value!!.forEach {
-            // TODO record는 이모티콘이 없는데 어떻게 처리할지 생각!
-//            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))]
+            hashMap[CalendarDay.from(Date().convertLongToLocalDate(it.date))] =
+                defaultEmoticon.id
         }
-//        _eventList.value = hashMap
+        _eventList.value = hashMap
     }
 }

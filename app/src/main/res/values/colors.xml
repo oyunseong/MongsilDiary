@@ -17,5 +17,6 @@
     <color name="calendar_weekend">#FF0000</color>
     <color name="transparency">#00000000</color>
     <color name="other_month_day">#d2d2d2</color>
+    <color name="gray_font">#cccfd7</color>
 
 </resources>

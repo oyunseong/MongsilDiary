@@ -24,6 +24,10 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
         return diaryDao.getSlotsBySimilarDate(date).toSlots()
     }
 
+    suspend fun getRecordFindByWithoutDate(date: String): List<Record> {
+        return diaryDao.getRecordBySimilarDate(date).toRecords()
+    }
+
     suspend fun getSlotByDateAndTimeSlot(date: Long, timeSlot: TimeSlot): Slot {
         return diaryDao.getSlotByDateAndTimeSlot(date, timeSlot).toSlots()
     }
