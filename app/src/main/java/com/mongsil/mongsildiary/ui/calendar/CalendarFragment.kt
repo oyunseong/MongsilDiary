@@ -4,18 +4,22 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.MobileAds
 import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
@@ -47,6 +51,15 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        MobileAds.initialize(requireContext()) {}
+        val adRequest = AdRequest.Builder().build()
+        binding.calendarBanner.loadAd(adRequest)
+//        binding.calendarBanner.setAdSize(
+//            AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+//                requireContext(),
+//            )
+//        )
+
         setThisMonthMongsilRecycler()
 
         binding.toolbar.apply {
@@ -103,6 +116,22 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
             }
         }
     }
+
+    private val adSize: AdSize
+        get() {
+//            val display = windowManager.defaultDisplay
+            val outMetrics = DisplayMetrics()
+//            display.getMetrics(outMetrics)
+
+            val density = outMetrics.density
+
+            var adWidthPixels = binding.calendarBanner.width.toFloat()
+            if (adWidthPixels == 0f) {
+                adWidthPixels = outMetrics.widthPixels.toFloat()
+            }
+            val adWith = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(requireContext(),adWith)
+        }
 
     inner class TodayDecorator : DayViewDecorator {
         override fun shouldDecorate(day: CalendarDay): Boolean {
