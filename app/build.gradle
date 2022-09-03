@@ -79,4 +79,7 @@ dependencies {
 
     // ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
+
+    // admob
+    implementation 'com.google.android.gms:play-services-ads:21.1.0'
 }

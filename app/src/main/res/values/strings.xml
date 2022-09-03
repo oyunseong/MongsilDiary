@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">MongsilDiary</string>
+    <string name="banner_ad_unit_id">ca-app-pub-1939032811151400/5808815862</string>
+    <string name="banner_ad_unit_test_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_app_id">ca-app-pub-1939032811151400~2635857613"</string>
     <string name="main_title">오늘을 기록해요</string>
     <string name="morning">아침</string>
     <string name="afternoon">점심</string>

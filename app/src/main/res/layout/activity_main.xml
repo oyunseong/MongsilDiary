@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:defaultNavHost="true"
-            app:layout_constraintBottom_toTopOf="@id/bottom_admob"
+            app:layout_constraintBottom_toTopOf="@id/bottom_banner"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -128,16 +128,14 @@
             app:layout_constraintRight_toLeftOf="@id/record_fab"
             app:layout_constraintTop_toTopOf="@id/record_fab" />
 
-        <TextView
-            android:id="@+id/bottom_admob"
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/bottom_banner"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="#FF5722"
-            android:gravity="center"
-            android:text="광고"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id"
+            ads:layout_constraintLeft_toLeftOf="parent"
+            ads:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

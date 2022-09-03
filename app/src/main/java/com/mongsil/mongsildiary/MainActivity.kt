@@ -1,8 +1,6 @@
 package com.mongsil.mongsildiary
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -10,22 +8,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
-import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.home.HomeFragment
-import com.mongsil.mongsildiary.ui.home.HomeViewModel
 import com.mongsil.mongsildiary.ui.home.record.RecordFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
-import com.mongsil.mongsildiary.utils.printLog
 import java.util.*
 
 
@@ -50,6 +46,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 광고를 로드하기 전에 SDK를 초기화하고 초기화가 완료된 후(또는 30초의 제한 시간이 경과한 후에) 리스너를 다시 호출
+        MobileAds.initialize(this) {}
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.activity = this@MainActivity
         val navHostFragment =
@@ -108,6 +108,10 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.calendarFragment)
             closedFab()
         }
+
+        val adRequest = AdRequest.Builder().build()
+        binding.bottomBanner.adListener
+        binding.bottomBanner.loadAd(adRequest)
     }
 
     // TODO 애니메이션 개선 작업
