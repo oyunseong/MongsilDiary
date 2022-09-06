@@ -1,155 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
-    android:fillViewport="true">
+    app:layout_constraintBottom_toTopOf="@id/wise_saying_container">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/main_constrainLayout"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar"
-            app:layout_constraintTop_toTopOf="@id/main_constrainLayout" />
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:fontFamily="@font/s_core_dream_6"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_goneMarginTop="32dp"
-            tools:text="2022.04.09" />
-
-        <TextView
-            android:id="@+id/main_title"
-            style="@style/Text.black_13sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:fontFamily="@font/s_core_dream_6"
-            android:text="@string/main_title"
-            android:textSize="28sp"
-            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toBottomOf="@id/date"
-            app:layout_goneMarginTop="24dp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingStart="24dp"
-            android:paddingEnd="10dp"
-            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
-            app:layout_constraintRight_toRightOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toBottomOf="@id/main_title"
-            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_diary_list" />
-
-        <TextView
-            android:id="@+id/record_tv"
-            style="@style/Text.222222_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="96dp"
-            android:fontFamily="@font/s_core_dream_6"
-            android:text="@string/record"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toBottomOf="@id/recycler" />
-
-        <TextView
-            android:id="@+id/add_btn"
-            style="@style/Text.222222_bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/s_core_dream_6"
-            android:text="@string/add"
-            android:textSize="18sp"
-            app:layout_constraintLeft_toRightOf="@id/record_tv"
-            app:layout_constraintTop_toTopOf="@id/record_tv" />
-
-        <TextView
-            android:id="@+id/record_contents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:fontFamily="@font/s_core_dream_4"
-            android:hint="@string/record_text"
-            android:textSize="13sp"
-            app:layout_constraintLeft_toLeftOf="@id/record_tv"
-            app:layout_constraintTop_toBottomOf="@id/record_tv" />
-
-        <TextView
-            android:id="@+id/delete_btn"
-            style="@style/Text.222222_normal"
-            android:layout_width="64dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/button_round_dee2ed"
-            android:fontFamily="@font/s_core_dream_4"
-            android:gravity="center"
-            android:text="@string/delete"
-            app:layout_constraintLeft_toLeftOf="@id/record_tv"
-            app:layout_constraintTop_toBottomOf="@id/record_contents" />
-
-        <TextView
-            android:id="@+id/edit_btn"
-            style="@style/Text.222222_normal"
-            android:layout_width="64dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/button_round_dee2ed"
-            android:fontFamily="@font/s_core_dream_4"
-            android:gravity="center"
-            android:text="@string/edit"
-            app:layout_constraintLeft_toRightOf="@id/delete_btn"
-            app:layout_constraintTop_toBottomOf="@id/record_contents" />
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottom_const"
+            android:id="@+id/main_constrainLayout"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/round_30_top"
-            android:paddingHorizontal="32dp"
-            android:paddingTop="40dp"
-            app:layout_constraintBottom_toBottomOf="@id/main_constrainLayout"
-            app:layout_constraintTop_toBottomOf="@id/delete_btn">
+            android:layout_height="0dp"
+            android:descendantFocusability="blocksDescendants">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar"
+                app:layout_constraintTop_toTopOf="@id/main_constrainLayout" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:fontFamily="@font/s_core_dream_6"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_goneMarginTop="32dp"
+                tools:text="2022.04.09" />
+
+            <TextView
+                android:id="@+id/main_title"
+                style="@style/Text.black_13sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:fontFamily="@font/s_core_dream_6"
+                android:text="@string/main_title"
+                android:textSize="28sp"
+                app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+                app:layout_constraintTop_toBottomOf="@id/date"
+                app:layout_goneMarginTop="24dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                android:paddingStart="24dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+                app:layout_constraintRight_toRightOf="@id/main_constrainLayout"
+                app:layout_constraintTop_toBottomOf="@id/main_title"
+                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_diary_list" />
+
+            <TextView
+                android:id="@+id/record_tv"
+                style="@style/Text.222222_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="96dp"
+                android:fontFamily="@font/s_core_dream_6"
+                android:text="@string/record"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toLeftOf="@id/main_constrainLayout"
+                app:layout_constraintTop_toBottomOf="@id/recycler" />
+
+            <TextView
+                android:id="@+id/add_btn"
+                style="@style/Text.222222_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/s_core_dream_6"
+                android:text="@string/add"
+                android:textSize="18sp"
+                app:layout_constraintLeft_toRightOf="@id/record_tv"
+                app:layout_constraintTop_toTopOf="@id/record_tv" />
+
+            <TextView
+                android:id="@+id/record_contents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/s_core_dream_4"
+                android:hint="@string/record_text"
+                android:textSize="13sp"
+                app:layout_goneMarginBottom="80dp"
+                app:layout_constraintBottom_toTopOf="@id/delete_btn"
+                app:layout_constraintLeft_toLeftOf="@id/record_tv"
+                app:layout_constraintTop_toBottomOf="@id/record_tv"
+                app:layout_constraintVertical_bias="0"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/delete_btn"
+                style="@style/Text.222222_normal"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/button_round_dee2ed"
+                android:fontFamily="@font/s_core_dream_4"
+                android:gravity="center"
+                android:text="@string/delete"
+                app:layout_constraintBottom_toTopOf="@id/wise_saying_container"
+                app:layout_constraintLeft_toLeftOf="@id/record_tv"
+                app:layout_constraintTop_toBottomOf="@id/record_contents" />
+
+            <TextView
+                android:id="@+id/edit_btn"
+                style="@style/Text.222222_normal"
+                android:layout_width="64dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_round_dee2ed"
+                android:fontFamily="@font/s_core_dream_4"
+                android:gravity="center"
+                android:text="@string/edit"
+                app:layout_constraintLeft_toRightOf="@id/delete_btn"
+                app:layout_constraintTop_toBottomOf="@id/record_contents" />
+
+            <TextView
+                android:id="@+id/wise_saying_container"
+                android:layout_width="match_parent"
+                android:layout_height="164dp"
+                android:background="@drawable/round_30_top"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
             <TextView
                 android:id="@+id/cheer_up_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="@font/s_core_dream_6"
                 android:text="응원을 보내요"
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="@id/bottom_const"
-                app:layout_constraintTop_toTopOf="@id/bottom_const" />
+                app:layout_constraintLeft_toLeftOf="@id/wise_saying_container"
+                app:layout_constraintTop_toTopOf="@id/wise_saying_container" />
+
 
             <TextView
                 style="@style/Text.White_13sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="104dp"
+                android:layout_marginBottom="40dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/s_core_dream_4"
                 android:lines="3"
@@ -161,7 +178,45 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/wise_saying_container"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="164dp"-->
+    <!--        android:background="@drawable/round_30_top"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/cheer_up_tv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="32dp"-->
+    <!--        android:layout_marginTop="40dp"-->
+    <!--        android:fontFamily="@font/s_core_dream_6"-->
+    <!--        android:text="응원을 보내요"-->
+    <!--        android:textColor="@color/white"-->
+    <!--        android:textSize="14sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintLeft_toLeftOf="@id/wise_saying_container"-->
+    <!--        app:layout_constraintTop_toTopOf="@id/wise_saying_container" />-->
 
 
-</androidx.core.widget.NestedScrollView>
+    <!--    <TextView-->
+    <!--        style="@style/Text.White_13sp"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="32dp"-->
+    <!--        android:layout_marginTop="12dp"-->
+    <!--        android:layout_marginEnd="104dp"-->
+    <!--        android:layout_marginBottom="40dp"-->
+    <!--        android:ellipsize="end"-->
+    <!--        android:fontFamily="@font/s_core_dream_4"-->
+    <!--        android:lines="3"-->
+    <!--        android:maxLines="3"-->
+    <!--        android:text="@string/cheer_up_contents"-->
+    <!--        android:textColor="#cccfd7"-->
+    <!--        app:layout_constraintLeft_toLeftOf="@id/cheer_up_tv"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/cheer_up_tv" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
