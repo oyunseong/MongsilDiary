@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.settingFragment ||
-                destination.id == R.id.recordFragment ||
                 destination.id == R.id.calendarFragment ||
                 destination.id == R.id.homeFragment
             ) {
@@ -87,6 +86,8 @@ class MainActivity : AppCompatActivity() {
             }
             navController.navigate(R.id.recordFragment, recordBundle)
             closedFab()
+            binding.fab.clearAnimation()
+            binding.fab.visibility = View.GONE
         }
 
         binding.settingFab.setOnClickListener {
@@ -148,7 +149,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //TODO 뷰의 상태를 처리하는 코드를 없애기 위해 databinding 고려해보는 것이 좋을 듯.
     private fun openFab() {
         binding.fab.setImageResource(R.drawable.ic_x_32_close)
         fabArray.forEachIndexed { _, fab ->
