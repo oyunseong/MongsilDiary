@@ -89,9 +89,8 @@ class RecordFragment : BaseFragment() {
                         requireContext().contentResolver,
                         currentImageUrl
                     )
-//                    recordViewModel.setRecord(record.copy(images = bitmap))
-//                    "${recordViewModel.contents.value}".printLog()
-//                    val bitmapList: List<Bitmap> = listOf(bitmap)
+                    recordViewModel.setBitmapImage(bitmap)
+                    "${recordViewModel.contents.value}".printLog()
                 } catch (e: Exception) {
                     "${e.printStackTrace()}".printLog()
                 }
@@ -108,12 +107,18 @@ class RecordFragment : BaseFragment() {
         record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
+
+        recordViewModel.bitmap.observe(viewLifecycleOwner) {
+            binding.firstImageView.setImageBitmap(it)
+            emptyCheck()
+        }
+
         emptyCheck()
         onClickUpLoadButton()
 
-//        binding.galleryBtn.setOnClickListener {
-//            openGallery()
-//        }
+        binding.galleryBtn.setOnClickListener {
+            openGallery()
+        }
 
         binding.toolbar.backBtn.setOnClickListener {
             requireActivity().onBackPressed()
@@ -133,29 +138,37 @@ class RecordFragment : BaseFragment() {
         })
     }
 
+    private fun addEmptyCheckImage() {
+        binding.blankImage.visibility = View.VISIBLE
+        binding.blank1Tv.visibility = View.VISIBLE
+        binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
+        binding.toolbar.uploadBtn.isClickable = false
+        binding.toolbar.uploadBtn.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.indicator_not_focus_color
+            )
+        )
+    }
+
+    private fun removeEmptyCheckImage() {
+        binding.blankImage.visibility = View.GONE
+        binding.blank1Tv.visibility = View.GONE
+        binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
+        binding.toolbar.uploadBtn.isClickable = true
+        binding.toolbar.uploadBtn.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.indicator_focus_color
+            )
+        )
+    }
+
     fun emptyCheck() {
-        if (binding.editText.text.isEmpty()) {
-            binding.blankImage.visibility = View.VISIBLE
-            binding.blank1Tv.visibility = View.VISIBLE
-            binding.toolbar.uploadBtn.isEnabled = false // 버튼 비활성화
-            binding.toolbar.uploadBtn.isClickable = false
-            binding.toolbar.uploadBtn.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.indicator_not_focus_color
-                )
-            )
+        if (binding.editText.text.isNotEmpty() || binding.firstImageView.drawable != null) {
+            removeEmptyCheckImage()
         } else {
-            binding.blankImage.visibility = View.GONE
-            binding.blank1Tv.visibility = View.GONE
-            binding.toolbar.uploadBtn.isEnabled = true // 버튼 활성화
-            binding.toolbar.uploadBtn.isClickable = true
-            binding.toolbar.uploadBtn.setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    R.color.indicator_focus_color
-                )
-            )
+            addEmptyCheckImage()
         }
     }
 

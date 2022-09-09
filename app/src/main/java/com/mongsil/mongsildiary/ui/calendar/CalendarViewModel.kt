@@ -58,6 +58,7 @@ class CalendarViewModel(
         _eventList.value = hashMap
     }
 
+    //TODO 한달씩 조회하는 방식 변경 필요 ( 사유 : 렉이 넘 많이걸려요 )
     fun getRecordData() {
         val defaultEmoticon = Emoticon(0, R.drawable.ic_emoticon_01, "몽실이", 0)
         recordData.value!!.forEach {
