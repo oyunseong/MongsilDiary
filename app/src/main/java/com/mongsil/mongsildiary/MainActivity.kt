@@ -207,6 +207,9 @@ class MainActivity : AppCompatActivity() {
             closedFab()
         } else {
             super.onBackPressed()
+//                R.anim.fade_in,
+//                R.anim.slide_out,
+
         }
     }
 }

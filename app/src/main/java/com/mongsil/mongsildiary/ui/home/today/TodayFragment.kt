@@ -1,22 +1,27 @@
 package com.mongsil.mongsildiary.ui.home.today
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentTodayBinding
 import com.mongsil.mongsildiary.domain.Slot
+import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.utils.converterTimeSlot
+import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
+
 
 class TodayFragment : BaseFragment() {
     private lateinit var slot: Slot
@@ -26,6 +31,8 @@ class TodayFragment : BaseFragment() {
 
     private val todayViewModel by viewModels<TodayViewModel>()
     private var emoticonSize: Int = 2
+    private lateinit var ft: FragmentTransaction
+    private lateinit var backBtnCallback: OnBackPressedCallback
 
     companion object {
         const val PAGE_EMOTICONS_SIZE = 12
@@ -40,6 +47,26 @@ class TodayFragment : BaseFragment() {
         return binding.root
     }
 
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        backBtnCallback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                binding.toolbar.backBtn.setOnClickListener() {
+//                    activity?.onBackPressed() ?: "handleOnBackPressed activity is null".printLog()
+//                }
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(
+//            this,
+//            backBtnCallback
+//        )
+//    }
+
+//    override fun onDetach() {
+//        super.onDetach()
+//        backBtnCallback.remove()
+//    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onButtonClickListener()
@@ -49,7 +76,12 @@ class TodayFragment : BaseFragment() {
         todayViewModel.selectEmoticon(slot.emoticon)
         binding.todayText.text = "오늘 ${slot.timeSlot.converterTimeSlot()}\n기분은 어떠세요?"
         binding.editText.setText(slot.text)
+        ft = requireActivity().supportFragmentManager.beginTransaction()
         emptyCheck()
+
+
+
+
 
         binding.viewpager2.apply {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -153,7 +185,7 @@ class TodayFragment : BaseFragment() {
 
     private fun onButtonClickListener() {
         binding.toolbar.backBtn.setOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().popBackStack()
         }
 
         binding.toolbar.uploadBtn.setOnClickListener {
@@ -166,7 +198,7 @@ class TodayFragment : BaseFragment() {
                         text = binding.editText.text.toString()
                     )
                 )
-                findNavController().navigate(R.id.action_timeSlotFragment_to_homeFragment)
+                findNavController().popBackStack()
             }
         }
     }

@@ -29,7 +29,11 @@
         tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/vertical_enter"
+            app:exitAnim="@anim/vertical_exit"
+            app:popEnterAnim="@anim/vertical_enter"
+            app:popExitAnim="@anim/vertical_exit" />
     </fragment>
 
     <fragment
@@ -42,8 +46,7 @@
             app:destination="@id/pushAllowFragment" />
         <action
             android:id="@+id/action_to_settingFragment_to_backupFragment"
-            app:destination="@+id/backupFragment"
-            />
+            app:destination="@+id/backupFragment" />
 
     </fragment>
 
@@ -53,7 +56,12 @@
         android:label="fragment_today"
         tools:layout="@layout/fragment_today">
         <action
-            android:id="@+id/action_timeSlotFragment_to_homeFragment"
+            android:id="@+id/asd"
+            app:popUpTo=""
+            app:popEnterAnim="@anim/slide_in"
+            app:popExitAnim="@anim/slide_out" />
+        <action
+            android:id="@+id/action_todayFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
@@ -67,6 +75,7 @@
         <action
             android:id="@+id/action_recordFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:popExitAnim="@anim/horizon_exit"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -89,7 +98,9 @@
 
     <action
         android:id="@+id/action_to_homeFragment"
-        app:destination="@id/homeFragment" />
+        app:destination="@id/homeFragment"
+        app:popEnterAnim="@anim/slide_in"
+        app:popExitAnim="@anim/slide_out" />
 
     <action
         android:id="@+id/action_to_settingFragment"

@@ -49,4 +49,7 @@
         <item>S</item>
     </string-array>
 
+    <integer name="screen_in_time">500</integer>
+    <integer name="screen_out_time">500</integer>
+
 </resources>
