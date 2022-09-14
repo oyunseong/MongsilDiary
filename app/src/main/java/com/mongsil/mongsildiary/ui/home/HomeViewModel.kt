@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.data.database.AppDatabase
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
-import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
-import com.mongsil.mongsildiary.domain.defaultSlotList
 import com.mongsil.mongsildiary.repository.DiaryRepository
 import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.utils.Date

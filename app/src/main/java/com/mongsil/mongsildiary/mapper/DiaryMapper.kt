@@ -11,7 +11,7 @@ fun List<RecordEntity>.toRecords(): List<Record> {
         Record(
             date = it.date,
             text = it.text,
-//            images = it.imageUrls,
+            image = it.image
         )
     }
 }
@@ -20,7 +20,7 @@ fun RecordEntity.toRecord(): Record {
     return Record(
         date = date,
         text = text,
-//        images = imageUrls,
+        image = image
     )
 }
 
@@ -58,6 +58,7 @@ fun Record.toRecordEntity(): RecordEntity {
     return RecordEntity(
         date = date,
         text = text,
+        image = image
 //        imageUrls = images
     )
 }

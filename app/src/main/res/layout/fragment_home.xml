@@ -101,19 +101,28 @@
                 android:fontFamily="@font/s_core_dream_4"
                 android:hint="@string/record_text"
                 android:textSize="13sp"
-                app:layout_goneMarginBottom="80dp"
                 app:layout_constraintBottom_toTopOf="@id/delete_btn"
                 app:layout_constraintLeft_toLeftOf="@id/record_tv"
                 app:layout_constraintTop_toBottomOf="@id/record_tv"
                 app:layout_constraintVertical_bias="0"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_goneMarginBottom="60dp" />
+
+            <ImageView
+                android:id="@+id/record_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/record_contents" />
 
             <TextView
                 android:id="@+id/delete_btn"
                 style="@style/Text.222222_normal"
                 android:layout_width="64dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginBottom="80dp"
                 android:background="@drawable/button_round_dee2ed"
                 android:fontFamily="@font/s_core_dream_4"
@@ -121,21 +130,21 @@
                 android:text="@string/delete"
                 app:layout_constraintBottom_toTopOf="@id/wise_saying_container"
                 app:layout_constraintLeft_toLeftOf="@id/record_tv"
-                app:layout_constraintTop_toBottomOf="@id/record_contents" />
+                app:layout_constraintTop_toBottomOf="@id/record_image"
+                app:layout_goneMarginTop="24dp" />
 
             <TextView
                 android:id="@+id/edit_btn"
                 style="@style/Text.222222_normal"
                 android:layout_width="64dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginLeft="8dp"
                 android:background="@drawable/button_round_dee2ed"
                 android:fontFamily="@font/s_core_dream_4"
                 android:gravity="center"
                 android:text="@string/edit"
                 app:layout_constraintLeft_toRightOf="@id/delete_btn"
-                app:layout_constraintTop_toBottomOf="@id/record_contents" />
+                app:layout_constraintTop_toTopOf="@id/delete_btn" />
 
             <TextView
                 android:id="@+id/wise_saying_container"

@@ -1,5 +1,6 @@
 package com.mongsil.mongsildiary.domain
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
@@ -37,55 +38,13 @@ data class Slot(
 data class Record(
     val date: Long,
     val text: String = "",
+    val image: Bitmap?
 ) : Parcelable {
     companion object {
         val mockRecord = Record(
             date = 100,
             text = "",
+            image = null,
         )
     }
 }
-
-val defaultSlotList = arrayOf(
-    Slot(
-        Date().currentLongTypeDate(), "",
-        TimeSlot.Morning, Emoticon(
-            id = 0,
-            image = R.drawable.ic_emoticon_01,
-            name = "노랑"
-        )
-    ),
-    Slot(
-        Date().currentLongTypeDate(), "",
-        TimeSlot.Launch, Emoticon(
-            id = 1,
-            image = R.drawable.ic_emoticon_02,
-            name = "분홍"
-        )
-    ),
-    Slot(
-        Date().currentLongTypeDate(), "",
-        TimeSlot.Dinner, Emoticon(
-            id = 2,
-            image = R.drawable.ic_emoticon_03,
-            name = "주황"
-        )
-    ),
-    Slot(
-        Date().currentLongTypeDate(), "",
-        TimeSlot.Advertisement, Emoticon(
-            id = 3,
-            image = R.drawable.ic_emoticon_04,
-            name = "다홍"
-        )
-    ),
-    Slot(
-        Date().currentLongTypeDate(), "",
-        TimeSlot.EndOfTheDay, Emoticon(
-            id = 4,
-            image = R.drawable.ic_emoticon_05,
-            name = "연보라"
-        )
-    )
-)
-

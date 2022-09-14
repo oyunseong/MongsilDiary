@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -89,7 +90,7 @@ class RecordFragment : BaseFragment() {
                         requireContext().contentResolver,
                         currentImageUrl
                     )
-                    recordViewModel.setBitmapImage(bitmap)
+                    recordViewModel.setRecord(record.copy(image = bitmap))
                     "${recordViewModel.contents.value}".printLog()
                 } catch (e: Exception) {
                     "${e.printStackTrace()}".printLog()
@@ -108,8 +109,8 @@ class RecordFragment : BaseFragment() {
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
 
-        recordViewModel.bitmap.observe(viewLifecycleOwner) {
-            binding.firstImageView.setImageBitmap(it)
+        recordViewModel.contents.observe(viewLifecycleOwner) {
+            binding.firstImageView.setImageBitmap(it.image)
             emptyCheck()
         }
 
@@ -178,7 +179,8 @@ class RecordFragment : BaseFragment() {
             recordViewModel.insert(
                 record.copy(
                     date = date,
-                    text = binding.editText.text.toString()
+                    text = binding.editText.text.toString(),
+                    image = binding.firstImageView.drawToBitmap()
                 )
             )
             findNavController().popBackStack()

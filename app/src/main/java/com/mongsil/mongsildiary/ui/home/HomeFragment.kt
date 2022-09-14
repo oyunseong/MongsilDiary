@@ -92,20 +92,20 @@ class HomeFragment : BaseFragment() {
 
     }
 
-
     private fun setRecordOption() {
         mainViewModel.recordData.observe(viewLifecycleOwner) {
             recordBundle = bundleOf("record" to it)
-            if (it.text == "") {
-                binding.deleteBtn.visibility = View.GONE
-                binding.editBtn.visibility = View.GONE
-                binding.addBtn.visibility = View.VISIBLE
-            } else {
+            if (it.text.isNotEmpty() || it.image != null) {
                 binding.deleteBtn.visibility = View.VISIBLE
                 binding.editBtn.visibility = View.VISIBLE
                 binding.addBtn.visibility = View.GONE
+            } else {
+                binding.deleteBtn.visibility = View.GONE
+                binding.editBtn.visibility = View.GONE
+                binding.addBtn.visibility = View.VISIBLE
             }
             binding.recordContents.text = it.text
+            binding.recordImage.setImageBitmap(it.image)
         }
 
         binding.deleteBtn.setOnClickListener {
