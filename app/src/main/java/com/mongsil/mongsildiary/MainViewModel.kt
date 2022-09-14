@@ -48,4 +48,5 @@ class MainViewModel(
     fun setDate(date: CalendarDay) {
         _date.value = date
     }
+
 }

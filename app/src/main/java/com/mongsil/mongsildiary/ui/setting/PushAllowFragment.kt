@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentPushAllowBinding
+import com.mongsil.mongsildiary.utils.showToast
 
 class PushAllowFragment : BaseFragment() {
     private var _binding: FragmentPushAllowBinding? = null
@@ -23,6 +24,7 @@ class PushAllowFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().showToast("준비중입니다.")
 
         binding.toolbar.uploadBtn.visibility = View.GONE
 

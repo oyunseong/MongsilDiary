@@ -10,6 +10,7 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.gms.ads.AdRequest
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className != HomeFragment::class.java.name) {
                 navController.popBackStack()
             }
-            navController.navigate(R.id.recordFragment, recordBundle)
+            navController.navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
             closedFab()
             binding.fab.clearAnimation()
             binding.fab.visibility = View.GONE
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity() {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className != HomeFragment::class.java.name) {
                 navController.popBackStack()
             }
-            navController.navigate(R.id.settingFragment)
+            navController.navigate(R.id.action_homeFragment_to_settingFragment)
             closedFab()
         }
 
@@ -106,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             if ((navController.currentDestination as? FragmentNavigator.Destination)?.className != HomeFragment::class.java.name) {
                 navController.popBackStack()
             }
-            navController.navigate(R.id.calendarFragment)
+            navController.navigate(R.id.action_homeFragment_to_calendarFragment)
             closedFab()
         }
 

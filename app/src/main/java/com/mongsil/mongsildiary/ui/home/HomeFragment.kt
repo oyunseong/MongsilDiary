@@ -41,7 +41,7 @@ class HomeFragment : BaseFragment() {
 
     private val homeTimeSlotAdapter = HomeTodayAdapter(onItemClickListener = {
         val bundle = bundleOf("slot" to it)
-        findNavController().navigate(R.id.todayFragment, bundle)
+        findNavController().navigate(R.id.action_homeFragment_to_todayFragment, bundle)
     })
 
     override fun onCreateView(

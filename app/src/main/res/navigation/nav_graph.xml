@@ -12,13 +12,32 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_calendarFragment"
-            app:destination="@id/calendarFragment" />
+            app:destination="@id/calendarFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_homeFragment_to_todayFragment"
-            app:destination="@id/todayFragment" />
+            app:destination="@id/todayFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_homeFragment_to_recordFragment"
-            app:destination="@id/recordFragment" />
+            app:destination="@id/recordFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingFragment"
+            app:destination="@id/settingFragment"
+            app:enterAnim="@anim/vertical_enter"
+            app:exitAnim="@anim/none"
+            app:popEnterAnim="@anim/none"
+            app:popExitAnim="@anim/vertical_exit" />
 
     </fragment>
 
@@ -29,11 +48,10 @@
         tools:layout="@layout/fragment_calendar">
         <action
             android:id="@+id/action_calendarFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/vertical_enter"
-            app:exitAnim="@anim/vertical_exit"
-            app:popEnterAnim="@anim/vertical_enter"
-            app:popExitAnim="@anim/vertical_exit" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
 
     <fragment
@@ -43,10 +61,19 @@
         tools:layout="@layout/fragment_setting">
         <action
             android:id="@+id/action_settingFragment_to_pushAllowFragment"
-            app:destination="@id/pushAllowFragment" />
+            app:destination="@id/pushAllowFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+
         <action
             android:id="@+id/action_to_settingFragment_to_backupFragment"
-            app:destination="@+id/backupFragment" />
+            app:destination="@+id/backupFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
 
     </fragment>
 
@@ -55,11 +82,6 @@
         android:name="com.mongsil.mongsildiary.ui.home.today.TodayFragment"
         android:label="fragment_today"
         tools:layout="@layout/fragment_today">
-        <action
-            android:id="@+id/asd"
-            app:popUpTo=""
-            app:popEnterAnim="@anim/slide_in"
-            app:popExitAnim="@anim/slide_out" />
         <action
             android:id="@+id/action_todayFragment_to_homeFragment"
             app:destination="@id/homeFragment"
