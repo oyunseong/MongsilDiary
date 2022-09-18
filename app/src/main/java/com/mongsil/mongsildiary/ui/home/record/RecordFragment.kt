@@ -105,6 +105,7 @@ class RecordFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        onClickUpLoadButton()
         record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
@@ -113,9 +114,6 @@ class RecordFragment : BaseFragment() {
             binding.firstImageView.setImageBitmap(it.image)
             emptyCheck()
         }
-
-        emptyCheck()
-        onClickUpLoadButton()
 
         binding.galleryBtn.setOnClickListener {
             openGallery()
@@ -137,6 +135,14 @@ class RecordFragment : BaseFragment() {
             override fun afterTextChanged(p0: Editable?) {
             }
         })
+    }
+
+    fun emptyCheck() {
+        if (binding.editText.text.toString().isEmpty() && binding.firstImageView.drawable == null) {
+            addEmptyCheckImage()
+        } else {
+            removeEmptyCheckImage()
+        }
     }
 
     private fun addEmptyCheckImage() {
@@ -163,14 +169,6 @@ class RecordFragment : BaseFragment() {
                 R.color.indicator_focus_color
             )
         )
-    }
-
-    fun emptyCheck() {
-        if (binding.editText.text.isNotEmpty() || binding.firstImageView.drawable != null) {
-            removeEmptyCheckImage()
-        } else {
-            addEmptyCheckImage()
-        }
     }
 
     private fun onClickUpLoadButton() {

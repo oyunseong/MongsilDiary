@@ -20,13 +20,6 @@ class RecordViewModel(
     private val _contents = MutableLiveData<Record>()
     val contents: LiveData<Record> get() = _contents
 
-    private val _bitmap = MutableLiveData<Bitmap?>()
-    val bitmap: LiveData<Bitmap?> get() = _bitmap
-
-    fun setBitmapImage(bitmap: Bitmap) {
-        _bitmap.value = bitmap
-    }
-
     fun setRecord(record: Record) {
         _contents.value = record
     }
