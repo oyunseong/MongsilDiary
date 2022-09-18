@@ -96,14 +96,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
-            android:id="@+id/gallery_btn"
+        <TextView
+            android:id="@+id/gallery_btn_container"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/ic_x_24_setting"
-            android:backgroundTint="#FFEB3B"
+            android:background="@drawable/round_10_ffffff"
+            android:backgroundTint="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/gallery_btn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/ic_x_24_photo"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/gallery_btn_container"
+            app:layout_constraintLeft_toLeftOf="@id/gallery_btn_container"
+            app:layout_constraintRight_toRightOf="@id/gallery_btn_container"
+            app:layout_constraintTop_toTopOf="@id/gallery_btn_container" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

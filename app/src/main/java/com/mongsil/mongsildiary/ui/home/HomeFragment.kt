@@ -60,10 +60,10 @@ class HomeFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainViewModel.getRecordData()
-        setRecordOption()
         setToolbar()
         initServer()
         setTodayRecycler()
+        setRecordOption()
 
         mainViewModel.date.observe(viewLifecycleOwner) {
             homeViewModel.getSlotData(it)

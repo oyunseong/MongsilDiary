@@ -91,7 +91,6 @@ class RecordFragment : BaseFragment() {
                         currentImageUrl
                     )
                     recordViewModel.setRecord(record.copy(image = bitmap))
-                    "${recordViewModel.contents.value}".printLog()
                 } catch (e: Exception) {
                     "${e.printStackTrace()}".printLog()
                 }
@@ -138,8 +137,10 @@ class RecordFragment : BaseFragment() {
     }
 
     fun emptyCheck() {
-        if (binding.editText.text.toString().isEmpty() && binding.firstImageView.drawable == null) {
+        if (binding.editText.text.toString().isEmpty()) {
             addEmptyCheckImage()
+        } else if (record.image != null) {
+            removeEmptyCheckImage()
         } else {
             removeEmptyCheckImage()
         }
@@ -174,7 +175,7 @@ class RecordFragment : BaseFragment() {
     private fun onClickUpLoadButton() {
         binding.toolbar.uploadBtn.setOnClickListener {
             val date = Date().convertCalendarDayToLong(mainViewModel.date.value!!)
-            recordViewModel.insert(
+            mainViewModel.insertRecord(
                 record.copy(
                     date = date,
                     text = binding.editText.text.toString(),

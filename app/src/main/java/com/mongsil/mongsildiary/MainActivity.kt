@@ -64,7 +64,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-
         mainViewModel.recordData.observe(this) {
             recordBundle = bundleOf("record" to it)
         }
@@ -216,9 +215,6 @@ class MainActivity : AppCompatActivity() {
             closedFab()
         } else {
             super.onBackPressed()
-//                R.anim.fade_in,
-//                R.anim.slide_out,
-
         }
     }
 }
