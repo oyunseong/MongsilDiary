@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,17 +15,22 @@ import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
-import com.mongsil.mongsildiary.domain.Slot
-import com.mongsil.mongsildiary.utils.Date
-import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
-import com.mongsil.mongsildiary.utils.VerticalItemDecorator
+import com.mongsil.mongsildiary.domain.Saying
+import com.mongsil.mongsildiary.server.GithubAPI
+import com.mongsil.mongsildiary.server.RetrofitClient
+import com.mongsil.mongsildiary.utils.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
 
 
 class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var recordBundle: Bundle
+    lateinit var retrofit: Retrofit
+    lateinit var githubAPI: GithubAPI
 
     private val homeViewModel by viewModels<HomeViewModel>(factoryProducer = {
         object : ViewModelProvider.NewInstanceFactory() {
@@ -58,6 +62,8 @@ class HomeFragment : BaseFragment() {
         mainViewModel.getRecordData()
         setRecordOption()
         setToolbar()
+        initServer()
+        setTodayRecycler()
 
         mainViewModel.date.observe(viewLifecycleOwner) {
             homeViewModel.getSlotData(it)
@@ -68,14 +74,14 @@ class HomeFragment : BaseFragment() {
             homeTimeSlotAdapter.setData(it)
         }
 
-        setTodayRecycler()
-
-//        homeViewModel.slotData.observe(viewLifecycleOwner, object : Observer<List<Slot>> {
-//            override fun onChanged(t: List<Slot>) {
-//                homeTimeSlotAdapter.setData(t)
-//            }
-//        })
-
+        homeViewModel.saying.observe(viewLifecycleOwner) {
+            val index: Int = if (it.sayingList.isEmpty()) {
+                0
+            } else {
+                (1..it.sayingList.size).random()
+            }
+            binding.saying.text = it.sayingList[index]
+        }
     }
 
     private fun setCurrentDate(date: CalendarDay) {
@@ -141,5 +147,32 @@ class HomeFragment : BaseFragment() {
         binding.toolbar.backBtn.setOnClickListener {
             mainViewModel.setDate(CalendarDay.today())
         }
+    }
+
+    private fun initServer() {
+        retrofit = RetrofitClient.getInstance()
+        githubAPI = retrofit.create(GithubAPI::class.java)
+
+        Runnable {
+            githubAPI.getSayingList().enqueue(object : retrofit2.Callback<Saying> {
+                override fun onResponse(call: Call<Saying>, response: Response<Saying>) {
+                    if (response.isSuccessful) {
+                        val saying: Saying? = response.body()
+                        if (saying != null) {
+                            homeViewModel.setSaying(saying)
+                        } else {
+                            "saying is null".printLog("githubAPI")
+                            return
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Saying>, t: Throwable) {
+                    "onFailure message : " + t.message.toString().printLog("initServer")
+                    requireActivity().showToast(t.message + "통신실패")
+                    call.cancel()
+                }
+            })
+        }.run()
     }
 }

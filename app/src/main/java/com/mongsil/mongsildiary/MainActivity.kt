@@ -19,10 +19,17 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.ActivityMainBinding
+import com.mongsil.mongsildiary.domain.Saying
+import com.mongsil.mongsildiary.server.GithubAPI
+import com.mongsil.mongsildiary.server.RetrofitClient
 import com.mongsil.mongsildiary.ui.calendar.CalendarFragment
 import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.ui.home.record.RecordFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
+import com.mongsil.mongsildiary.utils.printLog
+import retrofit2.Call
+import retrofit2.Response
+import retrofit2.Retrofit
 import java.util.*
 
 
@@ -56,6 +63,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
+
 
         mainViewModel.recordData.observe(this) {
             recordBundle = bundleOf("record" to it)

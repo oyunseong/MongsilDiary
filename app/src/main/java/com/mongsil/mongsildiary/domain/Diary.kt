@@ -2,6 +2,7 @@ package com.mongsil.mongsildiary.domain
 
 import android.graphics.Bitmap
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.ui.home.today.DataProvider
@@ -48,3 +49,8 @@ data class Record(
         )
     }
 }
+
+data class Saying(
+    @SerializedName("sayingList")
+    val sayingList: Map<Int, String>
+)
