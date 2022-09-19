@@ -29,7 +29,6 @@ class MainViewModel(
 ) : ViewModel() {
     private val emptyRecord = Record.mockRecord
 
-
     private val _recordData = MutableLiveData<Record>()
     val recordData: LiveData<Record> get() = _recordData
 
@@ -44,11 +43,11 @@ class MainViewModel(
     fun getRecordData() {
         viewModelScope.launch {
             try {
-                _recordData.value =
-                    repository.getRecordByDate(Date().convertCalendarDayToLong(date.value!!))
+                _recordData.value = repository.getRecordByDate(
+                    Date().convertCalendarDayToLong(date.value!!)
+                )
             } catch (e: Exception) {
-                "$e".printLog("에러")
-                getRecordData()
+                e.printStackTrace()
 //                _recordData.value = emptyRecord
             }
         }

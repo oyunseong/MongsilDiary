@@ -5,6 +5,7 @@ import com.mongsil.mongsildiary.data.database.entity.TimeSlot
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Slot
 import com.mongsil.mongsildiary.mapper.*
+import com.mongsil.mongsildiary.utils.printLog
 
 class DiaryRepository(private val diaryDao: DiaryDao) {
 
@@ -33,7 +34,10 @@ class DiaryRepository(private val diaryDao: DiaryDao) {
     }
 
     suspend fun getRecordByDate(date: Long): Record {
-        return diaryDao.getRecordByDate(date).toRecord()
+        return diaryDao.getRecordByDate(date).toRecord().also {
+            it.toString().printLog("getRecordByDate")
+            "${date}".printLog("getRecordByDate's param date")
+        }
     }
 
     suspend fun insertSlot(slot: Slot) {

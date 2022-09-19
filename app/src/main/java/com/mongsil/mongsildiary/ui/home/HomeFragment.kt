@@ -15,6 +15,7 @@ import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentHomeBinding
+import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Saying
 import com.mongsil.mongsildiary.server.GithubAPI
 import com.mongsil.mongsildiary.server.RetrofitClient
@@ -29,6 +30,7 @@ class HomeFragment : BaseFragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var recordBundle: Bundle
+    private lateinit var record: Record
     lateinit var retrofit: Retrofit
     lateinit var githubAPI: GithubAPI
 
@@ -63,7 +65,12 @@ class HomeFragment : BaseFragment() {
         setToolbar()
         initServer()
         setTodayRecycler()
-        setRecordOption()
+        setRecordUI()
+
+        record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
+//        binding.recordContents.text = record.text
+//        binding.recordImage.setImageBitmap(record.image)
+        recordBundle = bundleOf("record" to record) // MainActivity 에서 받은 Record bundle 데이터 버튼 클릭에
 
         mainViewModel.date.observe(viewLifecycleOwner) {
             homeViewModel.getSlotData(it)
@@ -82,36 +89,12 @@ class HomeFragment : BaseFragment() {
             }
             binding.saying.text = it.sayingList[index]
         }
-    }
 
-    private fun setCurrentDate(date: CalendarDay) {
-        if (date == CalendarDay.today()) {
-            binding.date.visibility = View.VISIBLE
-            binding.date.text = Date().plusDotCalendarDay(date)
-            binding.mainTitle.setText(R.string.main_title)
-            binding.toolbar.toolbar.visibility = View.GONE
-        } else {
-            binding.mainTitle.text = "${Date().otherDayText(date)}\n기록이에요"
-            binding.date.visibility = View.GONE
-            binding.toolbar.toolbar.visibility = View.VISIBLE
-        }
-
-    }
-
-    private fun setRecordOption() {
         mainViewModel.recordData.observe(viewLifecycleOwner) {
-            recordBundle = bundleOf("record" to it)
-            if (it.text.isNotEmpty() || it.image != null) {
-                binding.deleteBtn.visibility = View.VISIBLE
-                binding.editBtn.visibility = View.VISIBLE
-                binding.addBtn.visibility = View.GONE
-            } else {
-                binding.deleteBtn.visibility = View.GONE
-                binding.editBtn.visibility = View.GONE
-                binding.addBtn.visibility = View.VISIBLE
-            }
+            recordBundle = bundleOf("record" to it) //갱신되면 번들 값 초기화
             binding.recordContents.text = it.text
             binding.recordImage.setImageBitmap(it.image)
+            setRecordUI()
         }
 
         binding.deleteBtn.setOnClickListener {
@@ -126,6 +109,37 @@ class HomeFragment : BaseFragment() {
         binding.editBtn.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
+        }
+    }
+
+
+    private fun setCurrentDate(date: CalendarDay) {
+        if (date == CalendarDay.today()) {
+            binding.date.visibility = View.VISIBLE
+            binding.date.text = Date().plusDotCalendarDay(date)
+            binding.mainTitle.setText(R.string.main_title)
+            binding.toolbar.toolbar.visibility = View.GONE
+        } else {
+            binding.mainTitle.text = "${Date().otherDayText(date)}\n기록이에요"
+            binding.date.visibility = View.GONE
+            binding.toolbar.toolbar.visibility = View.VISIBLE
+        }
+
+
+    }
+
+    private fun setRecordUI() {
+        "${binding.recordContents.text}".printLog("setRecordUI")
+        "${binding.recordImage.drawable}".printLog("setRecordUI")
+
+        if (binding.recordContents.text == "" && binding.recordImage.drawable == null) {   // 글자와 사진이 없을 떄 버튼 GONE 나머지는 다
+            binding.deleteBtn.visibility = View.GONE    // 뭐가 없을 떄 안보이게
+            binding.editBtn.visibility = View.GONE
+            binding.addBtn.visibility = View.VISIBLE
+        } else {
+            binding.deleteBtn.visibility = View.VISIBLE
+            binding.editBtn.visibility = View.VISIBLE
+            binding.addBtn.visibility = View.GONE
         }
     }
 

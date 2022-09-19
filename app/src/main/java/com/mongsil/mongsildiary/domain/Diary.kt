@@ -38,7 +38,7 @@ data class Slot(
 @Parcelize
 data class Record(
     val date: Long,
-    val text: String = "",
+    val text: String,
     val image: Bitmap?
 ) : Parcelable {
     companion object {
