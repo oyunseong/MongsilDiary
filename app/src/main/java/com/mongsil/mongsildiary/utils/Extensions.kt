@@ -12,8 +12,14 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.findFragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.mongsil.mongsildiary.MainActivity
 import com.mongsil.mongsildiary.data.database.entity.TimeSlot
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.time.DayOfWeek
 import java.time.temporal.WeekFields
 import java.util.*
@@ -90,5 +96,11 @@ fun TimeSlot.converterTimeSlot(): String {
         "광고"
     } else {
         ""
+    }
+}
+
+fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
+    lifecycleScope.launch {
+        lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED, block)
     }
 }

@@ -1,8 +1,6 @@
 package com.mongsil.mongsildiary.ui.home.record
 
 import android.app.Activity.RESULT_OK
-import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -20,13 +18,14 @@ import androidx.core.view.drawToBitmap
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.mongsil.mongsildiary.*
+import com.mongsil.mongsildiary.MainViewModel
+import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.printLog
-import kotlinx.coroutines.flow.onEach
+import com.mongsil.mongsildiary.utils.repeatOnStarted
 
 class RecordFragment : BaseFragment() {
 
@@ -109,7 +108,6 @@ class RecordFragment : BaseFragment() {
         onClickUpLoadButton()
         record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
         recordViewModel.setRecord(record)
-        mainViewModel.event.onEach { consumeEvent(requireContext(), it) }
         binding.editText.setText(record.text)
 
         recordViewModel.contents.observe(viewLifecycleOwner) {
@@ -137,17 +135,9 @@ class RecordFragment : BaseFragment() {
             override fun afterTextChanged(p0: Editable?) {
             }
         })
-    }
 
-    private fun consumeEvent(context: Context, event: Event) {
-        when (event) {
-            is ToastEvent -> {
-                binding.progress.visibility = View.GONE
-            }
-            is DialogEvent -> {
-                binding.progress.visibility = View.VISIBLE
-//                AlertDialog.Builder(context).show()
-            }
+        repeatOnStarted {
+            mainViewModel.showProgressEvent.collect { event -> handleEvent(event) }
         }
     }
 
@@ -195,9 +185,15 @@ class RecordFragment : BaseFragment() {
                     date = date,
                     text = binding.editText.text.toString(),
                     image = binding.firstImageView.drawToBitmap()
-                )
+                ), requireContext()
             )
+
             findNavController().popBackStack()
         }
+    }
+
+    private fun handleEvent(event: MainViewModel.Event) = when (event) {
+        is MainViewModel.Event.ShowProgress -> mainViewModel.showProgress()
+        is MainViewModel.Event.HideProgress -> mainViewModel.hideProgress()
     }
 }

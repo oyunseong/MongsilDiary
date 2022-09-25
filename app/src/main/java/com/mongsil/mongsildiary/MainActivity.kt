@@ -123,6 +123,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomBanner.loadAd(adRequest)
     }
 
+
     // TODO 애니메이션 개선 작업
     /***
      * @param fabOpen : 플로팅버튼이 켜질 때 애니메이션
