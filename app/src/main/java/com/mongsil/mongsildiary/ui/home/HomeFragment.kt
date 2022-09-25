@@ -93,7 +93,7 @@ class HomeFragment : BaseFragment() {
         mainViewModel.recordData.observe(viewLifecycleOwner) {
             recordBundle = bundleOf("record" to it) //갱신되면 번들 값 초기화
             binding.recordContents.text = it.text
-            binding.recordImage.setImageBitmap(it.image)
+            binding.recordImage.setImageURI(it.image)
             setRecordUI()
         }
 

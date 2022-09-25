@@ -1,6 +1,7 @@
 package com.mongsil.mongsildiary.ui.home.record
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -12,6 +13,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
@@ -26,6 +29,8 @@ import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.repeatOnStarted
+import com.mongsil.mongsildiary.utils.showToast
+import java.io.ByteArrayOutputStream
 
 class RecordFragment : BaseFragment() {
 
@@ -35,6 +40,11 @@ class RecordFragment : BaseFragment() {
     private lateinit var bitmap: Bitmap
     private val recordViewModel by viewModels<RecordViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
+
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            recordViewModel.setRecord(record.copy(image = result.data?.data))
+        }
 
     companion object {
         private const val REQUEST_CODE = 1
@@ -50,6 +60,7 @@ class RecordFragment : BaseFragment() {
     }
 
     private fun openGallery() {
+
         val writePermission = ContextCompat.checkSelfPermission(
             requireContext(),
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -69,10 +80,14 @@ class RecordFragment : BaseFragment() {
                 REQUEST_CODE
             )
         } else {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.data = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            intent.type = "image/*"
-            startActivityForResult(intent, REQUEST_CODE)
+            try {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.type = MediaStore.Images.Media.CONTENT_TYPE
+                intent.type = "image/*"
+                getContent.launch(intent)
+            } catch (e: Exception) {
+                requireContext().showToast("갤러리를 찾을 수 없습니다.")
+            }
         }
     }
 
@@ -91,9 +106,9 @@ class RecordFragment : BaseFragment() {
                         requireContext().contentResolver,
                         currentImageUrl
                     )
-                    recordViewModel.setRecord(record.copy(image = bitmap))
+                    recordViewModel.setRecord(record.copy(image = currentImageUrl))
                 } catch (e: Exception) {
-                    "${e.printStackTrace()}".printLog()
+                    e.printStackTrace()
                 }
             } else {
                 "something wrong".printLog("ActivityResult")
@@ -111,7 +126,7 @@ class RecordFragment : BaseFragment() {
         binding.editText.setText(record.text)
 
         recordViewModel.contents.observe(viewLifecycleOwner) {
-            binding.firstImageView.setImageBitmap(it.image)
+            binding.firstImageView.setImageURI(it.image)
             emptyCheck()
         }
 
@@ -177,6 +192,18 @@ class RecordFragment : BaseFragment() {
         )
     }
 
+    private fun getImageUri(context: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            context.contentResolver,
+            inImage,
+            "Title",
+            null
+        )
+        return Uri.parse(path)
+    }
+
     private fun onClickUpLoadButton() {
         binding.toolbar.uploadBtn.setOnClickListener {
             val date = Date().convertCalendarDayToLong(mainViewModel.date.value!!)
@@ -184,7 +211,7 @@ class RecordFragment : BaseFragment() {
                 record.copy(
                     date = date,
                     text = binding.editText.text.toString(),
-                    image = binding.firstImageView.drawToBitmap()
+                    image = getImageUri(requireContext(), binding.firstImageView.drawToBitmap())
                 ), requireContext()
             )
 

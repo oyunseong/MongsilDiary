@@ -1,6 +1,7 @@
 package com.mongsil.mongsildiary.domain
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.mongsil.mongsildiary.R
@@ -39,7 +40,7 @@ data class Slot(
 data class Record(
     val date: Long,
     val text: String,
-    val image: Bitmap?
+    val image: Uri?
 ) : Parcelable {
     companion object {
         val mockRecord = Record(

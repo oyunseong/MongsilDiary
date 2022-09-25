@@ -1,6 +1,7 @@
 package com.mongsil.mongsildiary.data.database.entity
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -22,7 +23,7 @@ data class SlotEntity(
 data class RecordEntity(
     val date: Long,
     @ColumnInfo val text: String = "",
-    @ColumnInfo val image: Bitmap? = null
+    @ColumnInfo val image: Uri? = null
 )
 
 @Parcelize
