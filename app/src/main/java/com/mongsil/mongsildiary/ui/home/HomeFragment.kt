@@ -67,11 +67,6 @@ class HomeFragment : BaseFragment() {
         setTodayRecycler()
         setRecordUI()
 
-        record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
-//        binding.recordContents.text = record.text
-//        binding.recordImage.setImageBitmap(record.image)
-        recordBundle = bundleOf("record" to record) // MainActivity 에서 받은 Record bundle 데이터 버튼 클릭에
-
         mainViewModel.date.observe(viewLifecycleOwner) {
             homeViewModel.getSlotData(it)
             setCurrentDate(it)
@@ -89,6 +84,11 @@ class HomeFragment : BaseFragment() {
             }
             binding.saying.text = it.sayingList[index]
         }
+
+        record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
+//        binding.recordContents.text = record.text
+//        binding.recordImage.setImageBitmap(record.image)
+        recordBundle = bundleOf("record" to record) // MainActivity 에서 받은 Record bundle 데이터 버튼 클릭에
 
         mainViewModel.recordData.observe(viewLifecycleOwner) {
             recordBundle = bundleOf("record" to it) //갱신되면 번들 값 초기화
@@ -124,8 +124,6 @@ class HomeFragment : BaseFragment() {
             binding.date.visibility = View.GONE
             binding.toolbar.toolbar.visibility = View.VISIBLE
         }
-
-
     }
 
     private fun setRecordUI() {
