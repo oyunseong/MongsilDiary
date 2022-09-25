@@ -33,21 +33,14 @@ class MainViewModel(
 
     private lateinit var progressDialog: ProgressDialog
 
+    sealed class Event {
+        data class ShowProgress(val boolean: Boolean) : Event()
+        data class HideProgress(val boolean: Boolean) : Event()
+    }
+
     init {
         _date.value = CalendarDay.today()
         getRecordData()
-    }
-
-    fun getRecordData() {
-        viewModelScope.launch {
-            try {
-                _recordData.value = repository.getRecordByDate(
-                    Date().convertCalendarDayToLong(date.value!!)
-                )
-            } catch (e: Exception) {
-                e.printStackTrace() // stackTrace 검색
-            }
-        }
     }
 
     private fun event(event: Event) {
@@ -71,9 +64,17 @@ class MainViewModel(
         }
     }
 
-    sealed class Event {
-        data class ShowProgress(val boolean: Boolean) : Event()
-        data class HideProgress(val boolean: Boolean) : Event()
+    fun getRecordData() {
+        viewModelScope.launch {
+            try {
+                _recordData.value = repository.getRecordByDate(
+                    Date().convertCalendarDayToLong(date.value!!)
+                )
+            } catch (e: Exception) {
+                _recordData.value = Record.mockRecord
+                e.printStackTrace()
+            }
+        }
     }
 
     fun insertRecord(record: Record, context: Context) = runBlocking {

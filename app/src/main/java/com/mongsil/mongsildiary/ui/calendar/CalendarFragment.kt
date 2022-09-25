@@ -344,9 +344,4 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
         binding.mongsilRecycler.adapter = thisMonthMongsilAdapter
         binding.mongsilRecycler.addItemDecoration(HorizontalItemDecorator(20))
     }
-
-    override fun onDestroy() {
-//        nativeAd.destroy()
-        super.onDestroy()
-    }
 }

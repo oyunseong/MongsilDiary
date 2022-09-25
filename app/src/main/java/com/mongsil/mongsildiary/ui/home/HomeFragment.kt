@@ -86,10 +86,7 @@ class HomeFragment : BaseFragment() {
         }
 
         record = arguments?.getParcelable<Record>("record") ?: Record.mockRecord
-//        binding.recordContents.text = record.text
-//        binding.recordImage.setImageBitmap(record.image)
         recordBundle = bundleOf("record" to record) // MainActivity 에서 받은 Record bundle 데이터 버튼 클릭에
-
         mainViewModel.recordData.observe(viewLifecycleOwner) {
             recordBundle = bundleOf("record" to it) //갱신되면 번들 값 초기화
             binding.recordContents.text = it.text
@@ -127,9 +124,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun setRecordUI() {
-        "${binding.recordContents.text}".printLog("setRecordUI")
-        "${binding.recordImage.drawable}".printLog("setRecordUI")
-
         if (binding.recordContents.text == "" && binding.recordImage.drawable == null) {   // 글자와 사진이 없을 떄 버튼 GONE 나머지는 다
             binding.deleteBtn.visibility = View.GONE    // 뭐가 없을 떄 안보이게
             binding.editBtn.visibility = View.GONE

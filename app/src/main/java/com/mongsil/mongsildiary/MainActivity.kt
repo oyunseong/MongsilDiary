@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -27,6 +28,7 @@ import com.mongsil.mongsildiary.ui.home.HomeFragment
 import com.mongsil.mongsildiary.ui.home.record.RecordFragment
 import com.mongsil.mongsildiary.ui.setting.SettingFragment
 import com.mongsil.mongsildiary.utils.printLog
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -64,6 +66,9 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
+        mainViewModel.date.observe(this) {
+            mainViewModel.getRecordData()
+        }
         mainViewModel.recordData.observe(this) {
             recordBundle = bundleOf("record" to it)
         }

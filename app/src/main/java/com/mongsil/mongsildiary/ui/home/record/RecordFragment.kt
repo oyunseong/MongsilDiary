@@ -26,10 +26,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.domain.Record
-import com.mongsil.mongsildiary.utils.Date
-import com.mongsil.mongsildiary.utils.printLog
-import com.mongsil.mongsildiary.utils.repeatOnStarted
-import com.mongsil.mongsildiary.utils.showToast
+import com.mongsil.mongsildiary.utils.*
 import java.io.ByteArrayOutputStream
 
 class RecordFragment : BaseFragment() {
@@ -37,7 +34,6 @@ class RecordFragment : BaseFragment() {
     private var _binding: FragmentRecordBinding? = null
     private val binding get() = _binding!!
     private lateinit var record: Record
-    private lateinit var bitmap: Bitmap
     private val recordViewModel by viewModels<RecordViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
@@ -102,10 +98,6 @@ class RecordFragment : BaseFragment() {
             if (requestCode == REQUEST_CODE) {
                 val currentImageUrl: Uri? = data?.data
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(
-                        requireContext().contentResolver,
-                        currentImageUrl
-                    )
                     recordViewModel.setRecord(record.copy(image = currentImageUrl))
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -157,10 +149,8 @@ class RecordFragment : BaseFragment() {
     }
 
     fun emptyCheck() {
-        if (binding.editText.text.toString().isEmpty()) {
+        if (binding.editText.text.toString().isEmpty() && binding.firstImageView.drawable == null) {
             addEmptyCheckImage()
-        } else if (record.image != null) {
-            removeEmptyCheckImage()
         } else {
             removeEmptyCheckImage()
         }
@@ -207,15 +197,28 @@ class RecordFragment : BaseFragment() {
     private fun onClickUpLoadButton() {
         binding.toolbar.uploadBtn.setOnClickListener {
             val date = Date().convertCalendarDayToLong(mainViewModel.date.value!!)
-            mainViewModel.insertRecord(
-                record.copy(
-                    date = date,
-                    text = binding.editText.text.toString(),
-                    image = getImageUri(requireContext(), binding.firstImageView.drawToBitmap())
-                ), requireContext()
-            )
-
+            if (binding.firstImageView.drawable == null) {
+                mainViewModel.insertRecord(
+                    record.copy(
+                        date = date,
+                        text = binding.editText.text.toString(),
+                        image = null
+                    ), requireContext()
+                )
+            } else {
+                mainViewModel.insertRecord(
+                    record.copy(
+                        date = date,
+                        text = binding.editText.text.toString(),
+                        image = getImageUri(
+                            requireContext(),
+                            binding.firstImageView.drawToBitmap()
+                        )
+                    ), requireContext()
+                )
+            }
             findNavController().popBackStack()
+            it.hideKeyboard()
         }
     }
 
@@ -223,4 +226,5 @@ class RecordFragment : BaseFragment() {
         is MainViewModel.Event.ShowProgress -> mainViewModel.showProgress()
         is MainViewModel.Event.HideProgress -> mainViewModel.hideProgress()
     }
+
 }
