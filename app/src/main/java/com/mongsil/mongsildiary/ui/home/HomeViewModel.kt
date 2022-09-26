@@ -52,9 +52,9 @@ class HomeViewModel(
                         it.copy(date = date)
                     TimeSlot.Dinner -> arraySlots[2] =
                         it.copy(date = date)
-                    TimeSlot.Advertisement -> arraySlots[3] =
-                        it.copy(date = date)
-                    TimeSlot.EndOfTheDay -> arraySlots[4] =
+//                    TimeSlot.Advertisement -> arraySlots[3] =
+//                        it.copy(date = date)
+                    TimeSlot.EndOfTheDay -> arraySlots[3] =
                         it.copy(date = date)
                 }
             }

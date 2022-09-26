@@ -93,8 +93,8 @@ fun TimeSlot.converterTimeSlot(): String {
         "저녁"
     } else if (this == TimeSlot.EndOfTheDay) {
         "하루끝"
-    } else if (this == TimeSlot.Advertisement) {
-        "광고"
+//    } else if (this == TimeSlot.Advertisement) {
+//        "광고"
     } else {
         ""
     }

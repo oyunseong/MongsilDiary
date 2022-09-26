@@ -74,14 +74,14 @@ object DataProvider {
                 name = "주황"
             )
         ),
-        Slot(
-            date, "",
-            TimeSlot.Advertisement, Emoticon(
-                id = 3,
-                image = R.drawable.ic_emoticon_04,
-                name = "다홍"
-            )
-        ),
+//        Slot(
+//            date, "",
+//            TimeSlot.Advertisement, Emoticon(
+//                id = 3,
+//                image = R.drawable.ic_emoticon_04,
+//                name = "다홍"
+//            )
+//        ),
         Slot(
             date, "",
             TimeSlot.EndOfTheDay, Emoticon(
