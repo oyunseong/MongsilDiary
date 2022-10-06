@@ -117,6 +117,16 @@ class RecordFragment : BaseFragment() {
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
 
+        binding.blankImage.setOnClickListener {
+            binding.editText.apply {
+                post {
+                    this.isFocusableInTouchMode = true
+                    this.requestFocus()
+                    it.showKeyboard(binding.editText)
+                }
+            }
+        }
+
         recordViewModel.contents.observe(viewLifecycleOwner) {
             binding.firstImageView.setImageURI(it.image)
             emptyCheck()
@@ -183,15 +193,20 @@ class RecordFragment : BaseFragment() {
     }
 
     private fun getImageUri(context: Context, inImage: Bitmap): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            context.contentResolver,
-            inImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
+        try {
+            val bytes = ByteArrayOutputStream()
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            val path = MediaStore.Images.Media.insertImage(
+                context.contentResolver,
+                inImage,
+                "Title",
+                null
+            )
+            return Uri.parse(path)
+        } catch (e: Exception) {
+            requireContext().showToast("Uri를 찾을 수 없습니다.")
+            return Uri.EMPTY
+        }
     }
 
     private fun onClickUpLoadButton() {
