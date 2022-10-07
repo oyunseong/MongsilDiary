@@ -27,7 +27,9 @@ import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.FragmentRecordBinding
 import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.utils.*
+import com.mongsil.mongsildiary.utils.Date
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 class RecordFragment : BaseFragment() {
 
@@ -117,7 +119,19 @@ class RecordFragment : BaseFragment() {
         recordViewModel.setRecord(record)
         binding.editText.setText(record.text)
 
+
+        // blank 이미지, 텍스트 클릭시 키보드 보이기
         binding.blankImage.setOnClickListener {
+            binding.editText.apply {
+                post {
+                    this.isFocusableInTouchMode = true
+                    this.requestFocus()
+                    it.showKeyboard(binding.editText)
+                }
+            }
+        }
+
+        binding.blank1Tv.setOnClickListener {
             binding.editText.apply {
                 post {
                     this.isFocusableInTouchMode = true
@@ -193,19 +207,19 @@ class RecordFragment : BaseFragment() {
     }
 
     private fun getImageUri(context: Context, inImage: Bitmap): Uri? {
-        try {
+        return try {
             val bytes = ByteArrayOutputStream()
             inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
             val path = MediaStore.Images.Media.insertImage(
                 context.contentResolver,
                 inImage,
-                "Title",
+                "IMG_" + Calendar.getInstance().timeInMillis,
                 null
             )
-            return Uri.parse(path)
+            Uri.parse(path)
         } catch (e: Exception) {
             requireContext().showToast("Uri를 찾을 수 없습니다.")
-            return Uri.EMPTY
+            Uri.EMPTY
         }
     }
 
