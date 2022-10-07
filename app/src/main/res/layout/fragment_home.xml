@@ -97,14 +97,16 @@
 
             <TextView
                 android:id="@+id/record_contents"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="32dp"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/s_core_dream_4"
                 android:hint="@string/record_text"
                 android:textSize="13sp"
                 app:layout_constraintBottom_toTopOf="@id/delete_btn"
-                app:layout_constraintLeft_toLeftOf="@id/record_tv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/record_tv"
                 app:layout_constraintVertical_bias="0"
                 app:layout_constraintVertical_chainStyle="packed"
@@ -114,7 +116,9 @@
                 android:id="@+id/record_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="32dp"
+                android:layout_marginHorizontal="28dp"
+                android:layout_marginVertical="12dp"
+                android:scaleType="center"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/record_contents" />
@@ -124,7 +128,7 @@
                 style="@style/Text.222222_normal"
                 android:layout_width="64dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="80dp"
                 android:background="@drawable/button_round_dee2ed"
                 android:fontFamily="@font/s_core_dream_4"
@@ -133,7 +137,7 @@
                 app:layout_constraintBottom_toTopOf="@id/wise_saying_container"
                 app:layout_constraintLeft_toLeftOf="@id/record_tv"
                 app:layout_constraintTop_toBottomOf="@id/record_image"
-                app:layout_goneMarginTop="24dp" />
+                app:layout_goneMarginTop="28dp" />
 
             <TextView
                 android:id="@+id/edit_btn"
