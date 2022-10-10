@@ -32,6 +32,12 @@ class Date {
         return concat(splitDate[0], splitDate[1], splitDate[2]).toLong()
     }
 
+    fun currentDateTypeString(): List<String> {
+        val today: Long = System.currentTimeMillis() // long type 현재 시간
+        val splitDate = sdfCalendarType.format(today).split("-")
+        return splitDate
+    }
+
     /**
      * 문자를 합치는 함수
      * 사용 예시)

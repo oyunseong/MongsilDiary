@@ -19,6 +19,7 @@ import com.mongsil.mongsildiary.domain.Record
 import com.mongsil.mongsildiary.domain.Saying
 import com.mongsil.mongsildiary.server.GithubAPI
 import com.mongsil.mongsildiary.server.RetrofitClient
+import com.mongsil.mongsildiary.dialog.DayPickerDialog
 import com.mongsil.mongsildiary.utils.*
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import retrofit2.Call
@@ -31,6 +32,7 @@ class HomeFragment : BaseFragment() {
     private val binding get() = _binding!!
     private lateinit var recordBundle: Bundle
     private lateinit var record: Record
+    private val dayPickerDialog = DayPickerDialog()
     lateinit var retrofit: Retrofit
     lateinit var githubAPI: GithubAPI
 
@@ -106,6 +108,16 @@ class HomeFragment : BaseFragment() {
         binding.editBtn.setOnClickListener {
             findNavController()
                 .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
+        }
+
+        val dayPickerBundle =
+            arguments?.getParcelable<CalendarDay>("DayPickerDialogRequestKey")
+                ?: CalendarDay.today()
+
+        binding.mainTitle.setOnClickListener {
+            dayPickerDialog.show(childFragmentManager, dayPickerDialog.tag)
+            mainViewModel.setDate(dayPickerBundle)
+//            mainViewModel.setDate(dayPickerBundle)
         }
     }
 

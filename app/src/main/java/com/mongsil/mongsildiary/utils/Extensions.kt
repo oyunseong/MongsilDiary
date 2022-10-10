@@ -57,11 +57,13 @@ fun View.makeGone() {
     visibility = View.GONE
 }
 
-internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
+internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) =
+    ContextCompat.getDrawable(this, drawable)
 
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
-internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
+internal fun TextView.setTextColorRes(@ColorRes color: Int) =
+    setTextColor(context.getColorCompat(color))
 
 fun daysOfWeekFromLocale(): Array<DayOfWeek> {
     val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
@@ -109,4 +111,9 @@ fun LifecycleOwner.repeatOnStarted(block: suspend CoroutineScope.() -> Unit) {
 fun View.hideKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun View.showKeyboard(view :View) {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(view, 0)
 }

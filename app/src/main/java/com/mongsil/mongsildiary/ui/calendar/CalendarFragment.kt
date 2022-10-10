@@ -23,6 +23,7 @@ import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
 import com.mongsil.mongsildiary.databinding.AdUnifiedBinding
 import com.mongsil.mongsildiary.databinding.FragmentCalendarBinding
+import com.mongsil.mongsildiary.dialog.DayPickerDialogX
 import com.mongsil.mongsildiary.ui.home.today.DataProvider
 import com.mongsil.mongsildiary.utils.Date
 import com.mongsil.mongsildiary.utils.HorizontalItemDecorator
@@ -37,7 +38,7 @@ class CalendarFragment : BaseFragment(), OnDateSelectedListener {
     private val binding get() = _binding!!
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val calendarViewModel by viewModels<CalendarViewModel>()
-    private val dayPickerDialog = DayPickerDialog()
+    private val dayPickerDialog = DayPickerDialogX()
     private val thisMonthMongsilAdapter = ThisMonthMongsilAdapter()
 
     override fun onCreateView(

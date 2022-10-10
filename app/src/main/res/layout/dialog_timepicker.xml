@@ -6,33 +6,33 @@
     android:background="@drawable/rounded_dialog">
 
     <NumberPicker
-        android:id="@+id/time_picker"
+        android:id="@+id/year_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:theme="@style/NumberPicker"
-        app:layout_constraintEnd_toStartOf="@id/hour_picker"
+        app:layout_constraintEnd_toStartOf="@id/month_picker"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
-        android:id="@+id/hour_picker"
+        android:id="@+id/month_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:theme="@style/NumberPicker"
-        app:layout_constraintEnd_toStartOf="@id/minute_picker"
-        app:layout_constraintStart_toEndOf="@id/time_picker"
+        app:layout_constraintEnd_toStartOf="@id/day_picker"
+        app:layout_constraintStart_toEndOf="@id/year_picker"
         app:layout_constraintTop_toTopOf="parent" />
 
     <NumberPicker
-        android:id="@+id/minute_picker"
+        android:id="@+id/day_picker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/NumberPicker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/hour_picker"
-        app:layout_constraintTop_toTopOf="@id/hour_picker" />
+        app:layout_constraintStart_toEndOf="@id/month_picker"
+        app:layout_constraintTop_toTopOf="@id/month_picker" />
 
     <TextView
         android:id="@+id/cancel_btn"
@@ -44,7 +44,7 @@
         android:text="@string/cancel"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/confirm_btb"
-        app:layout_constraintTop_toBottomOf="@id/hour_picker" />
+        app:layout_constraintTop_toBottomOf="@id/month_picker" />
 
     <View
         android:layout_width="1dp"
