@@ -4,20 +4,17 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Canvas
 import android.util.AttributeSet
-import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.mongsil.mongsildiary.MyApplication
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.databinding.AllowSwitchBinding
-import com.mongsil.mongsildiary.ui.calendar.DayPickerDialog
-import com.mongsil.mongsildiary.ui.setting.TimePickerDialog
+import com.mongsil.mongsildiary.dialog.DayPickerDialog
 import com.mongsil.mongsildiary.utils.showToast
 
 class AllowSwitch : ConstraintLayout {
-    private val timePickerDialog = TimePickerDialog()
+    private val timePickerDialog = DayPickerDialog()
     private lateinit var binding: AllowSwitchBinding
 
     constructor(context: Context) : super(context) {

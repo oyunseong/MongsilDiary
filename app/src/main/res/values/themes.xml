@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MongsilDiary" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/transparent</item>
 
         <!--상태바 배경색 :colorPrimaryVariant, windowLightStatusBar
         windowLightStatusBar : true = 검정, false 흰색
