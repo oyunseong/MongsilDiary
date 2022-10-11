@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.R
 import com.mongsil.mongsildiary.base.BaseFragment
@@ -110,14 +111,8 @@ class HomeFragment : BaseFragment() {
                 .navigate(R.id.action_homeFragment_to_recordFragment, recordBundle)
         }
 
-        val dayPickerBundle =
-            arguments?.getParcelable<CalendarDay>("DayPickerDialogRequestKey")
-                ?: CalendarDay.today()
-
         binding.mainTitle.setOnClickListener {
             dayPickerDialog.show(childFragmentManager, dayPickerDialog.tag)
-            mainViewModel.setDate(dayPickerBundle)
-//            mainViewModel.setDate(dayPickerBundle)
         }
     }
 

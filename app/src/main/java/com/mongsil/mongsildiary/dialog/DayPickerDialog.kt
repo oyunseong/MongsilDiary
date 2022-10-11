@@ -1,19 +1,24 @@
 package com.mongsil.mongsildiary.dialog
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.NumberPicker
 import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.mongsil.mongsildiary.MainViewModel
 import com.mongsil.mongsildiary.databinding.DialogTimepickerBinding
 import com.mongsil.mongsildiary.utils.Date
+import com.mongsil.mongsildiary.utils.printLog
 import com.mongsil.mongsildiary.utils.showToast
 import com.prolificinteractive.materialcalendarview.CalendarDay
 
 class DayPickerDialog() : BottomSheetDialogFragment() {
+    private val mainViewModel by activityViewModels<MainViewModel>()
     private var _binding: DialogTimepickerBinding? = null
     private val binding get() = _binding!!
 
@@ -63,16 +68,17 @@ class DayPickerDialog() : BottomSheetDialogFragment() {
                 val month = underNumber(binding.monthPicker.value).toInt()
                 val day = underNumber(binding.dayPicker.value).toInt()
                 val result = CalendarDay.from(year, month, day)
-                setFragmentResult(
-                    "DayPickerDialogRequestKey",
-                    bundleOf("DayPickerDialogBundleKey" to result)
-                )
-                requireContext().showToast(result.toString())
+                mainViewModel.setDate(result)
+//                setFragmentResult(
+//                    "DayPickerDialogRequestKey",
+//                    bundleOf("DayPickerDialogBundleKey" to result)
+//                )
                 dismiss()
 
             } catch (e: Exception) {
                 e.printStackTrace()
                 requireContext().showToast("알 수 없는 오류 발생!")
+                dismiss()
             }
 
         }
@@ -84,5 +90,10 @@ class DayPickerDialog() : BottomSheetDialogFragment() {
         } else {
             "$n"
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        "바텀시트다이얼로그".printLog()
     }
 }
