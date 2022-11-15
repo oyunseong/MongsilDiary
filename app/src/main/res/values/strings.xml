@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">몽실</string>
+    <string name="app_name">몽실 다이어리</string>
     <string name="admob_app_id">ca-app-pub-1939032811151400~2635857613</string>
     <string name="banner_ad_unit_id">ca-app-pub-1939032811151400/5808815862</string>
     <string name="banner_ad_unit_test_id">ca-app-pub-3940256099942544/6300978111</string>

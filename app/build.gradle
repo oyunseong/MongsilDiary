@@ -14,8 +14,8 @@ android {
         applicationId "com.mongsil.mongsildiary"
         minSdk 25
         targetSdk 32
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "4.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -71,7 +71,7 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     // 커스텀 캘린더 : https://github.com/kizitonwose/CalendarView#migration - 현재 사용 안함
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.0'
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
     implementation 'com.github.kizitonwose:CalendarView:1.0.4'
 
     // 캘린더 : https://github.com/prolificinteractive/material-calendarview
