@@ -30,4 +30,8 @@
 
 <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="600"/>
 
-
+사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine
+ 
+외부 라이브러리 :
+- Calendar : https://github.com/prolificinteractive/material-calendarview
+- ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
