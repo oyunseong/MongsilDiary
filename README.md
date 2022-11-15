@@ -2,7 +2,8 @@
 
 <img src="https://user-images.githubusercontent.com/42116216/201831806-f3f134b8-9e47-4069-bbcd-7c1f554cd367.png" width="100%" height="100%"/>
 
-Google PlayStore : https://play.google.com/store/apps/details?id=com.mongsil.mongsildiary
+### Google PlayStore : https://play.google.com/store/apps/details?id=com.mongsil.mongsildiary
+
 몽실은 하루의 감정을 솔직하게 기록할 수 있는 감정일기장 앱입니다.
 두루뭉술한 무난한 하루를 보낸 분도, 파란만장한 하루를 겪은 분도 누구나 자유롭게 사용할 수 있도록 다양한 감정과 어느 시간때든 자유롭게 감정을 기록할 수 있도록 타임라인을 제공합니다.
 
