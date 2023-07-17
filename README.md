@@ -30,9 +30,7 @@
 
 <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="600"/>
 
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif)
-
-<img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="250" height="250"/>
+<img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="360" height="640"/>
 
 사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine
  
