@@ -32,6 +32,7 @@
 
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif)
 
+<img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="250" height="250"/>
 
 사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine
  
