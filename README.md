@@ -27,3 +27,8 @@
 외부 라이브러리 :
 - Calendar : https://github.com/prolificinteractive/material-calendarview
 - ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
+
+
+### 프로젝트 진행하면서 어려웠던 점
+1. 데이터와 UI의 불일치 현상 - 코루틴으로 해결
+2. 프로젝트 구조 
