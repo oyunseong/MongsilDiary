@@ -22,7 +22,7 @@
 
 <img src="https://user-images.githubusercontent.com/42116216/201831616-1706a33d-b219-4289-8c0b-fe6558ef1e1e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831577-60f62352-6741-4996-a9d8-faa4dd40ff4e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831642-a6574fc2-95d1-4957-8a8f-cf32846384f2.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831686-2fb94698-3f81-47b3-a5a4-539b45f0c430.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="300" height="533.33"/>
 
-사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine
+사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine, Room, ViewBinding, LiveData
  
 외부 라이브러리 :
 - Calendar : https://github.com/prolificinteractive/material-calendarview
@@ -30,12 +30,6 @@
 
 
 ### 프로젝트 진행하면서 어려웠던 점
-1. 데이터와 UI의 불일치 현상 - ○ 파일의 저장, 삭제에 대한 동기와 데이터 호출에서의 비동기적 부분 공부 (코루틴)
-2. 프로젝트 구조
-
-3. 데이터의 흐름을 역할의 관점에서 고려
-아키텍처 공부, 패키지를 계층으로 나누어 관심사 분리
-○ data, domain, presentation
-○ remote/local에서 받아오는 모델과 UI에서 사용하는 모델 분리
-● 파일 형식의 SharedPreferences를 사용
+1. 데이터와 UI의 불일치 현상 - 파일의 저장, 삭제에 대한 동기와 데이터 호출에서의 비동기적 부분 공부 (코루틴)
+2. 패키지를 계층으로 나누어 관심사 분리
 
