@@ -19,26 +19,12 @@
 - 원하는 시간별로 감정을 기록하여 하루의 감정 타임라인을 한 눈에 볼 수 있습니다.
 - 마음에 드는 명언이나 배경화면을 스크랩하시면 언제든 다시 확인 할 수 있습니다.
 
-
-<img src="https://user-images.githubusercontent.com/42116216/201831616-1706a33d-b219-4289-8c0b-fe6558ef1e1e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831577-60f62352-6741-4996-a9d8-faa4dd40ff4e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831642-a6574fc2-95d1-4957-8a8f-cf32846384f2.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831686-2fb94698-3f81-47b3-a5a4-539b45f0c430.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="300" height="533.33"/>
+---
 
 사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine, Room, ViewBinding, LiveData
- 
-외부 라이브러리 :
-- Calendar : https://github.com/prolificinteractive/material-calendarview
-- ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
 
+프로젝트를 진행하며 경험하고 체득한 부분
 
----
-### 프로젝트를 진행한 이유
-- 관심사 분리를 통한 설계를 고민하기 위해 진행한 프로젝트입니다.
-- 현재 안드로이드 공식 홈페이지 권장 아키텍처에 대한 설명을 보면, 예전 리포지토리 패턴에 초점을
-맞춰 설명한 것과 달리 data, domain(선택사항), UI 레이어를 나누어 앱을 확장하고 견고성을 높이며
-앱을 쉽게 테스트 할 수 있도록 아키텍처를 정의하는 것을 권장하고 있습니다.
-- 권장 아키텍처에서 설명하는 관심사 분리와 데이터 모델에서 UI 도출하는 것에 초점을 맞춰 설계하기
-위해 혼자 공부하며 프로젝트를 진행했습니다.
-
-### 프로젝트를 진행하며 경험하고 체득한 부분
 BaseActivity와 BaseFragment, util 클래스 사용하여 공통되는 코드를 통일로 가독성을 높임
 - 여러 액티비티와 프래그먼트를 사용하다보니 중복되는 코드가 많아져 가독성이 떨어진다고 느꼈습니다.
 그래서 공통되는 코드를 미리 작성하여 필요한 코드만 구현하도록 하였습니다. 하지만 공통으로 사용한다고
@@ -46,7 +32,23 @@ Toast나 다이얼로그를 Base에 구현하지 않았습니다. Base의 역할
 코드가 쌓일 것이라고 생각했습니다. 그래서 util 클래스를 따로 정의해 사용하면서 코드의 계층 구조를 학습
 했습니다.
 
+MVVM 패턴 + Repository 패턴을 적용해 코드 최적화
+- MVP의 경우 Presenter는 뷰의 데이터가 변경되면 뷰 변경 요청을 보내는 양방향 통신을 하지만, ViewModel은 뷰의 데이터를 관찰하다 변경되는 변경을 저장할 뿐인 단방향 통신을 하여 뷰와 뷰 모델간 1:n관계를 정의합니다. 1:n 관계를 통해 중복되는 코드의 수를 줄여 코드 최적화에 용이해 적용하였습니다.
+
+관심사 분리를 통한 설계 고민
+- 현재 안드로이드 공식 홈페이지 권장 아키텍처에 대한 설명을 보면, 예전 리포지토리 패턴에 초점을 맞춰 설명한 것과 달리 data, domain(선택사항), UI 레이어를 나누어 앱을 확장하고 견고성을 높이며 앱을 쉽게 테스트 할 수 있도록 아키텍처를 정의하는 것을 권장하고 있습니다. 권장 아키텍처에서 설명하는 관심사 분리와 데이터 모델에서 UI 도출하는 것에 초점을 맞춰 설계하기 위해 학습하고, 프로젝트에 적용하였습니다.
+  
 코루틴을 이용한 비동기 처리 ( 수정 필요 )
+
+---
+
+### 앱 실행화면
+
+<img src="https://user-images.githubusercontent.com/42116216/201831616-1706a33d-b219-4289-8c0b-fe6558ef1e1e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831577-60f62352-6741-4996-a9d8-faa4dd40ff4e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831642-a6574fc2-95d1-4957-8a8f-cf32846384f2.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831686-2fb94698-3f81-47b3-a5a4-539b45f0c430.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="300" height="533.33"/>
+
+외부 라이브러리 :
+- Calendar : https://github.com/prolificinteractive/material-calendarview
+- ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
 
 
 
