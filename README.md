@@ -21,9 +21,7 @@
 
 ---
 
-사용 기술 스택 : Kotlin, MVVM, Android AAC, Retrofit2, Coroutine, Room, ViewBinding, LiveData
-
-프로젝트를 진행하며 경험하고 체득한 부분
+### 프로젝트를 진행하며 경험하고 체득한 부분
 
 BaseActivity와 BaseFragment, util 클래스 사용하여 공통되는 코드를 통일로 가독성을 높임
 - 여러 액티비티와 프래그먼트를 사용하다보니 중복되는 코드가 많아져 가독성이 떨어진다고 느꼈습니다.
@@ -42,13 +40,19 @@ MVVM 패턴 + Repository 패턴을 적용해 코드 최적화
 
 ---
 
-### 앱 실행화면
-
-<img src="https://user-images.githubusercontent.com/42116216/201831616-1706a33d-b219-4289-8c0b-fe6558ef1e1e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831577-60f62352-6741-4996-a9d8-faa4dd40ff4e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831642-a6574fc2-95d1-4957-8a8f-cf32846384f2.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831686-2fb94698-3f81-47b3-a5a4-539b45f0c430.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="300" height="533.33"/>
+사용 기술 스택 : 
+Kotlin, MVVM, Android AAC, Retrofit2, Coroutine, Room, ViewBinding, LiveData
 
 외부 라이브러리 :
 - Calendar : https://github.com/prolificinteractive/material-calendarview
 - ThreeTen Android Backport, https://github.com/JakeWharton/ThreeTenABP/
+
+---
+
+### 앱 실행화면
+
+<img src="https://user-images.githubusercontent.com/42116216/201831616-1706a33d-b219-4289-8c0b-fe6558ef1e1e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831577-60f62352-6741-4996-a9d8-faa4dd40ff4e.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831642-a6574fc2-95d1-4957-8a8f-cf32846384f2.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831686-2fb94698-3f81-47b3-a5a4-539b45f0c430.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/201831724-1310fc55-1815-456a-8cca-3f7852ab841c.png" width="300" height="533.33"/> <img src="https://user-images.githubusercontent.com/42116216/211296094-9377d303-0790-429a-9489-6d2f941761d4.gif" width="300" height="533.33"/>
+
 
 
 
